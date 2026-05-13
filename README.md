@@ -1,4 +1,4 @@
-# Proyecto Final Integrador 2026C1 - Introducción al Desarrollo de Software
+# Introducción al Desarrollo de Software - FIUBA | Proyecto Final Integrador 2026C1
 
 El presente proyecto de la materia Introducción al Desarrollo de Software de la Facultad de Ingeniería de la Universidad de Buenos Aires integra todos los temas aprendidos.
 
@@ -20,7 +20,7 @@ El desarrollo del mismo contempla Backend, Frontend, Base de datos MySQL, y se e
 
 # Sitio web gastronómico con reserva
 
-## Naza - Restaurante
+## **Naza - Restaurante**
 
 "Naza" es una aplicación web gastronómica orientada a la gestión de reservas online para su restaurante.
 
@@ -28,7 +28,7 @@ El sistema permitirá a los usuarios visualizar información del establecimiento
 
 Además, contará con un panel administrativo para la gestión de reservas, menú, reseñas, servicios y estadísticas.
 
-### Arquitectura del proyecto
+### **Arquitectura del proyecto**
 
 El proyecto se encuentra dividido en dos aplicaciones principales:
 
@@ -40,7 +40,7 @@ Ambas aplicaciones se ejecutarán de forma independiente en distintos puertos y 
 
 La persistencia de datos se realizará utilizando una base de datos MySQL.
 
-### Estructura del repositorio
+### **Estructura del repositorio**
 
 - `Frontend/` → Aplicación frontend desarrollada con Flask y Jinja.
 - `Backend/` → API RESTful, lógica de negocio y conexión con MySQL.
