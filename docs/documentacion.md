@@ -41,6 +41,6 @@
 
 ## Mockups
 
-Los mockups del sistema se encuentran en el directorio de este repositorio: 
+El mockup del sistema se encuentra en el directorio de este repositorio: 
 
-docs/mockup.pdf
+[docs/mockup.pdf](mockup.pdf)
