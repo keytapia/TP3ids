@@ -95,6 +95,8 @@ Chat en tiempo real
 
 La idea del sistema es que funcione como un prototipo  orientado a demostrar conocimientos de desarrollo web, manejo de bases de datos y diseño de interfaces de usuario
 
+---
+
 ## Mockups
 
 El mockup del sistema se encuentra en el directorio de este repositorio: 
