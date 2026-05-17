@@ -20,7 +20,7 @@ else
 	echo "Creando base de datos '$DB_NAME'..."
 	echo -e "\t(ingresá nuevamente tu contraseña del usuario root de tu MySQL)"
 
-	if mysql -u root -p < TP3ids/database.sql; then
+	if mysql -u root -p < BACKEND/database.sql; then
 		echo -e "\nBase de datos creada correctamente!"
 	else
 		echo -e "\nError al crear la base de datos."
