@@ -2,10 +2,12 @@
 echo "Instalando dependencias backend..."
 cd BACKEND
 pip install -r BACKEND/requirements.txt
+cd ..
 
 echo "Instalando dependencias frontend..."
 cd FRONTEND
 pip install -r FRONTEND/requirements.txt
+cd ..
 
 DB_NAME="restaurante_db"
 
@@ -36,6 +38,6 @@ echo "El backend se está ejecutando en http://localhost:5000"
 
 echo "Iniciando frontend..."
 cd FRONTEND
-python app.py &
+python app.py
 
 echo "El frontend se está ejecutando en http://localhost:8080"
