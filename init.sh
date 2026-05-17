@@ -1,12 +1,12 @@
 #!/bin/bash
 echo "Instalando dependencias backend..."
 cd BACKEND
-pip install -r BACKEND/requirements.txt
+pip install -r requirements.txt
 cd ..
 
 echo "Instalando dependencias frontend..."
 cd FRONTEND
-pip install -r FRONTEND/requirements.txt
+pip install -r requirements.txt
 cd ..
 
 DB_NAME="restaurante_db"
