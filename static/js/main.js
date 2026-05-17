@@ -1,1 +1,1 @@
-#reacciones y deteccion de clicks
+//reacciones y deteccion de clicks
