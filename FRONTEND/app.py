@@ -1,18 +1,9 @@
-from flask import Flask
-
-from routes.menu_routes import menu_bp
-from routes.reservas_routes import reservas_bp
+from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
-
-app.config.from_pyfile("config.py")
-
-app.register_blueprint(menu_bp)
-app.register_blueprint(reservas_bp)
-
 @app.route("/")
-def prueba():
-    return "todo ok"
+def index():
+    return render_template("index.html")
 
 if __name__ == "__main__":
   app.run(port=8080, debug=True)
