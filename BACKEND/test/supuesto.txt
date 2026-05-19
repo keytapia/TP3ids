@@ -1,1 +1,7 @@
 aca irian los test de la app, pero tambien podrian ir en una rama aparte perfectamente
+
+## RUTA DE PRUEBA
+## se pone en app.py y verifica que corre
+@app.route("/")
+def prueba():
+    return "todo ok"
