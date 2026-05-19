@@ -7,8 +7,11 @@ app = Flask(__name__)
 
 app.config.from_pyfile("config.py")
 
+app.register_blueprint(admin_bp)
 app.register_blueprint(menu_bp)
+app.register_blueprint(reseñas_bp)
 app.register_blueprint(reservas_bp)
+app.register_blueprint(usuarios_bp)
 
 @app.route("/")
 def prueba():
