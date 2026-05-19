@@ -1,7 +1,10 @@
 from flask import Flask
 
+from routes.admin_routes import admin_bp
 from routes.menu_routes import menu_bp
+from routes.reseñas_routes import reseñas_bp
 from routes.reservas_routes import reservas_bp
+from routes.usuarios_routes import usuarios_bp
 
 app = Flask(__name__)
 
