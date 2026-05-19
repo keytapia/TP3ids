@@ -1,4 +1,4 @@
-from app.db import get_connection
+from TP3ids.BACKEND.database import get_connection
 import re
 from datetime import datetime
 
