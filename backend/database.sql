@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS restaurante_db;
-USE restaurante_db
+USE restaurante_db;
 
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +31,7 @@ CREATE TABLE reservas (
     FOREIGN KEY (mesa_id) REFERENCES mesas(id)
 );
 
-CREATE TABLE categoria_platos (
+CREATE TABLE categorias_platos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) UNIQUE NOT NULL
 );
@@ -59,7 +59,7 @@ CREATE TABLE resenas (
 );
 
 CREATE TABLE servicios (
-    id INT AUTO_INCREMENT
+    id INT AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT
 );
