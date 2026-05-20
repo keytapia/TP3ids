@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from backend.services.dashboard_service import (
+from services.dashboard_service import (
     obtener_estadisticas_generales, 
     obtener_historial_reservas, 
     obtener_usuarios_cancelaciones, 

@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify, Blueprint
 from datetime import datetime
 
-from backend.services import reservas_service
-from backend.services import servicios_service
+from services import reservas_service
+from services import servicios_service
 
 admin_bp = Blueprint('admin', __name__)
 

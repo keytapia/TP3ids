@@ -1,11 +1,11 @@
 from flask import Flask, jsonify, Blueprint, request
-from db import get_connection
+from db import obtener_conexion
 import re
 from datetime import datetime
 
 # Función para listar todas las reservas
 def listar_reservas():
-    con = get_connection()
+    con = obtener_conexion()
     try:
         with con.cursor() as cursor:
             cursor.execute("SELECT * FROM reservas")
@@ -15,7 +15,7 @@ def listar_reservas():
 
 # Función para listar reservas por estado
 def listar_reservas_por_estado(estado):
-    con = get_connection()
+    con = obtener_conexion()
     try:
         with con.cursor() as cursor:
             cursor.execute("SELECT * FROM reservas WHERE estado = %s", (estado,))
@@ -26,7 +26,7 @@ def listar_reservas_por_estado(estado):
 
 # Función para cancelar una reserva por id cambiando su estado a "cancelada"
 def cancelar_reserva(reserva_id):
-    con = get_connection()
+    con = obtener_conexion()
     try:
         with con.cursor() as cursor:
             cursor.execute("UPDATE reservas SET estado = 'cancelada' WHERE id = %s", (reserva_id,))
