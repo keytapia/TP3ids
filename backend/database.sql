@@ -47,7 +47,7 @@ CREATE TABLE platos (
     FOREIGN KEY (categoria_id) REFERENCES categorias_platos(id)
 );
 
-CREATE TABLE reseñas (
+CREATE TABLE resenas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     reserva_id INT NOT NULL,
@@ -56,5 +56,11 @@ CREATE TABLE reseñas (
     fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (reserva_id) REFERENCES reservas(id)
+);
+
+CREATE TABLE servicios (
+    id INT AUTO_INCREMENT
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
 );
 
