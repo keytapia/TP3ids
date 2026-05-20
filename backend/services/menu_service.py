@@ -10,8 +10,7 @@ def listar_menu():
 
     try:
         with con.cursor() as cursor:
-            query= "SELECT * FROM platos"
-            cursor.excute(query)
+            cursor.excute("SELECT * FROM platos")
             menu = cursor.fetchall()
             return menu
     finally:
@@ -19,14 +18,13 @@ def listar_menu():
 
 
 #Obtener un plato por id
-def obtener_plato_id(id):
+def obtener_plato_id(plato_id):
     con = get_connection()
 
     try:
         with con.cursor() as cursor:
 
-            query = "SELECT * FROM platos WHERE id = %s"
-            cursor.excute(query, (id,))
+            cursor.excute("SELECT * FROM platos WHERE id = %s", (plato_id,))
 
             plato = cursor.fetchone()
             return plato
