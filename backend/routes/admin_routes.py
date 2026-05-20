@@ -18,7 +18,7 @@ def get_reservas_por_estado(estado):
     return jsonify(reservas)
 
 # Cancelar una reserva por id cambiando su estado a "cancelada"
-@admin_bp.route('/api/admin/reservas/cancelar/<int:reserva_id>', methods['PATCH'])
+@admin_bp.route('/api/admin/reservas/cancelar/<int:reserva_id>', methods=['PATCH'])
 def cancelar_reserva(reserva_id):
     resultado = reservas_service.cancelar_reserva(reserva_id)
     if resultado:
