@@ -15,13 +15,12 @@ def get_menu():
     categoria = request.args.get('categoria')
 
     if categoria:
+        categoria = categoria.lower()
         menu = listar_menu_por_categoria(categoria)
-        
         if not menu:
-            return jsonify({"mensaje":"No hay platos en esa categoria"}), 404
-    else:
-        menu = listar_menu
-
+            return jsonify({"message":"No hay ningún plato en esa categoria"}), 404
+        return jsonify(menu),200
+    menu = listar_menu()
     return jsonify(menu), 200
 
 
@@ -31,6 +30,6 @@ def get_plato(plato_id):
     plato = obtener_plato_id(plato_id)
 
     if not plato:
-        return jsonify({"mensaje": "plato no encontrado"}), 404
+        return jsonify({"message": "EL plato no pudo ser encontrado"}), 404
     
     return jsonify(plato), 200
