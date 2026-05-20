@@ -10,7 +10,6 @@ CREATE TABLE usuarios (
     rol ENUM('cliente', 'admin') DEFAULT 'cliente'
 );
 
-
 CREATE TABLE mesas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     numero INT UNIQUE NOT NULL,
@@ -18,7 +17,6 @@ CREATE TABLE mesas (
     ubicacion ENUM('interior','exterior') NOT NULL,
     estado ENUM('disponible', 'ocupada') DEFAULT 'disponible'
 );
-
 
 CREATE TABLE reservas (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,16 +31,12 @@ CREATE TABLE reservas (
     FOREIGN KEY (mesa_id) REFERENCES mesas(id)
 );
 
-
-
-CREATE TABLE categorias (
+CREATE TABLE categoria_platos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) UNIQUE NOT NULL
 );
 
-
-
-CREATE TABLE menu (
+CREATE TABLE platos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     categoria_id INT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
@@ -50,10 +44,8 @@ CREATE TABLE menu (
     precio DECIMAL(10,2) NOT NULL,
     imagen VARCHAR(255),
     disponible BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+    FOREIGN KEY (categoria_id) REFERENCES categorias_platos(id)
 );
-
-
 
 CREATE TABLE reseñas (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,10 +58,3 @@ CREATE TABLE reseñas (
     FOREIGN KEY (reserva_id) REFERENCES reservas(id)
 );
 
-
-
-CREATE TABLE servicios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT
-);

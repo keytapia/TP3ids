@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, Blueprint
 from datetime import datetime
 
-from BACKEND.services import reservas_service
+from backend.services import reservas_service
 
 admin_bp = Blueprint('admin', __name__)
 

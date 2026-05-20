@@ -42,6 +42,6 @@ La persistencia de datos se realizará utilizando una base de datos MySQL.
 
 ### **Estructura del repositorio**
 
-- `Frontend/` → Aplicación frontend desarrollada con Flask y Jinja.
-- `Backend/` → API RESTful, lógica de negocio y conexión con MySQL.
+- `frontend/` → Aplicación frontend desarrollada con Flask y Jinja.
+- `backend/` → API RESTful, lógica de negocio y conexión con MySQL.
 - `docs/` → Documentación, backlog y mockup del proyecto.
