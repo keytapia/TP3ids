@@ -49,3 +49,54 @@ def listar_menu_por_categoria(categoria):
     finally:
         con.close()
         
+def modificar_plato(id, data):
+    con = get_connection()
+
+    try:
+        with con.cursor() as cursor:
+            cursor.execute(
+                """
+                UPDATE platos
+                SET categoria_id = %s,
+                    nombre = %s,
+                    descripcion = %s,
+                    precio = %s,
+                    imagen = %s,
+                    disponible = %s
+                WHERE id = %s
+                """,
+                (
+                    data.get("categoria_id"),
+                    data.get("nombre"),
+                    data.get("descripcion"),
+                    data.get("precio"),
+                    data.get("imagen"),
+                    data.get("disponible"),
+                    id
+                )
+            )
+
+            con.commit()
+
+            return cursor.rowcount
+
+    finally:
+        con.close()
+
+
+def eliminar_plato(id):
+    con = get_connection()
+
+    try:
+        with con.cursor() as cursor:
+            cursor.execute(
+                "DELETE FROM platos WHERE id = %s",
+                (id,)
+            )
+
+            con.commit()
+
+            return cursor.rowcount
+
+    finally:
+        con.close()

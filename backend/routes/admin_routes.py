@@ -55,3 +55,22 @@ def post_servicio():
 def delete_servicio(id):
 	eliminado_servicio = servicios_service.eliminar_servicio(id)
 	return jsonify({"message": "Servicio eliminado exitosamente"}), 200
+
+@admin_bp.route("/api/admin/menu/<int:id>", methods=["PUT"])
+def modificar_plato(id):
+
+    data = request.get_json()
+
+    if menu_service.modificar_plato(id, data) == 0:
+        return jsonify({"error": "Plato no encontrado"}), 404
+
+    return jsonify({"message": "Plato modificado exitosamente"}), 200
+
+
+@admin_bp.route("/api/admin/menu/<int:id>", methods=["DELETE"])
+def eliminar_plato(id):
+
+    if menu_service.eliminar_plato(id) == 0:
+        return jsonify({"error": "Plato no encontrado"}), 404
+
+    return jsonify({"message": "Plato eliminado exitosamente"}), 200
