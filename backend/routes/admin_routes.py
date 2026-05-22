@@ -51,7 +51,7 @@ def post_servicio():
 	return jsonify({"message": "Servicio creado exitosamente"}), 201
 
 # Eliminar un servicio
-@app.route('/api/admin/servicios/<id>', methods=['DELETE'])
+@admin_bp.route('/api/admin/servicios/<id>', methods=['DELETE'])
 def delete_servicio(id):
 	eliminado_servicio = servicios_service.eliminar_servicio(id)
 	return jsonify({"message": "Servicio eliminado exitosamente"}), 200
