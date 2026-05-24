@@ -6,18 +6,28 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='styles/style.css', _external=True) }}">
-
-    <link rel="icon"
-          type="image/x-icon"
-          href="{{ url_for('static', filename='images/favicon.ico', _external=True) }}">
-
     <title>
         {% block titulo %}
             Naza - Restaurante
         {% endblock %}
     </title>
+    
+    <link rel="icon"
+          type="image/x-icon"
+          href="{{ url_for('static', filename='images/favicon.ico', _external=True) }}">
+    
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/style.css', _external=True) }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
 </head>
 
@@ -26,14 +36,9 @@
 
         <nav class="navbar">
 
-            <div class="logo">
+            <div id="logo">
 
                 <img src="{{ url_for('static', filename='images/logo.png', _external=True) }}">
-
-                <div>
-                    <h2>NAZA</h2>
-                    <span>RESTAURANTE</span>
-                </div>
 
             </div>
 
@@ -42,37 +47,37 @@
 
                 <li>
                     <a href="{{ url_for('inicio.inicio', _external=True) }}">
-                        Inicio
+                        INICIO
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ url_for('menu.menu', _external=True) }}">
-                        Menú
+                        MENÚ
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ url_for('reservas.reservas', _external=True) }}">
-                        Reservas
+                        RESERVAS
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
-                        Reseñas
+                    <a href="{{ url_for('resenas.resenas', _external=True) }}">
+                        RESEÑAS
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
-                        Nosotros
+                    <a href="{{ url_for('nosotros.nosotros', _external=True) }}">
+                        NOSOTROS
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
-                        Contacto
+                    <a href="{{ url_for('contacto.contacto', _external=True) }}">
+                        CONTACTO
                     </a>
                 </li>
 
@@ -80,13 +85,15 @@
 
             <a class="boton-reserva"
             href="{{ url_for('reservas.reservas') }}">
-                Reservar mesa
+                RESERVAR MESA
             </a>
 
         </nav>
     </header>
- 
-    {% block content %}{% endblock %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
     <footer>
         <p>
