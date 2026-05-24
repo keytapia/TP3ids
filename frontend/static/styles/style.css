@@ -1,0 +1,187 @@
+/*** ESTILOS: FUENTES, TAMAÑOS Y COLORES ***/
+
+
+/* ESTILO UNIVERSAL DE TODA LA PÁGINA (Solo para el margin y padding) */
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+/* BODY */
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#fff7f7;
+    color:#222;
+
+}
+
+/* ETIQUETAS 'a' */
+a{
+
+    text-decoration:none;
+
+}
+
+/* LISTAS DESORDENADAS */
+ul{
+
+    list-style:none;
+
+}
+
+/* NAVBAR */
+.navbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 80px;
+
+    background:white;
+
+    border-bottom:1px solid #eeeeee;
+
+}
+
+/* LOGO */
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.logo img{
+
+    width:70px;
+    height:70px;
+    object-fit:contain;
+
+}
+
+.logo h2{
+
+    color:#700c00;
+    font-size:28px;
+
+}
+
+.logo span{
+
+    font-size:12px;
+
+}
+
+
+.nav-links{
+
+    display:flex;
+
+    gap:30px;
+
+}
+
+.nav-links a{
+
+    color:black;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+    color:#700c00;
+
+}
+
+
+.boton-reserva{
+
+    background:#700c00;
+
+    color:white;
+
+    padding:12px 25px;
+
+    border-radius:25px;
+
+    font-weight:600;
+
+}
+
+.boton-reserva:hover{
+
+    opacity:.9;
+
+}
+
+
+/* CONTENIDO */
+main{
+
+    min-height:80vh;
+
+    padding:60px;
+
+}
+
+
+/* FOOTER (El pie de la página) */
+footer{
+
+    padding:25px;
+
+    text-align:center;
+
+    border-top:1px solid #ddd;
+
+    background:white;
+
+}
+
+footer a{
+
+    color:#700c00;
+    font-weight:bold;
+
+}
+
+footer a:hover{
+
+    text-decoration:underline;
+
+}
+
+
+/* RESPONSIVE (Que la página se ajuste al tamaño del dispositivo) */
+@media(max-width:1000px){
+
+.navbar{
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.nav-links{
+
+    flex-wrap:wrap;
+    justify-content:center;
+
+}
+
+}

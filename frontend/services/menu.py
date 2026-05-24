@@ -1,0 +1,1 @@
+# Acá va la lógica para comunicar con el backend

@@ -4,5 +4,5 @@ reservas_bp = Blueprint('reservas', __name__)
 
 # Reservas
 @reservas_bp.route("/reservas")
-def index():
+def reservas():
     return render_template("reservas.html")

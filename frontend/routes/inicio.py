@@ -4,5 +4,5 @@ inicio_bp = Blueprint('inicio', __name__)
 
 # Inicio
 @inicio_bp.route("/")
-def index():
+def inicio():
     return render_template("index.html")

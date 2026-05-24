@@ -4,7 +4,7 @@ from routes.inicio import inicio_bp
 from routes.login import login_bp
 from routes.menu import menu_bp
 from routes.reservas import reservas_bp
-from routes.dashboard import dashboard_bp
+from routes.admin.dashboard import dashboard_bp
 
 app = Flask(__name__)
 

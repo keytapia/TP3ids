@@ -4,5 +4,5 @@ login_bp = Blueprint('login', __name__)
 
 # Login
 @login_bp.route("/login")
-def index():
+def login():
     return render_template("login.html")
