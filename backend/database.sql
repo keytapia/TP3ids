@@ -59,8 +59,121 @@ CREATE TABLE resenas (
 );
 
 CREATE TABLE servicios (
-    id INT AUTO_INCREMENT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT
 );
 
+
+
+-- ====================================
+-- DATOS DE PRUEBA PARA CARGAR TABLAS
+-- ====================================
+
+
+-- =========================
+-- USUARIOS
+-- =========================
+
+INSERT INTO usuarios
+(nombre, apellido, email, contrasena, rol)
+
+VALUES
+('Admin','Admin','admin@restaurante.com','1234','admin'),
+('Juan','Perez','juan@mail.com','1234','cliente'),
+('Brenda','Lopez','brenda@mail.com','1234','cliente'),
+('Pedro','Garcia','pedro@mail.com','1234','cliente'),
+('Maria','Diaz','maria@mail.com','1234','cliente');
+
+
+-- =========================
+-- MESAS
+-- =========================
+
+INSERT INTO mesas
+(numero, capacidad, ubicacion, estado)
+
+VALUES
+(1,2,'interior','disponible'),
+(2,4,'interior','disponible'),
+(3,6,'exterior','ocupada'),
+(4,2,'exterior','disponible'),
+(5,8,'interior','disponible');
+
+
+-- =========================
+-- CATEGORÍAS
+-- =========================
+
+INSERT INTO categorias_platos
+(nombre)
+
+VALUES
+('Entradas'),
+('Carnes'),
+('Pastas'),
+('Bebidas'),
+('Postres');
+
+
+-- =========================
+-- PLATOS
+-- =========================
+
+INSERT INTO platos
+(categoria_id,nombre,descripcion,precio,imagen)
+
+VALUES
+(1,'Empanadas','Empanadas caseras',2000,'empanadas.png'),
+(1,'Pizza','Pizza de Muzza',8200,'pizza.png'),
+(2,'Bife','Bife con guarnicion',12000,'bife.png'),
+(2,'Milanesa Napolitana','Milanesa Napolitana con guarnicion',9500,'milanesa_napolitana.png'),
+(3,'Ravioles','Ravioles con salsa bolognesa',8000,'ravioles.png'),
+(4,'Coca Cola','Bebida 500ml',2500,'coca.png'),
+(4,'Agua Mineral','Agua Mineral',1000,'agua_mineral.png'),
+(5,'Flan','Flan casero',2800,'flan.png');
+
+
+-- =========================
+-- RESERVAS
+-- =========================
+
+INSERT INTO reservas
+(usuario_id,mesa_id,fecha,horario,cantidad_personas,notas_adicionales,estado)
+
+VALUES
+
+(2,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada'),
+(3,2,'2026-05-11','21:00:00',4,'','confirmada'),
+(4,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada'),
+(5,4,'2026-05-15','22:00:00',2,'','pendiente'),
+(2,2,'2026-05-16','20:00:00',4,'','confirmada'),
+(2,1,'2026-05-17','20:00:00',2,'','cancelada');
+
+
+-- =========================
+-- RESEÑAS
+-- =========================
+
+INSERT INTO resenas
+(usuario_id, reserva_id, comentario, puntuacion)
+
+VALUES
+
+(2,1,'Excelente atención',5),
+(3,2,'Muy rica la comida',4),
+(4,3,'El lugar es horrible',1),
+(5,4,'Buen ambiente',5);
+
+
+-- =========================
+-- SERVICIOS
+-- =========================
+
+INSERT INTO servicios
+(nombre,descripcion)
+
+VALUES
+('WiFi','Internet gratuito'),
+('Pet Friendly','Mascotas permitidas :D'),
+('Estacionamiento','Lugar para estacionar');
