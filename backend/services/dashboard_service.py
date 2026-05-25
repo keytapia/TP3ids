@@ -40,8 +40,10 @@ def obtener_historial_reservas():
         reservas.id,
         usuarios.nombre,
         usuarios.apellido,
-        reservas.fecha,
-        reservas.horario,
+        
+        DATE_FORMAT(reservas.fecha,'%d/%m/%Y') AS fecha,
+        TIME_FORMAT(reservas.horario,'%H:%i') AS horario,
+        
         reservas.cantidad_personas,
         reservas.estado
 
@@ -132,7 +134,7 @@ def obtener_horarios_populares():
 
     consulta = """
     SELECT
-        reservas.horario,
+        TIME_FORMAT(reservas.horario,'%H:%i') AS horario,
         COUNT(*) AS cantidad
 
     FROM reservas
