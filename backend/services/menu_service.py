@@ -1,16 +1,16 @@
 from flask import Flask, jsonify, Blueprint, request
-from db import get_connection
+from db import obtener_conexion
 import re
 from datetime import datetime
 
 
 #Obtener todos los platos del menú 
 def listar_menu():
-    con = get_connection()
+    con = obtener_conexion()
 
     try:
-        with con.cursor() as cursor:
-            cursor.excute("SELECT * FROM platos")
+        with con.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT * FROM platos")
             menu = cursor.fetchall()
             return menu
     finally:
@@ -19,12 +19,12 @@ def listar_menu():
 
 #Obtener un plato por id
 def obtener_plato_id(plato_id):
-    con = get_connection()
+    con = obtener_conexion()
 
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
 
-            cursor.excute("SELECT * FROM platos WHERE id = %s", (plato_id,))
+            cursor.execute("SELECT * FROM platos WHERE id = %s", (plato_id,))
 
             plato = cursor.fetchone()
             return plato
@@ -35,13 +35,13 @@ def obtener_plato_id(plato_id):
 #Obtener platos por categoria
 def listar_menu_por_categoria(categoria):
 
-    con = get_connection()
+    con = obtener_conexion()
 
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
             query = """SELECT platos.*, categorias_platos.nombre AS categoria FROM platos 
                     JOIN categorias_platos ON platos.categoria_id = categorias_platos.id 
-                    WHERE categorias_platos.nombre = %s"""
+                    WHERE LOWER(categorias_platos.nombre) = %s"""
             cursor.execute(query,(categoria,))
 
             menu = cursor.fetchall()
@@ -50,10 +50,10 @@ def listar_menu_por_categoria(categoria):
         con.close()
         
 def modificar_plato(id, data):
-    con = get_connection()
+    con = obtener_conexion()
 
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
             cursor.execute(
                 """
                 UPDATE platos
@@ -85,10 +85,10 @@ def modificar_plato(id, data):
 
 
 def eliminar_plato(id):
-    con = get_connection()
+    con = obtener_conexion()
 
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
             cursor.execute(
                 "DELETE FROM platos WHERE id = %s",
                 (id,)

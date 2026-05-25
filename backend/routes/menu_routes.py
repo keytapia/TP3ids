@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, Blueprint
 from datetime import datetime
 
-from backend.services.menu_service import (
+from services.menu_service import (
     listar_menu,
     obtener_plato_id,
     listar_menu_por_categoria
