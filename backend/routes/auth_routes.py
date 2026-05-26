@@ -10,9 +10,9 @@ def login():
     data = request.get_json()
 
     email = data.get('email')
-    contraseña = data.get('contraseña')
+    contrasena = data.get('contrasena')
    
-    usuario = login_usuario(email, contraseña)
+    usuario = login_usuario(email, contrasena)
 
     if usuario:
         return jsonify(usuario), 200
