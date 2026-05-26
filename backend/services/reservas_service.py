@@ -174,17 +174,18 @@ def cancelar_reserva_cliente(reserva_id):
 def listar_reservas():
     con = obtener_conexion()
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT * FROM reservas")
             reservas = cursor.fetchall()
             return reservas
-    finally:        con.close()
+    finally:
+        con.close()
 
 # Función para listar reservas por estado
 def listar_reservas_por_estado(estado):
     con = obtener_conexion()
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT * FROM reservas WHERE estado = %s", (estado,))
             reservas = cursor.fetchall()
             return reservas
@@ -195,7 +196,7 @@ def listar_reservas_por_estado(estado):
 def cancelar_reserva(reserva_id):
     con = obtener_conexion()
     try:
-        with con.cursor() as cursor:
+        with con.cursor(dictionary=True) as cursor:
             cursor.execute("UPDATE reservas SET estado = 'cancelada' WHERE id = %s", (reserva_id,))
             con.commit()
             return cursor.rowcount > 0  # Devuelce True si se actualizó al menos una fila
