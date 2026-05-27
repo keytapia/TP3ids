@@ -1,11 +1,11 @@
 #!/bin/bash
 echo "Instalando dependencias backend..."
-cd BACKEND
+cd backend
 pip install -r requirements.txt
 cd ..
 
 echo "Instalando dependencias frontend..."
-cd FRONTEND
+cd frontend
 pip install -r requirements.txt
 cd ..
 
@@ -22,7 +22,7 @@ else
 	echo "Creando base de datos '$DB_NAME'..."
 	echo -e "\t(ingresá nuevamente tu contraseña del usuario root de tu MySQL)"
 
-	if mysql -u root -p < BACKEND/database.sql; then
+	if mysql -u root -p < backend/database.sql; then
 		echo -e "\nBase de datos creada correctamente!"
 	else
 		echo -e "\nError al crear la base de datos."
@@ -30,14 +30,14 @@ else
 fi
 
 echo "Iniciando el backend..."
-cd BACKEND
+cd backend
 python app.py &
 cd ..
 
 echo "El backend se está ejecutando en http://localhost:5000"
 
 echo "Iniciando frontend..."
-cd FRONTEND
+cd frontend
 python app.py
 
 echo "El frontend se está ejecutando en http://localhost:8080"
