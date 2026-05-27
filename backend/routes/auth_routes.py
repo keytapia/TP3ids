@@ -1,10 +1,11 @@
 from flask import Blueprint, request, jsonify
+
 from services.auth_service import login_usuario
 
-auth_bp = Blueprint('auth_bp', __name__)
+auth_bp = Blueprint('auth_bp', __name__, url_prefix='/api/auth')
 
 # Login
-@auth_bp.route('/api/auth/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
 
     data = request.get_json()
@@ -17,6 +18,4 @@ def login():
     if usuario:
         return jsonify(usuario), 200
 
-    return jsonify({
-        "error": "Email o contraseña incorrectos"
-    }), 401
+    return jsonify({"error": "Email o contraseña incorrectos"}), 401
