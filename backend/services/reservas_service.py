@@ -193,6 +193,10 @@ def listar_reservas_por_estado(estado):
         with con.cursor(dictionary=True) as cursor:
             cursor.execute("SELECT * FROM reservas WHERE estado = %s", (estado,))
             reservas = cursor.fetchall()
+            for reserva in reservas:
+                reserva["horario"] = str(
+                    reserva["horario"]
+                )
             return reservas
     finally:
         con.close()
