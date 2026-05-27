@@ -175,8 +175,13 @@ def listar_reservas():
     con = obtener_conexion()
     try:
         with con.cursor(dictionary=True) as cursor:
-            cursor.execute("SELECT * FROM reservas")
+            cursor.execute("SELECT * FROM reservas")        
             reservas = cursor.fetchall()
+            for reserva in reservas:
+                if reserva.get("fecha"):
+                    reserva["fecha"]=str(reserva["fecha"])
+                if reserva.get("horario"):
+                    reserva["horario"]=str(reserva["horario"])
             return reservas
     finally:
         con.close()
