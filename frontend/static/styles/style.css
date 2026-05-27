@@ -111,7 +111,6 @@ ul {
 main {
 
     flex:1;
-    padding:60px;
 
 }
 
@@ -165,7 +164,7 @@ footer a:hover {
 /* BANNER PRINCIPAL (Resumen del restaurante) */
 .banner {
 
-    height:500px;
+    height:300px;
 
     background-image:
     linear-gradient(
@@ -215,42 +214,55 @@ footer a:hover {
 
     display:flex;
     justify-content:space-around;
-    padding:60px;
+    align-items:flex-start;
+    padding:40px 60px;
     text-align:center;
+    gap:40px;
 
 }
 
 .icono {
 
-    font-size:4rem;
-    margin-bottom:20px;
+    font-size:2.5rem;
+    margin-bottom:15px;
 
 }
 
 .informacion {
 
-    max-width:300px;
+    max-width:250px;
 
 }
 
 .informacion h2 {
 
-    margin-bottom:15px;
-    font-size:2rem;
+    margin-bottom:10px;
+    font-size:1.2rem;
+    font-weight:700;
+    letter-spacing:1px;
 
 }
 
 .informacion h3 {
 
-    margin-bottom:15px;
+    margin-bottom:10px;
+    font-size:1rem;
     font-style:italic;
+    font-weight:500;
 
 }
 
 .informacion p {
 
-    font-size:1.2rem;
+    font-size:.95rem;
+    line-height:1.5;
+    color:#444;
 
+}
+
+.estrella {
+
+    color:#f5c542;
 }
 
 
