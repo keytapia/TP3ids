@@ -1,14 +1,23 @@
+import os
 import mysql.connector
 
-from config import (
-    MYSQL_HOST,
-    MYSQL_USER,
-    MYSQL_PASSWORD,
-    MYSQL_DB
+from dotenv import (
+    load_dotenv
 )
 
-# Esta función crea y devuelve una conexión a la base de datos MySQL
+
+# Función que carga las variables de entorno desde el archivo .env
+load_dotenv()
+
+# Creamos variables asignando los valores de las variables de entorno cargadas
+MYSQL_HOST = os.getenv("MYSQL_HOST")
+MYSQL_USER = os.getenv("MYSQL_USER")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_DB = os.getenv("MYSQL_DB")
+
+# Esta función crea y devuelve una conexión a MySQL
 def obtener_conexion():
+
     conexion = mysql.connector.connect(
         host=MYSQL_HOST,
         user=MYSQL_USER,

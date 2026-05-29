@@ -1,4 +1,10 @@
+import os
+
 from flask import Flask
+
+from dotenv import (
+    load_dotenv
+)
 
 # Rutas Públicas
 from routes.menu_routes import menu_bp
@@ -11,7 +17,16 @@ from routes.auth_routes import auth_bp
 # Rutas del Administrador
 from routes.admin_routes import admin_bp
 
+
+
+# ---------- APP PRINCIPAL ----------
+
+# Carga las variables de entorno desde el archivo .env
+load_dotenv()
+
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY") # La clave que vamos a usar para mantener la sesión del usuario
 
 # Blueprints para rutas públicas
 app.register_blueprint(menu_bp)
