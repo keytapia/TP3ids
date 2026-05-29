@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint
-from datetime import datetime, date, timedelta
+from flask import request, jsonify, Blueprint
 
 from services.reservas_service import (
     buscar_reserva_por_id,
@@ -11,10 +10,9 @@ from services.reservas_service import (
 reservas_bp = Blueprint('reservas', __name__)
 
 
-#Cancelar reserva
-
+# Cancelar reserva
 @reservas_bp.route("/api/reservas/<int:id>/cancelar-cliente", methods=["PATCH"])
-def cancelar_reserva_cliente(id):
+def cancelar_reserva(id):
     reserva = buscar_reserva_por_id(id)
 
     if not reserva:
@@ -45,8 +43,7 @@ def cancelar_reserva_cliente(id):
         "reserva": reserva_cancelada
     }), 200
 
-#ver disponibilidad para reservar
-
+# Ver disponibilidad para reservar
 @reservas_bp.route("/api/disponibilidad", methods=["GET"])
 def get_disponibilidad():
     disponibilidad = obtener_disponibilidad()

@@ -2,6 +2,7 @@ from flask import jsonify
 
 from db import obtener_conexion
 
+
 # Estadísticas Generales (cantidad de: reservas totales, reservas canceladas, usuarios totales, reseñas totales)
 def obtener_estadisticas_generales():
 

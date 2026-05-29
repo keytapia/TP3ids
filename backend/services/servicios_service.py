@@ -1,6 +1,4 @@
-from flask import Flask, jsonify, Blueprint, request
 from db import obtener_conexion
-import re
 
 
 # Listar todos los servicios

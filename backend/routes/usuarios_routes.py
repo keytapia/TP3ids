@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify, Blueprint
-from datetime import datetime
-
+from flask import request, jsonify, Blueprint
 
 usuarios_bp = Blueprint('usuarios', __name__)
+
+

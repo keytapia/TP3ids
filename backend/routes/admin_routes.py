@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint
-from datetime import datetime,timedelta
+from flask import request, jsonify, Blueprint
 
 from services.dashboard_service import (
     obtener_estadisticas_generales, 
@@ -16,6 +15,7 @@ from services.reservas_service import (
 )
 
 from services.menu_service import (
+    listar_menu,
     modificar_plato,
     eliminar_plato
 )
@@ -104,18 +104,15 @@ def delete_reserva(reserva_id):
 
 # Listar el menú completo
 @admin_bp.route("/menu", methods=["GET"])
-def listar_platos():
+def get_platos():
 
-    # Acá va la función del servicio para listar el menú
-    # resultado = listar_platos()
+    resultado = listar_menu()
 
-    # return jsonify(resultado), 200
-    return jsonify({"mensaje": "Falta hacer función de listar platos"}), 200
-
+    return jsonify(resultado), 200
 
 # Crear un plato del menú
 @admin_bp.route("/menu", methods=["POST"])
-def crear_plato():
+def post_plato():
 
     data = request.get_json()
 
@@ -137,7 +134,7 @@ def crear_plato():
 
 # Modificar un plato del menú
 @admin_bp.route("/menu/<int:id>", methods=["PUT"])
-def modificar_plato(id):
+def put_plato(id):
 
     data = request.get_json()
 
@@ -149,7 +146,7 @@ def modificar_plato(id):
 
 # Eliminar un plato del menú
 @admin_bp.route("/menu/<int:id>", methods=["DELETE"])
-def eliminar_plato(id):
+def delete_plato(id):
 
     if eliminar_plato(id) == 0:
         return jsonify({"error": "Plato no encontrado"}), 404

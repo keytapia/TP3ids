@@ -1,11 +1,7 @@
-from flask import Flask, jsonify, Blueprint, request
 from db import obtener_conexion
-import re
-from datetime import datetime
 
 
-#posibles errores de reserva
-
+# Posibles errores de reserva
 def construir_error_api(code: str, message: str, description: str, level: str = "error") -> dict:
     return {
         "errors": [{
@@ -16,9 +12,7 @@ def construir_error_api(code: str, message: str, description: str, level: str = 
         }]
     }
 
-
-#Disponibilidad de reservas que ve el cliente
-
+# Disponibilidad de reservas que ve el cliente
 def obtener_disponibilidad():
     conexion = obtener_conexion()
     cursor = None
@@ -77,6 +71,7 @@ def obtener_disponibilidad():
 
         conexion.close()
 
+# Buscar una mesa disponible para un horario específico
 def buscar_mesa_disponible_para_horario(cursor, fecha, horario):
     consulta = """
         SELECT MAX(m.capacidad) AS capacidad_maxima
@@ -102,8 +97,7 @@ def buscar_mesa_disponible_para_horario(cursor, fecha, horario):
 
     return resultado
 
-
-#Listar reservas por ID
+# Listar reservas por ID
 def buscar_reserva_por_id(reserva_id):
     conexion = obtener_conexion()
     cursor = None
@@ -140,7 +134,7 @@ def buscar_reserva_por_id(reserva_id):
 
         conexion.close()
 
-#cancelar reserva por parte del cliente
+# Cancelar reserva por parte del cliente
 def cancelar_reserva_cliente(reserva_id):
     conexion = obtener_conexion()
     cursor = None

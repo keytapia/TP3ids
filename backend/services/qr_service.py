@@ -1,4 +1,3 @@
-from flask import Flask, jsonify, Blueprint, request
-from db import get_connection
-import re
-from datetime import datetime
+from db import obtener_conexion
+
+# Función para crear el QR de una reserva

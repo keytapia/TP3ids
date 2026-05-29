@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify, Blueprint
-from datetime import datetime
+from flask import request, jsonify, Blueprint
+
+resenas_bp = Blueprint('resenas', __name__)
 
 
-
-reseñas_bp = Blueprint('reseñas', __name__)

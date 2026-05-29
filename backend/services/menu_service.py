@@ -1,10 +1,7 @@
-from flask import Flask, jsonify, Blueprint, request
 from db import obtener_conexion
-import re
-from datetime import datetime
 
 
-#Obtener todos los platos del menú 
+# Obtener todos los platos del menú 
 def listar_menu():
     con = obtener_conexion()
 
@@ -16,8 +13,7 @@ def listar_menu():
     finally:
         con.close()
 
-
-#Obtener un plato por id
+# Obtener un plato por id
 def obtener_plato_id(plato_id):
     con = obtener_conexion()
 
@@ -31,8 +27,7 @@ def obtener_plato_id(plato_id):
     finally:
         con.close()
 
-
-#Obtener platos por categoria
+# Obtener platos por categoria
 def listar_menu_por_categoria(categoria):
 
     con = obtener_conexion()
@@ -48,7 +43,8 @@ def listar_menu_por_categoria(categoria):
             return menu
     finally:
         con.close()
-        
+
+# Modificar un plato 
 def modificar_plato(id, data):
     con = obtener_conexion()
 
@@ -83,7 +79,7 @@ def modificar_plato(id, data):
     finally:
         con.close()
 
-
+# Eliminar un plato
 def eliminar_plato(id):
     con = obtener_conexion()
 

@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify, Blueprint
-from datetime import datetime
+from flask import request, jsonify, Blueprint
 
 from services.menu_service import (
     listar_menu,
@@ -8,6 +7,7 @@ from services.menu_service import (
 )
 
 menu_bp = Blueprint('menu', __name__)
+
 
 #filtrar menu completo o por categoria
 @menu_bp.route('/api/menu', methods=['GET'])
