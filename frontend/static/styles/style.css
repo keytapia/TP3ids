@@ -1,7 +1,10 @@
-/*** ESTILOS: FUENTES, TAMAÑOS Y COLORES ***/
+/*** ESTILOS: FUENTES, TAMAÑOS Y COLORES (Para los templates públicos) ***/
 
+/*====================================================================================*/
+/*----------------------- HEADER, FOOTER Y BODY DE CADA PÁGINA -----------------------*/
+/*====================================================================================*/
 
-/*-------- ESTILO UNIVERSAL DE TODA LA PÁGINA (Solo para el margin y padding) --------*/
+/* ESTILOS GENERALES (Solo para el margin y padding) */
 * {
 
     margin:0;
@@ -17,7 +20,7 @@ body {
     display:flex;
     flex-direction:column;
     font-family:'Poppins',sans-serif;
-    background:#f6f0e8;
+    background:#efe7dc;
     color:#222;
     
 }
@@ -44,7 +47,7 @@ ul {
     align-items:center;
     height:90px;
     padding:0 40px;
-    background:#fcfaf7;
+    background:#f3ece3;
     border-bottom:1px solid #eeeeee;
     overflow:hidden;
 
@@ -121,7 +124,7 @@ footer {
     padding:15px;
     text-align:center;
     border-top:1px solid #ddd;
-    background:#fcfaf7;
+    background:#f3ece3;
 
 }
 
@@ -158,13 +161,12 @@ footer a:hover {
 }
 
 
-
-/*-------- PÁGINA DE INICIO --------*/
+/*====================================================================================*/
+/*--------------------------------- PÁGINA DE INICIO ---------------------------------*/
+/*====================================================================================*/
 
 /* BANNER PRINCIPAL (Resumen del restaurante) */
 .banner {
-
-    height:300px;
 
     background-image:
     linear-gradient(
@@ -209,7 +211,7 @@ footer a:hover {
 
 }
 
-/* INFORMACIÓN */
+/* INFORMACIÓN (Horarios, Ubicación y Opiniones) */
 .resumen-restaurante {
 
     display:flex;
@@ -302,3 +304,193 @@ footer a:hover {
 }
 
 }
+
+
+/*=====================================================================================*/
+/*----------------------------------- PÁGINA DE MENÚ ----------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página del menú */
+
+
+/*=====================================================================================*/
+/*--------------------------------- PÁGINA DE RESERVA ---------------------------------*/
+/*=====================================================================================*/
+
+/* Mensaje de éxito al crear una reserva */
+.mensaje-exito {
+
+    background:#d4edda;
+    color:#155724;
+    border:1px solid #c3e6cb;
+    padding:15px 20px;
+    border-radius:5px;
+    max-width:600px;
+    margin:20px auto;
+    text-align:center;
+    font-size:1.2rem;
+
+}
+
+/* Mensaje de error al crear una reserva */
+.mensaje-error {
+
+    background:#f8d7da;
+    color:#721c24;
+    border:1px solid #f5c6cb;
+    padding:15px 20px;
+    border-radius:5px;
+    max-width:600px;
+    margin:20px auto;
+    text-align:center;
+    font-size:1.2rem;
+
+}
+
+/* El div principal de la página de reserva */
+.reserva-container {
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:25px;
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 40px;
+    
+}
+
+/* El contenedor del lado izquierdo */
+.reserva-lado-izquierdo {
+
+    flex:1;
+    padding-top:10px;
+
+}
+
+.reserva-lado-izquierdo h1 {
+
+    font-size:3rem;
+    margin-bottom:10px;
+
+}
+
+.reserva-lado-izquierdo p {
+
+    font-size:1.5rem;
+    margin-bottom:5px;
+
+}
+
+.reserva-lado-izquierdo img {
+
+    width:100%;
+    max-width:500px;
+
+}
+
+/* El contenedor del lado derecho */
+.reserva-lado-derecho {
+
+    flex:1;
+    padding-top:20px;
+    padding-right:20px;
+
+}
+
+/* Formulario */
+.reserva-lado-derecho form {
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+}
+
+/* Cada campo del form */
+.campo {
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+
+}
+
+.campo label {
+
+    font-size:1.3rem;
+    font-weight:700;
+    min-width:50px;
+
+}
+
+.campo input,
+.campo select {
+
+    width:450px;
+    padding:8px 30px;
+    border:none;
+    border-radius:40px;
+    background:#f5f5f5;
+    font-size:1.3rem;
+
+}
+
+/* El textarea para notas adicionales */
+.campo textarea {
+    
+    width:450px;
+    padding:8px 20px;
+    border:none;
+    border-radius:40px;
+    background:#f5f5f5;
+    font-size:1rem;
+    resize:none; /* Esto evita que el usuario pueda redimensionar el textarea */
+
+}
+
+/* Botón de confirmar reserva */
+.reserva-lado-derecho button {
+
+    width:420px;
+    margin-top:10px;
+    padding:10px;
+    align-self:center;
+    border:none;
+    border-radius:50px;
+    background:#8d2525;
+    color:white;
+    font-size:1.5rem;
+    font-weight:700;
+    cursor:pointer;
+
+}
+
+
+/*=====================================================================================*/
+/*---------------------------------- PÁGINA DE RESEÑAS --------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de reseñas */
+
+
+/*=====================================================================================*/
+/*--------------------------------- PÁGINA DE NOSOTROS --------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de nosotros */
+
+
+/*=====================================================================================*/
+/*--------------------------------- PÁGINA DE CONTACTO --------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de contacto */
+
+
+/*=====================================================================================*/
+/*----------------------------------- PÁGINA DE ERROR ---------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de error */

@@ -1,207 +1,293 @@
+from flask import jsonify
+
 from db import obtener_conexion
 
+from datetime import date, timedelta
 
-# Posibles errores de reserva
-def construir_error_api(code: str, message: str, description: str, level: str = "error") -> dict:
-    return {
-        "errors": [{
-            "code": code,
-            "message": message,
-            "level": level,
-            "description": description
-        }]
-    }
 
-# Disponibilidad de reservas que ve el cliente
-def obtener_disponibilidad():
+# Mostrar todas las reservas
+def listar_reservas():
+    
     conexion = obtener_conexion()
-    cursor = None
+    cursor = conexion.cursor(dictionary=True)
 
-    try:
-        cursor = conexion.cursor(dictionary=True)
+    consulta = """
+        SELECT * FROM reservas
+    """
+    
+    cursor.execute(consulta)
 
-        horarios_posibles = [
-            "11:00",
-            "12:00",
-            "13:00",
-            "20:00",
-            "21:00",
-            "22:00",
-            "23:00"
-        ]
+    reservas = cursor.fetchall()
+    
+    for reserva in reservas:
+        if reserva.get("fecha"):
+            reserva["fecha"]=str(reserva["fecha"])
+        if reserva.get("horario"):
+            reserva["horario"]=str(reserva["horario"])
+    
+    cursor.close()
+    conexion.close()
 
-        dias_a_mostrar = 14
-        disponibilidad = []
+    return reservas
 
-        for i in range(dias_a_mostrar):
-            fecha_actual = date.today() + timedelta(days=i)
 
-            horarios_disponibles = []
+# Mostrar reservas por estado ("confirmada", "cancelada")
+def listar_reservas_por_estado(estado):
+    
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
 
-            for horario in horarios_posibles:
-                mesa_disponible = buscar_mesa_disponible_para_horario(
-                    cursor,
-                    fecha_actual,
-                    horario
-                )
+    consulta = """
+        SELECT * FROM reservas
+        WHERE estado = %s
+    """
 
-                if mesa_disponible:
-                    capacidad_maxima = mesa_disponible["capacidad_maxima"]
+    cursor.execute(consulta, (estado,))
+    
+    reservas = cursor.fetchall()
+    
+    for reserva in reservas:
+        if reserva.get("fecha"):
+            reserva["fecha"] = str(reserva["fecha"])
+        if reserva.get("horario"):
+            reserva["horario"] = str(reserva["horario"])
 
-                    horarios_disponibles.append({
-                        "horario": horario,
-                        "cantidad_personas_disponibles": list(range(1, capacidad_maxima + 1))
-                    })
+    cursor.close()
+    conexion.close()
 
-            if horarios_disponibles:
-                disponibilidad.append({
-                    "fecha": fecha_actual.strftime("%Y-%m-%d"),
-                    "horarios": horarios_disponibles
+    return reservas
+
+
+# Mostrar reserva por ID
+def buscar_reserva_por_id(reserva_id):
+    
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    consulta = """
+        SELECT
+            id,
+            usuario_id,
+            mesa_id,
+            fecha,
+            horario,
+            cantidad_personas,
+            notas_adicionales,
+            estado
+        FROM reservas
+        WHERE id = %s
+    """
+
+    cursor.execute(consulta, (reserva_id,))
+        
+    reserva = cursor.fetchone()
+
+    cursor.close()
+    conexion.close()
+
+    return reserva
+
+
+# Disponibilidad de reservas
+def obtener_disponibilidad():
+    
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    horarios_posibles = [
+        "11:00",
+        "11:30",
+        "12:00",
+        "12:30",
+        "13:00",
+        "13:30",
+        "14:00",
+        "14:30",
+        "15:00",
+        "15:30",
+        "16:00",
+        "16:30",
+        "17:00",
+        "17:30",
+        "18:00",
+        "18:30",
+        "19:00",
+        "19:30",
+        "20:00",
+        "20:30",
+        "21:00",
+        "21:30",
+        "22:00",
+        "22:30",
+        "23:00"
+    ]
+
+    dias_a_mostrar = 28
+    disponibilidad = []
+
+    for i in range(dias_a_mostrar):
+        fecha_actual = date.today() + timedelta(days=i)
+
+        horarios_disponibles = []
+
+        for horario in horarios_posibles:
+            mesa_disponible = buscar_mesa_disponible_para_horario(
+                cursor,
+                fecha_actual,
+                horario
+            )
+
+            if (mesa_disponible and mesa_disponible["capacidad_maxima"] is not None):
+                capacidad_maxima = mesa_disponible["capacidad_maxima"]
+
+                horarios_disponibles.append({
+                    "horario": horario,
+                    "capacidad_maxima_personas_por_mesa_disponibles": list(range(1, capacidad_maxima + 1))
                 })
 
-        return disponibilidad
+        if horarios_disponibles:
+            disponibilidad.append({
+                "fecha": fecha_actual.strftime("%Y-%m-%d"),
+                "horarios": horarios_disponibles
+            })
 
-    except Exception as error:
-        print("Error al obtener disponibilidad:", error)
-        return None
+    cursor.close()
+    conexion.close()
 
-    finally:
-        if cursor:
-            cursor.close()
+    return disponibilidad
 
-        conexion.close()
+
+# Buscar mesa disponible para una fecha, horario y cantidad de personas
+def buscar_mesa_disponible(fecha, horario, cantidad_personas):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    consulta = """
+        SELECT *
+        FROM mesas
+
+        WHERE estado = 'disponible'
+        AND capacidad >= %s
+
+        AND id NOT IN (
+            SELECT mesa_id
+            FROM reservas
+            WHERE fecha = %s
+            AND horario = %s
+            AND estado = 'confirmada'
+        )
+
+        ORDER BY capacidad ASC
+        LIMIT 1
+    """
+
+    cursor.execute(
+        consulta,
+        (cantidad_personas, fecha, horario)
+    )
+
+    mesa = cursor.fetchone()
+
+    cursor.close()
+    conexion.close()
+
+    return mesa
+
 
 # Buscar una mesa disponible para un horario específico
 def buscar_mesa_disponible_para_horario(cursor, fecha, horario):
+    
     consulta = """
-        SELECT MAX(m.capacidad) AS capacidad_maxima
-        FROM mesas m
-        WHERE m.estado = 'disponible'
-        AND m.id NOT IN (
-            SELECT r.mesa_id
-            FROM reservas r
-            WHERE r.fecha = %s
-            AND r.horario = %s
-            AND r.estado = 'confirmada'
+        SELECT MAX(mesas.capacidad) AS capacidad_maxima
+        FROM mesas
+        
+        WHERE mesas.estado = 'disponible'
+        AND mesas.id NOT IN (
+            SELECT reservas.mesa_id
+            FROM reservas
+            WHERE reservas.fecha = %s
+            AND reservas.horario = %s
+            AND reservas.estado = 'confirmada'
         )
     """
 
     cursor.execute(consulta, (fecha, horario))
     resultado = cursor.fetchone()
 
-    if not resultado:
-        return None
-
-    if resultado["capacidad_maxima"] is None:
-        return None
-
     return resultado
 
-# Listar reservas por ID
-def buscar_reserva_por_id(reserva_id):
-    conexion = obtener_conexion()
-    cursor = None
 
-    try:
-        cursor = conexion.cursor(dictionary=True)
-
-        consulta = """
-            SELECT
-                id,
-                usuario_id,
-                mesa_id,
-                fecha,
-                horario,
-                cantidad_personas,
-                notas_adicionales,
-                estado
-            FROM reservas
-            WHERE id = %s
-        """
-
-        cursor.execute(consulta, (reserva_id,))
-        reserva = cursor.fetchone()
-
-        return reserva
-
-    except Exception as error:
-        print("Error al buscar reserva por ID:", error)
-        return None
-
-    finally:
-        if cursor:
-            cursor.close()
-
-        conexion.close()
-
-# Cancelar reserva por parte del cliente
-def cancelar_reserva_cliente(reserva_id):
-    conexion = obtener_conexion()
-    cursor = None
-
-    try:
-        cursor = conexion.cursor(dictionary=True)
-
-        consulta_actualizar = """
-            UPDATE reservas
-            SET estado = %s
-            WHERE id = %s
-        """
-
-        cursor.execute(consulta_actualizar, ("cancelada", reserva_id))
-        conexion.commit()
-
-        return buscar_reserva_por_id(reserva_id)
-
-    except Exception as error:
-        print("Error al cancelar reserva desde cliente:", error)
-        conexion.rollback()
-        return None
-
-    finally:
-        if cursor:
-            cursor.close()
-
-        conexion.close()
-
-# Función para listar todas las reservas
-def listar_reservas():
-    con = obtener_conexion()
-    try:
-        with con.cursor(dictionary=True) as cursor:
-            cursor.execute("SELECT * FROM reservas")        
-            reservas = cursor.fetchall()
-            for reserva in reservas:
-                if reserva.get("fecha"):
-                    reserva["fecha"]=str(reserva["fecha"])
-                if reserva.get("horario"):
-                    reserva["horario"]=str(reserva["horario"])
-            return reservas
-    finally:
-        con.close()
-
-# Función para listar reservas por estado
-def listar_reservas_por_estado(estado):
-    con = obtener_conexion()
-    try:
-        with con.cursor(dictionary=True) as cursor:
-            cursor.execute("SELECT * FROM reservas WHERE estado = %s", (estado,))
-            reservas = cursor.fetchall()
-            for reserva in reservas:
-                reserva["horario"] = str(
-                    reserva["horario"]
-                )
-            return reservas
-    finally:
-        con.close()
-
-# Función para cancelar una reserva por id cambiando su estado a "cancelada"
+# Cancelar reserva
 def cancelar_reserva(reserva_id):
-    con = obtener_conexion()
-    try:
-        with con.cursor(dictionary=True) as cursor:
-            cursor.execute("UPDATE reservas SET estado = 'cancelada' WHERE id = %s", (reserva_id,))
-            con.commit()
-            return cursor.rowcount > 0  # Devuelce True si se actualizó al menos una fila
-    finally:
-        con.close()
+    
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    consulta_actualizar = """
+        UPDATE reservas
+        SET estado = %s
+        WHERE id = %s
+    """
+
+    cursor.execute(consulta_actualizar, ("cancelada", reserva_id))
+    
+    conexion.commit()
+
+    filas_modificadas = cursor.rowcount
+
+    cursor.close()
+    conexion.close()
+
+    return filas_modificadas > 0
+
+
+# Crear reserva
+def crear_reserva(usuario_id, mesa_id, fecha, horario, cantidad_personas, notas_adicionales=""):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    consulta = """
+        INSERT INTO reservas (
+            usuario_id,
+            mesa_id,
+            fecha,
+            horario,
+            cantidad_personas,
+            notas_adicionales,
+            estado
+        )
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """
+
+    cursor.execute(
+        consulta,
+        (
+            usuario_id,
+            mesa_id,
+            fecha,
+            horario,
+            cantidad_personas,
+            notas_adicionales,
+            "confirmada"
+        )
+    )
+
+    conexion.commit()
+
+    nuevo_id = cursor.lastrowid
+
+    cursor.close()
+    conexion.close()
+
+    return {
+        "id": nuevo_id,
+        "mesa_id": mesa_id,
+        "fecha": fecha,
+        "horario": horario,
+        "cantidad_personas": cantidad_personas,
+        "notas_adicionales": notas_adicionales,
+        "estado": "confirmada"
+    }
+

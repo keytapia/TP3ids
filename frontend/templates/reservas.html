@@ -4,5 +4,129 @@
 {% block titulo %}Reservas{% endblock %}
 
 {% block contenido_body %}
-    <h2>Reservas</h2>
+
+
+{% if mensaje == "¡Reserva creada con éxito!" %}
+
+<div class="mensaje-exito">
+    {{ mensaje }}
+</div>
+
+{% elif mensaje == "¡Error al crear la reserva!" %}
+
+<div class="mensaje-error">
+    {{ mensaje }}
+</div>
+
+{% endif %}
+
+
+<section class="reserva-container">
+
+
+    <div class="reserva-lado-izquierdo">
+
+        <h1>Reserve su lugar.</h1>
+
+        <p>
+            Por favor, bríndenos los detalles de su visita.
+        </p>
+
+        <!--- BLOQUE DE LA IMAGEN DEL RESTAURANTE (Podemos reemplazar por el mapa del restaurante) --->
+        <div class="reserva-imagen">
+            <img src="{{ url_for('static', filename='images/reserva_mesa.png') }}" alt="Mesa restaurante">
+        </div>
+
+    </div>
+
+
+    <div class="reserva-lado-derecho">
+
+        <form action="{{ url_for('reservas.reservas') }}" method="POST">
+
+            <div class="campo">
+                <label for="fecha">FECHA</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+
+            <div class="campo">
+                <label for="horario">HORA</label>
+                <select id="horario" name="horario" required>
+                    <option value="">Seleccione un horario</option>
+                    <option>11:00</option>
+                    <option>11:30</option>
+                    <option>12:00</option>
+                    <option>12:30</option>
+                    <option>13:00</option>
+                    <option>13:30</option>
+                    <option>14:00</option>
+                    <option>14:30</option>
+                    <option>15:00</option>
+                    <option>15:30</option>
+                    <option>16:00</option>
+                    <option>16:30</option>
+                    <option>17:00</option>
+                    <option>17:30</option>
+                    <option>18:00</option>
+                    <option>18:30</option>
+                    <option>19:00</option>
+                    <option>19:30</option>
+                    <option>20:00</option>
+                    <option>20:30</option>
+                    <option>21:00</option>
+                    <option>21:30</option>
+                    <option>22:00</option>
+                    <option>22:30</option>
+                    <option>23:00</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="cantidad_personas">PERSONAS</label>
+                <select id="cantidad_personas" name="cantidad_personas" required>
+                    <option value="">Seleccione para cuántas personas</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="nombre">NOMBRE</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
+            </div>
+
+            <div class="campo">
+                <label for="apellido">APELLIDO</label>
+                <input type="text" id="apellido" name="apellido" placeholder="Ingrese su apellido" required>
+            </div>
+
+            <div class="campo">
+                <label for="email">EMAIL</label>
+                <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+            </div>
+
+            <div class="campo">
+                <label for="telefono">TELEFONO</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
+            </div>
+
+            <div class="campo">
+                    <label for="notas_adicionales">NOTAS ADICIONALES</label>
+                    <textarea id="notas_adicionales" name="notas_adicionales" placeholder="Si tiene algún comentario adicional, por favor ingresalo acá..."></textarea>
+            </div>
+
+            <button type="submit">CONFIRMAR RESERVA</button>
+
+        </form>
+
+    </div>
+
+</section>
+
 {% endblock %}

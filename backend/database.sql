@@ -6,7 +6,8 @@ CREATE TABLE usuarios (
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
-    contrasena VARCHAR(255) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    contrasena VARCHAR(255) DEFAULT NULL,
     rol ENUM('cliente', 'admin') DEFAULT 'cliente'
 );
 
@@ -26,7 +27,7 @@ CREATE TABLE reservas (
     horario TIME NOT NULL,
     cantidad_personas INT NOT NULL,
     notas_adicionales TEXT,
-    estado ENUM('pendiente', 'confirmada', 'cancelada') DEFAULT 'pendiente',
+    estado ENUM('confirmada', 'cancelada') DEFAULT 'confirmada',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (mesa_id) REFERENCES mesas(id)
 );
@@ -76,14 +77,14 @@ CREATE TABLE servicios (
 -- =========================
 
 INSERT INTO usuarios
-(nombre, apellido, email, contrasena, rol)
+(nombre, apellido, email, telefono, contrasena, rol)
 
 VALUES
-('Admin','Admin','admin@restaurante.com','1234','admin'),
-('Juan','Perez','juan@mail.com','1234','cliente'),
-('Brenda','Lopez','brenda@mail.com','1234','cliente'),
-('Pedro','Garcia','pedro@mail.com','1234','cliente'),
-('Maria','Diaz','maria@mail.com','1234','cliente');
+('Admin','Admin','admin@restaurante.com','123456789','1234','admin'),
+('Juan','Perez','juan@mail.com','123456789',NULL,'cliente'),
+('Brenda','Lopez','brenda@mail.com','123456789',NULL,'cliente'),
+('Pedro','Garcia','pedro@mail.com','123456789',NULL,'cliente'),
+('Maria','Diaz','maria@mail.com','123456789',NULL,'cliente');
 
 
 -- =========================
@@ -146,7 +147,7 @@ VALUES
 (2,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada'),
 (3,2,'2026-05-11','21:00:00',4,'','confirmada'),
 (4,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada'),
-(5,4,'2026-05-15','22:00:00',2,'','pendiente'),
+(5,4,'2026-05-15','22:00:00',2,'','confirmada'),
 (2,2,'2026-05-16','20:00:00',4,'','confirmada'),
 (2,1,'2026-05-17','20:00:00',2,'','cancelada');
 
