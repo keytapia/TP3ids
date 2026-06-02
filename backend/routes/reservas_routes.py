@@ -1,4 +1,5 @@
 from flask import request, jsonify, Blueprint
+from datetime import datetime
 
 from services.reservas_service import (
     buscar_reserva_por_id,
@@ -11,6 +12,14 @@ from services.reservas_service import (
 from services.usuarios_service import (
     buscar_usuario_por_email,
     crear_usuario_cliente
+)
+
+from utils.validators import (
+    errores_api,
+    validar_reserva,
+    validar_email,
+    validar_fecha,
+    validar_horario
 )
 
 reservas_bp = Blueprint("reservas", __name__)
@@ -119,3 +128,59 @@ def get_disponibilidad():
     disponibilidad = obtener_disponibilidad()
 
     return jsonify(disponibilidad), 200
+
+#crear reserva para un cliente, si no tiene cuenta, se crea automaticamente, tomando su email para saber a que id de usuario corresponde
+@reservas_bp.route("/api/reservas", methods=["POST"])
+def crear_reserva():
+    datos = request.get_json()
+
+    # Validar datos de la reserva
+    error = validar_reserva(datos)
+    if error:
+        return error
+
+    # Buscar o crear usuario cliente
+    usuario = buscar_usuario_por_email(datos["email"])
+    if not usuario:
+        usuario = crear_usuario_cliente(
+            nombre=datos["nombre"],
+            apellido=datos["apellido"],
+            email=datos["email"],
+            telefono=datos["telefono"]
+        )
+
+    # Buscar mesa disponible
+    mesa = buscar_mesa_disponible(
+        fecha=datos["fecha"],
+        horario=datos["horario"],
+        cantidad_personas=datos["cantidad_personas"]
+    )
+
+    if not mesa:
+        return errores_api(
+            code=404,
+            message="NO_DISPONIBILIDAD",
+            description="No hay mesas disponibles para la fecha, horario y cantidad de personas solicitados"
+        )
+
+    # Crear reserva
+    nueva_reserva = crear_reserva(
+        nombre=datos.get("nombre"),
+        apellido=datos.get("apellido"),
+        email=datos.get("email"),
+        telefono=datos.get("telefono"),
+        mesa_id=mesa.get("id"),
+        fecha=datos.get("fecha"),
+        horario=datos.get("horario"),
+        cantidad_personas=datos.get("cantidad_personas"),
+        notas_adicionales=datos.get("notas_adicionales", "")
+    )
+
+    if not nueva_reserva:
+        return errores_api(
+            code=500,
+            message="RESERVA_NO_CREADA",
+            description="No se pudo crear la reserva"
+        )
+
+    return jsonify(nueva_reserva), 201
