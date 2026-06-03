@@ -4,6 +4,8 @@ from db import obtener_conexion
 
 from datetime import date, timedelta
 from services.usuarios_service import buscar_usuario_por_email, crear_usuario_cliente
+from services.qr_service import crear_qr_reserva
+from services.email_service import enviar_email_confirmacion
 from utils.validators import errores_api
 
 # Mostrar todas las reservas
@@ -259,10 +261,10 @@ def crear_reserva(
     usuario = buscar_usuario_por_email(email)
     if not usuario:
             usuario = crear_usuario_cliente(
-                nombre="nombre",
-                apellido="apellido",
-                email="email",
-                telefono="telefono"
+                nombre=nombre,
+                apellido=apellido,
+                email=email,
+                telefono=telefono
             )
     if not usuario:
         return None
@@ -303,7 +305,7 @@ def crear_reserva(
 
         nuevo_id = cursor.lastrowid
 
-        return {
+        reserva = {
             "id": nuevo_id,
             "usuario_id": usuario_id,
             "nombre": nombre,
@@ -317,6 +319,11 @@ def crear_reserva(
             "notas_adicionales": notas_adicionales,
             "estado": "confirmada"
         }
+        qr_buffer = crear_qr_reserva(reserva)
+        email_enviado = enviar_email_confirmacion(reserva, qr_buffer)
+        reserva["email_enviado"] = email_enviado
+        return reserva
+        
     except Exception as error:
         print("Error al crear reserva", error)
         conexion.rollback()
