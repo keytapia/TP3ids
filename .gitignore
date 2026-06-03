@@ -15,3 +15,5 @@ __pycache__/
 
 # Variables de entorno
 backend/.env
+
+.env
