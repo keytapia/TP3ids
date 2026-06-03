@@ -6,6 +6,7 @@ from services.reservas_service import (
     crear_reserva,
     cancelar_reserva,
     obtener_disponibilidad,
+    obtener_mesas_por_estado,
     buscar_mesa_disponible
 )
 
@@ -120,8 +121,35 @@ def patch_cancelar_reserva(id):
         "mensaje": "Reserva cancelada exitosamente"
     }), 200
 
+# Obtener mesas por estado
+@reservas_bp.route("/api/mesas-por-estado", methods=["GET"])
+def get_mesas_por_estado():
 
-# Ver disponibilidad
+    fecha = request.args.get("fecha")
+    horario = request.args.get("horario")
+    cantidad_personas = request.args.get("cantidad_personas")
+
+    if not fecha or not horario or not cantidad_personas:
+        return jsonify({
+            "error": "Debe seleccionar fecha, horario y cantidad de personas."
+        }), 400
+
+    try:
+        cantidad_personas = int(cantidad_personas)
+    except ValueError:
+        return jsonify({
+            "error": "Cantidad de personas debe ser un número entero."
+        }), 400
+
+    mesas = obtener_mesas_por_estado(
+        fecha=fecha,
+        horario=horario,
+        cantidad_personas=cantidad_personas
+    )
+
+    return jsonify(mesas), 200
+
+# Ver disponibilidad general
 @reservas_bp.route("/api/disponibilidad", methods=["GET"])
 def get_disponibilidad():
 

@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const url = `/api/mesas-disponibles?fecha=${fecha}&horario=${horario}&cantidad_personas=${cantidadPersonas}`;
+            const url = `/api/disponibilidad?fecha=${fecha}&horario=${horario}&cantidad_personas=${cantidadPersonas}`;
 
             const respuesta = await fetch(url);
 

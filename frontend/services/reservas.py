@@ -1,6 +1,6 @@
 import requests
 
-API_BACKEND_URL = "http://localhost:5000"
+API_BACKEND_URL = "http://127.0.0.1:5000"
 
 
 def crear_reserva(
@@ -34,16 +34,20 @@ def crear_reserva(
             timeout=10
         )
 
-        if response.status_code == 201:
-            return response.json()
+        try:
+            respuesta_json = response.json()
+        except ValueError:
+            respuesta_json = {"ok": False, "error": "Respuesta del backend no es JSON"}
 
-        print("Error backend:", response.status_code, response.text)
-        return {}
+        if response.status_code == 201:
+            return {"ok": True, "data": respuesta_json}
+        
+        print(f"Error al crear reserva: {response.status_code} - {response.text}")
+
+        return {"ok": False, "error": respuesta_json}
 
     except requests.exceptions.ConnectionError:
-        print("No se pudo conectar con el backend.")
-        return {}
+        return {"ok": False, "error": "No se pudo conectar con el backend."}
 
     except requests.exceptions.Timeout:
-        print("El backend tardó demasiado en responder.")
-        return {}
+        return {"ok": False, "error": "El backend tardó demasiado en responder."}

@@ -66,11 +66,11 @@ def reservas():
             mesa_id
         )
 
-        if resultado and resultado.get("id"):
+        if resultado.get("ok"):
             return redirect(
                 url_for(
                     "reservas.reservas",
-                    mensaje="¡Reserva creada con éxito!"
+                    mensaje="¡Reserva creada con éxito, revisa tu email!"
                 )
             )
 

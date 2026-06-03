@@ -220,6 +220,52 @@ def buscar_mesa_disponible_para_horario(cursor, fecha, horario):
 
     return resultado
 
+# Obtener mesas por estado para una fecha, horario y cantidad de personas
+def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    consulta = """
+        SELECT
+            m.id,
+            m.numero,
+            m.capacidad,
+            m.estado,
+            CASE
+                WHEN r.id IS NULL THEN TRUE
+                ELSE FALSE
+            END AS seleccionable
+            CASE
+                WHEN m.cantidad_personas >= %s THEN TRUE
+                ELSE FALSE
+            END AS capacidad_suficiente
+        FROM mesas m
+        LEFT JOIN reservas r 
+            ON r.mesa_id = m.id
+            AND r.fecha = %s
+            AND r.horario = %s
+            AND r.estado = 'confirmada'
+        ORDER BY m.numero ASC
+    """
+
+    cursor.execute(
+        consulta,
+        (cantidad_personas, fecha, horario)
+    )
+
+    mesas = cursor.fetchall()
+
+    for mesa in mesas:
+        mesa["reservada"] = bool(mesa["reservada"])
+        mesa["capacidad_suficiente"] = bool(mesa["capacidad_suficiente"])
+        mesa["seleccionable"] = (mesa["estado"] == "disponible" and (not mesa["reservada"]) and mesa["capacidad_suficiente"]
+        )
+
+    cursor.close()
+    conexion.close()
+
+    return mesas
 
 # Cancelar reserva
 def cancelar_reserva(reserva_id):
