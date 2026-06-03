@@ -96,3 +96,15 @@ def eliminar_plato(id):
 
     finally:
         con.close()
+
+def listar_categorias():
+    con = obtener_conexion()
+    
+    try: 
+        with con.cursor(dictionary=True) as cursor:
+            cursor.execute( """SELECT * FROM categorias_platos """)
+            categorias = cursor.fetchall()
+            return categorias
+        
+    finally: 
+        con.close()
