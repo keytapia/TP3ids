@@ -5,25 +5,29 @@
 
 {% block contenido_body %}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 
 {% if mensaje == "¡Reserva creada con éxito!" %}
-
-<div class="mensaje-exito">
-    {{ mensaje }}
-</div>
-
+    <div class="mensaje-exito">
+        {{ mensaje }}
+    </div>
 {% elif mensaje == "¡Error al crear la reserva!" %}
-
-<div class="mensaje-error">
-    {{ mensaje }}
-</div>
-
+    <div class="mensaje-error">
+        {{ mensaje }}
+    </div>
 {% endif %}
 
+{% with mensajes = get_flashed_messages() %}
+    {% if mensajes %}
+        <div class="mensajes">
+            {% for mensaje in mensajes %}
+                <p>{{ mensaje }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
 
 <section class="reserva-container">
-
-
     <div class="reserva-lado-izquierdo">
 
         <h1>Reserve su lugar.</h1>
@@ -32,17 +36,87 @@
             Por favor, bríndenos los detalles de su visita.
         </p>
 
-        <!--- BLOQUE DE LA IMAGEN DEL RESTAURANTE (Podemos reemplazar por el mapa del restaurante) --->
-        <div class="reserva-imagen">
-            <img src="{{ url_for('static', filename='images/reserva_mesa.png') }}" alt="Mesa restaurante">
-        </div>
+        <section class="mapa-mesas-section">
+
+            <h2 class="mapa-titulo">Seleccioná una mesa</h2>
+
+            <div class="leyenda-mesas">
+                <span><b class="color disponible"></b> Disponible</span>
+                <span><b class="color reservada"></b> Reservada</span>
+                <span><b class="color no-apta"></b> No apta para la cantidad</span>
+                <span><b class="color seleccionada"></b> Seleccionada</span>
+            </div>
+
+            <section class="mapa-restaurante">
+
+                <!-- INTERIOR -->
+                <div class="plano-interior">
+
+                    <div class="cocina">COCINA</div>
+                    <div class="barra">BARRA</div>
+
+                    <div class="label-interior">
+                        INTERIOR<br>
+                        <span>(BAR)</span>
+                    </div>
+
+                    <button type="button" class="mesa mesa-8" data-mesa="5">
+                        <span>Mesa 5</span>
+                        <small>8 personas</small>
+                    </button>
+
+                    <button type="button" class="mesa mesa-2" data-mesa="2">
+                        <span>Mesa 2</span>
+                        <small>4 personas</small>
+                    </button>
+
+                   <button type="button" class="mesa mesa-1" data-mesa="1">
+                        <span>Mesa 1</span>
+                        <small>2 personas</small>
+                    </button>
+
+                </div>
+
+                <!-- ENTRADA -->
+                <div class="entrada-mapa">
+                    <span>ENTRADA</span>
+                </div>
+
+                <!-- EXTERIOR -->
+                <div class="plano-exterior">
+
+                    <div class="exterior-superior">
+                        <button type="button" class="mesa mesa-ext-2" data-mesa="4">
+                            <span>Mesa 4</span>
+                            <small>2 personas</small>
+                        </button>
+                    </div>
+
+                    <button type="button" class="mesa mesa-ext-6" data-mesa="3">
+                        <span>Mesa 3</span>
+                        <small>6 personas</small>
+                    </button>
+
+                    <div class="plantas plantas-superior"></div>
+                    <div class="plantas plantas-inferior"></div>
+
+                </div>
+
+            </section>
+
+            <p id="textoMesaSeleccionada" class="texto-mesa-seleccionada">
+                Todavía no seleccionaste ninguna mesa.
+            </p>
+
+        </section>
 
     </div>
-
 
     <div class="reserva-lado-derecho">
 
         <form action="{{ url_for('reservas.reservas') }}" method="POST">
+
+            <input type="hidden" id="mesa_id" name="mesa_id">
 
             <div class="campo">
                 <label for="fecha">FECHA</label>
@@ -53,31 +127,31 @@
                 <label for="horario">HORA</label>
                 <select id="horario" name="horario" required>
                     <option value="">Seleccione un horario</option>
-                    <option>11:00</option>
-                    <option>11:30</option>
-                    <option>12:00</option>
-                    <option>12:30</option>
-                    <option>13:00</option>
-                    <option>13:30</option>
-                    <option>14:00</option>
-                    <option>14:30</option>
-                    <option>15:00</option>
-                    <option>15:30</option>
-                    <option>16:00</option>
-                    <option>16:30</option>
-                    <option>17:00</option>
-                    <option>17:30</option>
-                    <option>18:00</option>
-                    <option>18:30</option>
-                    <option>19:00</option>
-                    <option>19:30</option>
-                    <option>20:00</option>
-                    <option>20:30</option>
-                    <option>21:00</option>
-                    <option>21:30</option>
-                    <option>22:00</option>
-                    <option>22:30</option>
-                    <option>23:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                    <option value="13:30">13:30</option>
+                    <option value="14:00">14:00</option>
+                    <option value="14:30">14:30</option>
+                    <option value="15:00">15:00</option>
+                    <option value="15:30">15:30</option>
+                    <option value="16:00">16:00</option>
+                    <option value="16:30">16:30</option>
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+                    <option value="20:00">20:00</option>
+                    <option value="20:30">20:30</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21:30">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                    <option value="23:00">23:00</option>
                 </select>
             </div>
 
@@ -85,14 +159,14 @@
                 <label for="cantidad_personas">PERSONAS</label>
                 <select id="cantidad_personas" name="cantidad_personas" required>
                     <option value="">Seleccione para cuántas personas</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
                 </select>
             </div>
 
@@ -112,13 +186,13 @@
             </div>
 
             <div class="campo">
-                <label for="telefono">TELEFONO</label>
+                <label for="telefono">TELÉFONO</label>
                 <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
             </div>
 
             <div class="campo">
-                    <label for="notas_adicionales">NOTAS ADICIONALES</label>
-                    <textarea id="notas_adicionales" name="notas_adicionales" placeholder="Si tiene algún comentario adicional, por favor ingresalo acá..."></textarea>
+                <label for="notas_adicionales">NOTAS ADICIONALES</label>
+                <textarea id="notas_adicionales" name="notas_adicionales" placeholder="Si tiene algún comentario adicional, por favor ingresalo acá..."></textarea>
             </div>
 
             <button type="submit">CONFIRMAR RESERVA</button>
@@ -128,5 +202,7 @@
     </div>
 
 </section>
+
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 
 {% endblock %}

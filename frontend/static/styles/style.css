@@ -467,6 +467,357 @@ footer a:hover {
 
 }
 
+/*-------------------------------------MAPA DE LA RESERVA-----------------------------------------*/
+/* CONTENEDOR GENERAL DEL MAPA */
+
+.mapa-mesas-section {
+    width: 100%;
+    max-width: 920px;
+}
+
+.mapa-titulo {
+    font-size: 34px;
+    margin-bottom: 18px;
+    color: #1f1f1f;
+}
+
+/* LEYENDA */
+
+.leyenda-mesas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 26px;
+    margin-bottom: 28px;
+    font-size: 15px;
+}
+
+.leyenda-mesas span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.color.disponible {
+    background-color: #d9ead3;
+    border: 2px solid #6aa84f;
+}
+
+.color.reservada {
+    background-color: #f4cccc;
+    border: 2px solid #cc0000;
+}
+
+.color.no-apta {
+    background-color: #e0e0e0;
+    border: 2px solid #888;
+}
+
+.color.seleccionada {
+    background-color: #6f1d1b;
+    border: 2px solid #3d0f0e;
+}
+
+/* MAPA GENERAL */
+
+.mapa-restaurante {
+    display: grid;
+    grid-template-columns: 440px 58px 230px;
+    gap: 24px;
+    align-items: start;
+}
+
+/* INTERIOR */
+
+.plano-interior {
+    position: relative;
+    width: 440px;
+    height: 700px;
+    border: 8px solid #747474;
+    background-color: #f8f8f8;
+}
+
+.cocina {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    height: 72px;
+    border: 2px solid #b5b5b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 800;
+    color: #7d7d7d;
+    letter-spacing: 2px;
+}
+
+.barra {
+    position: absolute;
+    top: 90px;
+    left: 18px;
+    right: 18px;
+    height: 56px;
+    border: 2px solid #b5b5b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 800;
+    color: #7d7d7d;
+    letter-spacing: 2px;
+}
+
+.label-interior {
+    position: absolute;
+    top: 195px;
+    left: 34px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #777;
+    line-height: 1.2;
+}
+
+.label-interior span {
+    font-size: 24px;
+}
+
+/* ENTRADA */
+
+.entrada-mapa {
+    width: 58px;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 3px solid #8a8a8a;
+    border-right: 3px solid #8a8a8a;
+    color: #777;
+    font-weight: 800;
+    letter-spacing: 3px;
+    writing-mode: vertical-rl;
+}
+
+/* EXTERIOR */
+
+.plano-exterior {
+    position: relative;
+    width: 230px;
+    height: 700px;
+    border: 4px solid #8c8c8c;
+    border-radius: 115px;
+    background-color: #f8f8f8;
+    overflow: hidden;
+}
+
+.exterior-superior,
+.exterior-inferior {
+    position: relative;
+    height: 50%;
+}
+
+.exterior-superior {
+    border-bottom: 2px solid #c2c2c2;
+}
+
+.texto-calle {
+    position: absolute;
+    bottom: -52px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: #777;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* MESAS */
+
+.mesa {
+    position: absolute;
+    border: 2px solid #9a9a9a;
+    background-color: #d9ead3;
+    color: #555;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-align: center;
+    padding: 8px;
+}
+
+.mesa span {
+    font-size: 18px;
+}
+
+.mesa small {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mesa:hover:not(:disabled) {
+    transform: scale(1.03);
+}
+
+/* MESAS INTERIOR */
+
+.mesa-8 {
+    width: 270px;
+    height: 90px;
+    top: 340px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-8:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.03);
+}
+
+.mesa-1 {
+    width: 95px;
+    height: 95px;
+    bottom: 68px;
+    left: 48px;
+}
+
+.mesa-2 {
+    width: 135px;
+    height: 95px;
+    bottom: 68px;
+    right: 48px;
+}
+
+/* MESAS EXTERIOR */
+
+.mesa-ext-2 {
+    width: 125px;
+    height: 95px;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-ext-2:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.03);
+}
+
+.mesa-ext-6 {
+    width: 145px;
+    height: 170px;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-ext-6:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.03);
+}
+
+/* ESTADOS DE MESAS */
+
+.mesa.disponible {
+    background-color: #d9ead3;
+    border-color: #6aa84f;
+}
+
+.mesa.reservada {
+    background-color: #f4cccc;
+    border-color: #cc0000;
+    color: #7f0000;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.mesa.no-apta {
+    background-color: #e0e0e0;
+    border-color: #888;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.mesa.seleccionada {
+    background-color: #6f1d1b;
+    border-color: #3d0f0e;
+    color: #fff;
+}
+
+/* DECORACIÓN */
+
+.cantero-interior {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: -82px;
+    height: 44px;
+    border: 2px solid #999;
+    background: repeating-linear-gradient(
+        90deg,
+        #d8e3cd 0,
+        #d8e3cd 14px,
+        #eef2e9 14px,
+        #eef2e9 28px
+    );
+}
+
+.limite-local {
+    position: absolute;
+    bottom: -130px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+    font-weight: 800;
+    border-top: 2px dashed #999;
+    padding-top: 10px;
+}
+
+
+.texto-mesa-seleccionada {
+    margin-top: 72px;
+    font-weight: 800;
+    color: #6f1d1b;
+    font-size: 16px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .mapa-restaurante {
+        grid-template-columns: 1fr;
+    }
+
+    .plano-interior,
+    .entrada-mapa,
+    .plano-exterior {
+        width: 100%;
+    }
+
+    .entrada-mapa {
+        height: 70px;
+        writing-mode: horizontal-tb;
+    }
+
+    .plano-interior,
+    .plano-exterior {
+        max-width: 440px;
+    }
+}
+
 
 /*=====================================================================================*/
 /*---------------------------------- PÁGINA DE RESEÑAS --------------------------------*/
@@ -494,3 +845,129 @@ footer a:hover {
 /*=====================================================================================*/
 
 /* Acá van los estilos para la página de error */
+
+/*=====================================================================================*/
+/*----------------------------------- MENU DEL ADMIN ---------------------------------*/
+/*=====================================================================================*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f3ee;
+    color: #1f1f1f;
+}
+
+.admin-layout {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* BARRA LATERAL */
+
+.admin-sidebar {
+    width: 320px;
+    min-height: 100vh;
+    background-color: #651616;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+}
+
+.admin-logo {
+    text-align: center;
+    margin-bottom: 56px;
+    line-height: 1;
+}
+
+.admin-logo span {
+    display: block;
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.admin-logo small {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* LINKS DEL MENÚ */
+
+.admin-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 22px 64px;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+}
+
+.admin-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.admin-menu a.active {
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* CONTENIDO PRINCIPAL */
+
+.admin-content {
+    flex: 1;
+    padding: 64px 80px;
+}
+
+/* DASHBOARD */
+
+.admin-page-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.admin-page-subtitle {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 48px;
+}
+
+.admin-cards {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.admin-card {
+    background-color: #eef5f4;
+    border-radius: 32px;
+    padding: 36px;
+    min-width: 260px;
+    text-align: center;
+}
+
+.admin-card h2 {
+    font-size: 64px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.admin-card p {
+    font-size: 22px;
+    color: #333;
+}
