@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
-from services.mesas import obtener_mesas_con_estado
-from services.reservas import crear_reserva as crear_reserva_service
+from backend.services.mesas import obtener_mesas_con_estado
+from backend.services.mesas import obtener_mesas_con_estado
 
 reservas_bp = Blueprint("reservas", __name__)
 
