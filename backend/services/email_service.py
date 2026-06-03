@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Función para enviar un correo electrónico
-def enviar_email_confirmacion(reserva, ruta_qr):
+def enviar_email_confirmacion(reserva, qr_buffer):
     try:
         email_host = os.getenv("EMAIL_HOST")
         email_port = int(os.getenv("EMAIL_PORT"))
@@ -40,6 +40,9 @@ def enviar_email_confirmacion(reserva, ruta_qr):
         )
         with smtplib.SMTP(email_host, email_port) as server:
             server.starttls()
+            print("EMAIL_USER:", email_user)
+            print("EMAIL_PASSWORD:", email_password)
+            print("EMAIL_PORT:", email_port)
             server.login(email_user, email_password)
             server.send_message(msg)
         return True
