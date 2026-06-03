@@ -97,7 +97,7 @@ INSERT INTO mesas
 VALUES
 (1,2,'interior','disponible'),
 (2,4,'interior','disponible'),
-(3,6,'exterior','ocupada'),
+(3,6,'exterior','disponible'),
 (4,2,'exterior','disponible'),
 (5,8,'interior','disponible');
 
