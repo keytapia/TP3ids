@@ -3,7 +3,8 @@ from flask import request, jsonify, Blueprint
 from services.menu_service import (
     listar_menu,
     obtener_plato_id,
-    listar_menu_por_categoria
+    listar_menu_por_categoria, 
+    listar_categorias
 )
 
 menu_bp = Blueprint('menu', __name__)
@@ -33,3 +34,8 @@ def get_plato(plato_id):
         return jsonify({"message": "EL plato no pudo ser encontrado"}), 404
     
     return jsonify(plato), 200
+
+@menu_bp.route('/api/categorias', methods=['GET'])
+def get_categorias():
+    categorias = listar_categorias()
+    return jsonify(categorias), 200

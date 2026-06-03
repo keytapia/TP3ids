@@ -131,23 +131,13 @@ def get_disponibilidad():
 
 #crear reserva para un cliente, si no tiene cuenta, se crea automaticamente, tomando su email para saber a que id de usuario corresponde
 @reservas_bp.route("/api/reservas", methods=["POST"])
-def crear_reserva():
+def post_reserva():
     datos = request.get_json()
 
     # Validar datos de la reserva
     error = validar_reserva(datos)
     if error:
         return error
-
-    # Buscar o crear usuario cliente
-    usuario = buscar_usuario_por_email(datos["email"])
-    if not usuario:
-        usuario = crear_usuario_cliente(
-            nombre=datos["nombre"],
-            apellido=datos["apellido"],
-            email=datos["email"],
-            telefono=datos["telefono"]
-        )
 
     # Buscar mesa disponible
     mesa = buscar_mesa_disponible(

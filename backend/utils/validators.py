@@ -68,8 +68,8 @@ def validar_email(email):
 
 def validar_fecha(fecha):
     try:
-        # ACEPTAMOS FECHAS DE TIPO "dd/mm/yyyy"
-        datetime.strptime(fecha, "%d/%m/%Y")
+        # ACEPTAMOS FECHAS DE TIPO "yyyy-mm-dd"
+        datetime.strptime(fecha, "%Y-%m-%d")
         return True
     except ValueError:
         # Si ocurre un error de conversión, la fecha no es válida

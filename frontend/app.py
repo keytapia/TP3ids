@@ -27,6 +27,7 @@ from routes.admin.configuracion import configuracion_bp
 
 
 app = Flask(__name__)
+app.secret_key = "Nazarestaurante"
 
 # Blueprints para rutas públicas
 app.register_blueprint(inicio_bp)

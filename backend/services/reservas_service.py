@@ -3,7 +3,10 @@ from flask import jsonify
 from db import obtener_conexion
 
 from datetime import date, timedelta
-
+from services.usuarios_service import buscar_usuario_por_email, crear_usuario_cliente
+from services.qr_service import crear_qr_reserva
+from services.email_service import enviar_email_confirmacion
+from utils.validators import errores_api
 
 # Mostrar todas las reservas
 def listar_reservas():
@@ -243,13 +246,37 @@ def cancelar_reserva(reserva_id):
 
 
 # Crear reserva
-def crear_reserva(usuario_id, mesa_id, fecha, horario, cantidad_personas, notas_adicionales=""):
+def crear_reserva(
+        nombre,
+        apellido,
+        email,
+        telefono,
+        mesa_id,
+        fecha,
+        horario,
+        cantidad_personas,
+        notas_adicionales=""
+):
+
+    usuario = buscar_usuario_por_email(email)
+    if not usuario:
+            usuario = crear_usuario_cliente(
+                nombre=nombre,
+                apellido=apellido,
+                email=email,
+                telefono=telefono
+            )
+    if not usuario:
+        return None
+        
+    usuario_id = usuario["id"]
 
     conexion = obtener_conexion()
     cursor = conexion.cursor(dictionary=True)
 
-    consulta = """
-        INSERT INTO reservas (
+    try:
+        consulta = """
+         INSERT INTO reservas (
             usuario_id,
             mesa_id,
             fecha,
@@ -257,13 +284,13 @@ def crear_reserva(usuario_id, mesa_id, fecha, horario, cantidad_personas, notas_
             cantidad_personas,
             notas_adicionales,
             estado
-        )
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-    """
+          )
+          VALUES (%s, %s, %s, %s, %s, %s, %s)
+        """
 
-    cursor.execute(
-        consulta,
-        (
+        cursor.execute(
+          consulta,
+          (
             usuario_id,
             mesa_id,
             fecha,
@@ -271,23 +298,37 @@ def crear_reserva(usuario_id, mesa_id, fecha, horario, cantidad_personas, notas_
             cantidad_personas,
             notas_adicionales,
             "confirmada"
+          )
         )
-    )
 
-    conexion.commit()
+        conexion.commit()
 
-    nuevo_id = cursor.lastrowid
+        nuevo_id = cursor.lastrowid
 
-    cursor.close()
-    conexion.close()
-
-    return {
-        "id": nuevo_id,
-        "mesa_id": mesa_id,
-        "fecha": fecha,
-        "horario": horario,
-        "cantidad_personas": cantidad_personas,
-        "notas_adicionales": notas_adicionales,
-        "estado": "confirmada"
-    }
-
+        reserva = {
+            "id": nuevo_id,
+            "usuario_id": usuario_id,
+            "nombre": nombre,
+            "apellido": apellido,
+            "email": email,
+            "telefono": telefono,
+            "mesa_id": mesa_id,
+            "fecha": fecha,
+            "horario": horario,
+            "cantidad_personas": cantidad_personas,
+            "notas_adicionales": notas_adicionales,
+            "estado": "confirmada"
+        }
+        qr_buffer = crear_qr_reserva(reserva)
+        email_enviado = enviar_email_confirmacion(reserva, qr_buffer)
+        reserva["email_enviado"] = email_enviado
+        return reserva
+        
+    except Exception as error:
+        print("Error al crear reserva", error)
+        conexion.rollback()
+        return None
+    
+    finally:
+        cursor.close()
+        conexion.close()

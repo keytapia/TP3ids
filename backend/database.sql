@@ -7,7 +7,7 @@ CREATE TABLE usuarios (
     apellido VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     telefono VARCHAR(20) NOT NULL,
-    contraseña VARCHAR(255) DEFAULT NULL,
+    contrasena VARCHAR(255) NULL DEFAULT NULL,
     rol ENUM('cliente', 'admin') DEFAULT 'cliente'
 );
 
