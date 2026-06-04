@@ -1,5 +1,10 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
 
+from services.reservas import (
+    crear_reserva as crear_reserva_service,
+    obtener_mesas_por_estado as obtener_mesas_con_estado
+)
+
 reservas_bp = Blueprint("reservas", __name__)
 
 
@@ -32,12 +37,17 @@ def reservas():
             flash("Los datos de la reserva no son válidos.")
             return redirect(url_for("reservas.reservas"))
 
-        mesas = obtener_mesas_con_estado(
+        resultado_mesas = obtener_mesas_con_estado(
             fecha=fecha,
             horario=horario,
             cantidad_personas=cantidad_personas
         )
 
+        if not resultado_mesas.get("ok"):
+            flash("Error al verificar la disponibilidad de mesas.")
+            return redirect(url_for("reservas.reservas"))
+        
+        mesas = resultado_mesas.get("data", [])
         mesa_elegida = None
 
         for mesa in mesas:
@@ -99,10 +109,12 @@ def mesas_disponibles():
             "error": "Debe seleccionar fecha, horario y cantidad de personas."
         }), 400
 
-    mesas = obtener_mesas_con_estado(
+    resultado = obtener_mesas_con_estado(
         fecha=fecha,
         horario=horario,
         cantidad_personas=cantidad_personas
     )
 
-    return jsonify(mesas), 200
+    if not resultado.get("ok"):
+        return jsonify(resultado), 500
+    return jsonify(resultado["data"]), 200
