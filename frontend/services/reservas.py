@@ -34,17 +34,14 @@ def crear_reserva(
             timeout=10
         )
 
-        try:
-            respuesta_json = response.json()
-        except ValueError:
-            respuesta_json = {"ok": False, "error": "Respuesta del backend no es JSON"}
-
         if response.status_code == 201:
-            return {"ok": True, "data": respuesta_json}
-        
-        print(f"Error al crear reserva: {response.status_code} - {response.text}")
+            print("Reserva creada exitosamente:", response.json())
+            return {"ok": True, "data": response.json()}
 
-        return {"ok": False, "error": respuesta_json}
+        print("ERROR AL CREAR RESERVA")
+        print("STATUS:", response.status_code)
+        print("RESPUESTA BACKEND:", response.text)
+        return {"ok": False, "error": response.text}
 
     except requests.exceptions.ConnectionError:
         return {"ok": False, "error": "No se pudo conectar con el backend."}
@@ -67,8 +64,6 @@ def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
 
         if response.status_code == 200:
             return {"ok": True, "data": response.json()}
-        
-        print(f"Error al obtener mesas por estado: {response.status_code} - {response.text}")
 
         return {"ok": False, "error": response.text}
 

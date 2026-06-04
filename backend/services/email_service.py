@@ -1,4 +1,3 @@
-from db import obtener_conexion
 import os
 import smtplib
 from email.message import EmailMessage
@@ -13,6 +12,11 @@ def enviar_email_confirmacion(reserva, qr_buffer):
         email_port = int(os.getenv("EMAIL_PORT"))
         email_user = os.getenv("EMAIL_USER")
         email_password = os.getenv("EMAIL_PASSWORD")
+
+        if not email_host or not email_port or not email_user or not email_password:
+            return False
+        
+        email_port = int(email_port)
 
         msg = EmailMessage()
         msg['Subject'] = 'Tu resserva en "NAZA" ha sido confirmada'
@@ -32,6 +36,8 @@ def enviar_email_confirmacion(reserva, qr_buffer):
         """
         msg.set_content(cuerpo)
 
+        qr_buffer.seek(0)
+
         msg.add_attachment(
             qr_buffer.read(),
             maintype='image',
@@ -40,9 +46,6 @@ def enviar_email_confirmacion(reserva, qr_buffer):
         )
         with smtplib.SMTP(email_host, email_port) as server:
             server.starttls()
-            print("EMAIL_USER:", email_user)
-            print("EMAIL_PASSWORD:", email_password)
-            print("EMAIL_PORT:", email_port)
             server.login(email_user, email_password)
             server.send_message(msg)
         return True

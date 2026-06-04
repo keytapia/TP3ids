@@ -28,7 +28,7 @@ def reservas():
 
         if not mesa_id:
             flash("Tenés que seleccionar una mesa disponible.")
-            return redirect(url_for("reservas.reservas"))
+            return redirect(url_for("reservas.reservas", fecha=fecha, horario=horario, cantidad_personas=cantidad_personas))
 
         try:
             cantidad_personas = int(cantidad_personas)
@@ -57,11 +57,11 @@ def reservas():
 
         if not mesa_elegida:
             flash("La mesa seleccionada no existe.")
-            return redirect(url_for("reservas.reservas"))
+            return redirect(url_for("reservas.reservas", fecha=fecha, horario=horario, cantidad_personas=cantidad_personas))
 
         if not mesa_elegida["seleccionable"]:
             flash("La mesa seleccionada no está disponible para esa fecha, horario o cantidad de personas.")
-            return redirect(url_for("reservas.reservas"))
+            return redirect(url_for("reservas.reservas", fecha=fecha, horario=horario, cantidad_personas=cantidad_personas))
 
         resultado = crear_reserva_service(
             nombre,
@@ -92,29 +92,27 @@ def reservas():
 
     mensaje = request.args.get("mensaje")
 
-    return render_template(
-        "reservas.html",
-        mensaje=mensaje
-    )
-
-
-@reservas_bp.route("/api/mesas-disponibles", methods=["GET"])
-def mesas_disponibles():
     fecha = request.args.get("fecha")
     horario = request.args.get("horario")
     cantidad_personas = request.args.get("cantidad_personas")
 
-    if not fecha or not horario or not cantidad_personas:
-        return jsonify({
-            "error": "Debe seleccionar fecha, horario y cantidad de personas."
-        }), 400
-
-    resultado = obtener_mesas_con_estado(
+    mesas=[]
+    if fecha and horario and cantidad_personas:
+        resultado = obtener_mesas_con_estado(
+            fecha=fecha,
+            horario=horario,
+            cantidad_personas=cantidad_personas
+        )
+        if resultado.get("ok"):
+            mesas = resultado.get("data", [])
+        else:
+            flash("Error al verificar la disponibilidad de mesas.")
+    
+    return render_template(
+        "reservas.html",
+        mensaje=mensaje,
+        mesas=mesas,
         fecha=fecha,
         horario=horario,
         cantidad_personas=cantidad_personas
     )
-
-    if not resultado.get("ok"):
-        return jsonify(resultado), 500
-    return jsonify(resultado["data"]), 200
