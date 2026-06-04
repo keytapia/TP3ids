@@ -56,7 +56,7 @@ def patch_cancelar_reserva(id):
     }), 200
 
 # Obtener mesas por estado
-@reservas_bp.route("/api/mesas-por-estado", methods=["GET"])
+@reservas_bp.route("/api/mesas-disponibles", methods=["GET"])
 def get_mesas_por_estado():
 
     fecha = request.args.get("fecha")

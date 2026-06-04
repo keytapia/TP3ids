@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
-from backend.services.mesas import obtener_mesas_con_estado
 
 reservas_bp = Blueprint("reservas", __name__)
 

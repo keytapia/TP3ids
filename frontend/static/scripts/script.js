@@ -82,7 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            const url = `http://127.0.0.1:5000/api/mesas-disponibles?fecha=${fecha}&horario=${horario}&cantidad_personas=${cantidadPersonas}`;
+            const params = new URLSearchParams({
+                fecha: fecha,
+                horario: horario,
+                cantidad_personas: cantidadPersonas
+            });
+            const url = `http://127.0.0.1:5000/api/mesas-disponibles?${params.toString()}`;
 
             const respuesta = await fetch(url);
 

@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 
 from dotenv import (
     load_dotenv
@@ -25,7 +26,7 @@ from routes.admin_routes import admin_bp
 load_dotenv()
 
 app = Flask(__name__)
-
+CORS(app)  # Habilita CORS para todas las rutas
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY") # La clave que vamos a usar para mantener la sesión del usuario
 
 # Blueprints para rutas públicas
