@@ -233,11 +233,15 @@ def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
             m.capacidad,
             m.estado,
             CASE
+                WHEN r.id IS NOT NULL THEN TRUE
+                ELSE FALSE
+            END AS reservada,
+            CASE
                 WHEN r.id IS NULL THEN TRUE
                 ELSE FALSE
-            END AS seleccionable
+            END AS seleccionable,
             CASE
-                WHEN m.cantidad_personas >= %s THEN TRUE
+                WHEN m.capacidad >= %s THEN TRUE
                 ELSE FALSE
             END AS capacidad_suficiente
         FROM mesas m
@@ -259,8 +263,7 @@ def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
     for mesa in mesas:
         mesa["reservada"] = bool(mesa["reservada"])
         mesa["capacidad_suficiente"] = bool(mesa["capacidad_suficiente"])
-        mesa["seleccionable"] = (mesa["estado"] == "disponible" and (not mesa["reservada"]) and mesa["capacidad_suficiente"]
-        )
+        mesa["seleccionable"] = (mesa["estado"] == "disponible" and (not mesa["reservada"]) and mesa["capacidad_suficiente"])
 
     cursor.close()
     conexion.close()

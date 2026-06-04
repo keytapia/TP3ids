@@ -55,14 +55,13 @@ def crear_reserva(
 
 def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
     try:
-        params = {
-            "fecha": fecha,
-            "horario": horario,
-            "cantidad_personas": cantidad_personas
-        }
         response = requests.get(
             f"{API_BACKEND_URL}/api/mesas-disponibles",
-            params=params,
+            params = {
+                "fecha": fecha,
+                "horario": horario,
+                "cantidad_personas": cantidad_personas
+            },
             timeout=10
         )
 
@@ -70,7 +69,8 @@ def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
             return {"ok": True, "data": response.json()}
         
         print(f"Error al obtener mesas por estado: {response.status_code} - {response.text}")
-        return {"ok": False, "error": response.json()}
+
+        return {"ok": False, "error": response.text}
 
     except requests.exceptions.ConnectionError:
         return {"ok": False, "error": "No se pudo conectar con el backend."}
