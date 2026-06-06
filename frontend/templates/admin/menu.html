@@ -1,11 +1,122 @@
 {% extends "admin/base_admin.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Menú - NAZA Admin{% endblock %}
 
 {% block content %}
 
+<h1 class="admin-page-title">Menú</h1>
+<p class="admin-page-subtitle">Administra los platos y bebidas de tu restaurante.</p>
 
-    <h2>Menu</h2>
+<div class="admin-tabs">
+    {% for categoria in categorias %}
+    <a href="?categoria={{ categoria.id }}"
+       class="admin-tab {% if categoria_activa == categoria.id %}active{% endif %}">
+        {{ categoria.nombre | upper }}
+    </a>
+    {% endfor %}
+</div>
 
+<div class="admin-tabla-card">
+    <table class="admin-tabla">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Plato</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if platos %}
+                {% for plato in platos %}
+                <tr>
+                    <td>
+                        {% if plato.imagen %}
+                            <img src="{{ url_for('static', filename='images/' + plato.imagen) }}"
+                                 class="admin-plato-img" alt="{{ plato.nombre }}">
+                        {% else %}
+                            <div class="admin-plato-img-placeholder">Sin imagen</div>
+                        {% endif %}
+                    </td>
+                    <td>{{ plato.nombre }}</td>
+                    <td>{{ plato.categoria }}</td>
+                    <td>${{ plato.precio }}</td>
+                    <td>
+                        <button class="admin-btn-editar"
+                                data-plato="{{ plato | tojson | safe }}"
+                                onclick="abrirModalEditar(this)">
+                            EDITAR
+                        </button>
+                        <button class="admin-btn-eliminar"
+                                data-id="{{ plato.id }}"
+                                onclick="eliminarPlato(this)">
+                            ELIMINAR
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="5">No hay platos en esta categoría.</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
+<div class="admin-acciones-bottom">
+    <button class="admin-btn-primario" onclick="abrirModalAgregar()">+ AGREGAR PLATO</button>
+</div>
+
+<!-- Modal agregar/editar plato -->
+<div class="admin-modal" id="modal-plato" style="display:none;">
+    <div class="admin-modal-card admin-modal-grande">
+        <h2 id="modal-plato-titulo">+ AGREGAR PLATO</h2>
+        <input type="hidden" id="plato-id">
+        <div class="admin-modal-grilla">
+            <div class="admin-modal-imagen">
+                <p><strong>Imagen.</strong></p>
+                <div class="admin-imagen-preview" id="imagen-preview">Sin imagen</div>
+                <input type="file" id="plato-imagen" accept="image/*" style="display:none"
+                       onchange="previewImagen(this)">
+                <button class="admin-btn-secundario"
+                        onclick="document.getElementById('plato-imagen').click()">
+                    CAMBIAR IMAGEN
+                </button>
+            </div>
+            <div class="admin-modal-campos">
+                <div class="admin-campo-grupo">
+                    <label>Nombre del plato.</label>
+                    <input type="text" id="plato-nombre" placeholder="Nombre del plato...">
+                </div>
+                <div class="admin-campo-grupo">
+                    <label>Precio.</label>
+                    <input type="number" id="plato-precio" placeholder="0">
+                </div>
+                <div class="admin-campo-grupo">
+                    <label>Descripción.</label>
+                    <textarea id="plato-descripcion" placeholder="Agrega una descripción..."></textarea>
+                </div>
+                <div class="admin-campo-grupo">
+                    <label>Restricciones alimenticias.</label>
+                    <input type="text" id="plato-restricciones" placeholder="Ej: vegano, sin TACC, etc.">
+                </div>
+                <div class="admin-campo-grupo">
+                    <label>Categoría.</label>
+                    <select id="plato-categoria">
+                        <option value="">Elija la categoría de su plato</option>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="admin-modal-botones">
+            <button class="admin-btn-secundario" onclick="cerrarModalPlato()">CANCELAR</button>
+            <button class="admin-btn-primario" onclick="guardarPlato()">GUARDAR</button>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 {% endblock %}

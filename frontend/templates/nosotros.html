@@ -4,5 +4,41 @@
 {% block titulo %}Nosotros{% endblock %}
 
 {% block contenido_body %}
-    <h2>Nosotros</h2>
+
+<section class="banner banner-nosotros">
+    <div class="banner-fondo-para-imagen">
+        <div class="banner-contenido">
+            <h1>NAZA RESTAURANTE</h1>
+        </div>
+    </div>
+</section>
+
+<section class="nosotros-container">
+
+    <p class="nosotros-descripcion">
+        Naza nace de la convicción de que una gran comida es, ante todo, un acto de respeto: 
+        hacia el producto, hacia el tiempo y hacia quien se sienta a la mesa. En el corazón 
+        de Buenos Aires, hemos creado un refugio donde la sofisticación técnica se encuentra 
+        con la calidez de lo auténtico. No solo servimos platos; curamos momentos que merecen 
+        ser celebrados.
+    </p>
+
+    <div class="nosotros-servicios">
+        <h2>Nuestros servicios.</h2>
+        <ul class="servicios-lista">
+            {% if servicios %}
+                {% for servicio in servicios %}
+                    <li>{{ servicio.nombre }}</li>
+                {% endfor %}
+            {% else %}
+                <li>Wi-Fi</li>
+                <li>Estacionamiento</li>
+                <li>Acceso para discapacitados</li>
+                <li>Terraza</li>
+            {% endif %}
+        </ul>
+    </div>
+
+</section>
+
 {% endblock %}
