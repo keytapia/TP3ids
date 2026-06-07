@@ -56,10 +56,10 @@ Para comenzar, debera crear tres entornos virtuales, uno dentro de cada una de l
 - `TP3ids/frontend`
 
   Por si no sabe como iniciarlos, aqui dejamos un pequeño instructivo:
-  - Ejecute: sudo apt install python3-venv . En caso de no tenerlo
+  - Ejecute: sudo apt install python3-venv (En caso de no tenerlo)
   - Estando dentro de las respectivas carpetas ejecute;
-      python3 -m venv .venv
-      source .venv/bin/activate
+      - python3 -m venv .venv
+      - source .venv/bin/activate
     
 Adentro de `TP3ids/backend` cree un archivo .env en donde debera poner lo siguiente:
 - SECRET_KEY=Nazarestaurante
