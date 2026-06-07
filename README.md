@@ -15,7 +15,6 @@ El desarrollo del mismo contempla Backend, Frontend, Base de datos MySQL, y se e
 | 112615     | NAYA NICOLAS     | Camila Rocío         |
 | 115403     | NOVILLO          | Marilyn Jessenia     |
 | 106820     | SCALISE          | Federico Nahuel      |
-| 112048     | SILVA            | Franco Gabriel       |
 | 115130     | TAPIA            | Keyla                |
 
 # Sitio web gastronómico con reserva
@@ -47,6 +46,9 @@ La persistencia de datos se realizará utilizando una base de datos MySQL.
 - `docs/` → Documentación, backlog y mockup del proyecto.
 
 ### **¿Como iniciar la app?**
+
+Como requisito previo debera tener mysql instalado con una contraseña propia, en caso de no tener le dejamos un link informativo:
+https://www.conchaalviz.com/blog/como-habilitar-contrasena-para-el-root-de-mysql-en-linux/
 
 Para comenzar, debera crear tres entornos virtuales, uno dentro de cada una de las siguientes carpetas:
 - `TP3ids/`
