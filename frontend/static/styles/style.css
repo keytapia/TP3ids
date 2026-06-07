@@ -1106,3 +1106,130 @@ body {
     font-size: 22px;
     color: #333;
 }
+
+
+/*=====================================================================================*/
+/*----------------------------------- PÁGINA DE LOGIN ---------------------------------*/
+/*=====================================================================================*/
+
+.login-container{
+
+    min-height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: #7f1f1f;
+
+}
+
+.login-card{
+    
+    width:500px;
+    background:#f2e3e3;
+    border-radius:25px;
+    padding:50px;
+    display:flex;
+    flex-direction:column;
+    
+
+}
+
+.login-logo{
+
+    width: 120px;
+    display: block;
+    margin:0 auto 30px auto;
+}
+
+
+.login-card form{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.login-card label{
+
+    font-weight: bold;
+    color: #222;
+}
+.login-card input{
+
+    border:none;
+    border-radius:30px;
+    padding:15px;
+}
+
+.login-card a{
+
+    color:#222;
+    text-decoration:none;
+    font-weight:bold;
+    text-align:right;
+}
+
+.login-card a:hover{
+
+    color:#000;
+    text-decoration:underline;
+}
+
+.login-card button{
+
+    margin-top:20px;
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:15px;
+
+    background:#7f1f1f;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* ---------- LOGIN EXITOSO ---------- */
+
+.welcome-container{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#7f1f1f;
+}
+
+.welcome-card{
+
+    width:500px;
+
+    background:#f2e3e3;
+
+    border-radius:25px;
+
+    padding:50px;
+
+    text-align:center;
+}
+
+.welcome-card h1{
+
+    color:#7f1f1f;
+
+    margin-bottom:20px;
+}
+
+.welcome-card p{
+
+    color:#222;
+    font-family:'Poppins',sans-serif;
+    font-size:18px;
+}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+Bienvenido
+{% endblock %}
+
+{% block contenido_body %}
+
+<div class="welcome-container">
+
+    <div class="welcome-card">
+
+        <h1>
+            ¡BIENVENIDO!
+        </h1>
+
+        <p>
+            Redirigiendo al panel de administrador...
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+    setTimeout(function() {window.location.href = "/admin/dashboard";}, 3000);
+
+</script>
+
+{% endblock %}
