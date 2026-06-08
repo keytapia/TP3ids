@@ -166,7 +166,14 @@
 
             <div class="campo">
                 <label for="fecha">FECHA</label>
-                <input type="date" id="fecha" name="fecha" value="{{ fecha or '' }}" required>
+                <input
+                    type="date"
+                    id="fecha"
+                    name="fecha"
+                    value="{{ fecha or '' }}"
+                    min="{{ fecha_actual }}"
+                    required
+                >
             </div>
 
             <div class="campo">

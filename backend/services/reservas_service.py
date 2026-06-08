@@ -2,7 +2,7 @@ from flask import jsonify
 
 from db import obtener_conexion
 
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from services.usuarios_service import buscar_usuario_por_email, crear_usuario_cliente
 from services.qr_service import crear_qr_reserva
 from services.email_service import enviar_email_confirmacion
@@ -324,6 +324,13 @@ def crear_reserva(
     cursor = conexion.cursor(dictionary=True)
 
     try:
+
+        fecha_reserva = datetime.strptime(fecha, "%Y-%m-%d").date()
+        fecha_actual = datetime.now().date()
+
+        if fecha_reserva < fecha_actual:
+            raise ValueError("La fecha de la reserva no puede ser anterior a la fecha actual.")
+
         consulta = """
          INSERT INTO reservas (
             usuario_id,
@@ -372,7 +379,11 @@ def crear_reserva(
         email_enviado = enviar_email_confirmacion(reserva, qr_buffer)
         reserva["email_enviado"] = email_enviado
         return reserva
-        
+
+    except ValueError as error:
+        conexion.rollback()
+        return {"error": str(error)}   
+
     except Exception as error:
         print("Error al crear reserva", error)
         conexion.rollback()
