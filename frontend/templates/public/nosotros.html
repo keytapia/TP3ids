@@ -1,8 +1,62 @@
 <!---------- Nosotros ---------->
 {% extends "public/base.html" %}
 
-{% block titulo %}Nosotros{% endblock %}
+{% block titulo %}
+Nosotros - Naza Restaurante
+{% endblock %}
 
 {% block contenido_body %}
-    <h2>Nosotros</h2>
+
+<section class="nosotros-container">
+
+    <div class="nosotros-header">
+
+        <h1>Sobre Nosotros</h1>
+
+        <p>
+            Una historia inspirada por nuestro querido gato Naza.
+        </p>
+
+    </div>
+
+    <div class="nosotros-imagen">
+
+        <img
+            src="{{ url_for('static', filename='images/naza1.jpg') }}"
+            alt="Naza, el gato que inspiró el restaurante xd">
+
+    </div>
+
+    <div class="nosotros-contenido">
+
+        <h2>La inspiración detrás de Naza Restaurante</h2>
+
+        <p>
+            Naza Restaurante nace de una idea simple: crear un espacio cálido,
+            familiar y acogedor donde cada persona pueda disfrutar de buena
+            comida y buenos momentos.
+        </p>
+
+        <p>
+            Nuestro nombre está inspirado en Naza, un gato muy especial que
+            representa la tranquilidad, la compañía y la personalidad única que
+            buscamos transmitir en cada rincón del restaurante.
+        </p>
+
+        <p>
+            Creemos que una experiencia gastronómica va más allá de los platos.
+            Por eso trabajamos día a día para ofrecer un ambiente agradable,
+            atención cercana y recetas elaboradas con dedicación.
+        </p>
+
+        <p>
+            Desde nuestras entradas hasta los postres, cada propuesta está
+            pensada para compartir momentos inolvidables con amigos, familia o
+            simplemente disfrutar de una buena comida.
+        </p>
+
+    </div>
+
+</section>
+
 {% endblock %}

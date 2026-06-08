@@ -35,7 +35,7 @@
 
         <div class="card-menu">
 
-            <img src="{{ plato.imagen }}" alt="{{ plato.nombre }}">
+            <img src="{{ url_for('static', filename='images/' ~ plato.imagen) }}">
 
             <div class="contenido-card">
                 <h3>{{ plato.nombre }}</h3>
