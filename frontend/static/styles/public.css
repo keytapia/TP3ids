@@ -965,35 +965,6 @@ footer a:hover {
 /*------------------------------------- PÁGINA DE NOSOTROS -------------------------------------*/
 /*==============================================================================================*/
 
-.nosotros-container {
-
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 40px;
-
-}
-
-.nosotros-header {
-
-    text-align: center;
-    margin-bottom: 50px;
-
-}
-
-.nosotros-header h1 {
-
-    font-size: 52px;
-    margin-bottom: 16px;
-
-}
-
-.nosotros-header p {
-
-    font-size: 22px;
-    color: #666;
-
-}
-
 .nosotros-imagen {
 
     display: flex;
@@ -1011,28 +982,40 @@ footer a:hover {
 
 }
 
-.nosotros-contenido {
+.banner-nosotros {
+    height: 220px;
+}
 
+.nosotros-container {
     max-width: 900px;
     margin: 0 auto;
-
-}
-
-.nosotros-contenido h2 {
-
+    padding: 60px 40px;
     text-align: center;
-    font-size: 34px;
-    margin-bottom: 24px;
-
 }
 
-.nosotros-contenido p {
-
-    font-size: 20px;
+.nosotros-descripcion {
+    font-size: 1.1rem;
     line-height: 1.8;
-    margin-bottom: 22px;
-    text-align: justify;
+    color: #444;
+    margin-bottom: 50px;
+}
 
+.nosotros-servicios h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.servicios-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.servicios-lista li {
+    font-size: 1.1rem;
+    color: #333;
 }
 
 
@@ -1040,7 +1023,53 @@ footer a:hover {
 /*--------------------------------- PÁGINA DE CONTACTO --------------------------------*/
 /*=====================================================================================*/
 
-/* Acá van los estilos para la página de contacto */
+.contacto-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.contacto-container h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+}
+
+.contacto-redes {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 60px;
+}
+
+.red-social {
+    font-size: 2.5rem;
+    color: #222;
+    transition: color 0.2s;
+}
+
+.red-social:hover {
+    color: #700c00;
+}
+
+.contacto-info {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.contacto-item h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.contacto-item p {
+    font-size: 1rem;
+    color: #444;
+}
 
 
 /*=====================================================================================*/

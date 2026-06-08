@@ -1,23 +1,19 @@
 <!---------- Nosotros ---------->
 {% extends "public/base.html" %}
 
-{% block titulo %}
-Nosotros - Naza Restaurante
-{% endblock %}
+{% block titulo %}Nosotros{% endblock %}
 
 {% block contenido_body %}
 
-<section class="nosotros-container">
-
-    <div class="nosotros-header">
-
-        <h1>Sobre Nosotros</h1>
-
-        <p>
-            Una historia inspirada por nuestro querido gato Naza.
-        </p>
-
+<section class="banner banner-nosotros">
+    <div class="banner-fondo-para-imagen">
+        <div class="banner-contenido">
+            <h1>NAZA RESTAURANTE</h1>
+        </div>
     </div>
+</section>
+
+<section class="nosotros-container">
 
     <div class="nosotros-imagen">
 
@@ -27,34 +23,33 @@ Nosotros - Naza Restaurante
 
     </div>
 
-    <div class="nosotros-contenido">
+    <p class="nosotros-descripcion">
+        Naza nace de la convicción de que una gran comida es, ante todo, un acto de respeto: 
+        hacia el producto, hacia el tiempo y hacia quien se sienta a la mesa. En el corazón 
+        de Buenos Aires, hemos creado un refugio donde la sofisticación técnica se encuentra 
+        con la calidez de lo auténtico. No solo servimos platos; curamos momentos que merecen 
+        ser celebrados.
+    </p>
+    <p class="nosotros-descripcion">
+        Nuestro nombre está inspirado en Naza, un gato muy especial que
+        representa la tranquilidad, la compañía y la personalidad única que
+        buscamos transmitir en cada rincón del restaurante.
+    </p>
 
-        <h2>La inspiración detrás de Naza Restaurante</h2>
-
-        <p>
-            Naza Restaurante nace de una idea simple: crear un espacio cálido,
-            familiar y acogedor donde cada persona pueda disfrutar de buena
-            comida y buenos momentos.
-        </p>
-
-        <p>
-            Nuestro nombre está inspirado en Naza, un gato muy especial que
-            representa la tranquilidad, la compañía y la personalidad única que
-            buscamos transmitir en cada rincón del restaurante.
-        </p>
-
-        <p>
-            Creemos que una experiencia gastronómica va más allá de los platos.
-            Por eso trabajamos día a día para ofrecer un ambiente agradable,
-            atención cercana y recetas elaboradas con dedicación.
-        </p>
-
-        <p>
-            Desde nuestras entradas hasta los postres, cada propuesta está
-            pensada para compartir momentos inolvidables con amigos, familia o
-            simplemente disfrutar de una buena comida.
-        </p>
-
+    <div class="nosotros-servicios">
+        <h2>Nuestros servicios.</h2>
+        <ul class="servicios-lista">
+            {% if servicios %}
+                {% for servicio in servicios %}
+                    <li>{{ servicio.nombre }}</li>
+                {% endfor %}
+            {% else %}
+                <li>Wi-Fi</li>
+                <li>Estacionamiento</li>
+                <li>Acceso para discapacitados</li>
+                <li>Terraza</li>
+            {% endif %}
+        </ul>
     </div>
 
 </section>
