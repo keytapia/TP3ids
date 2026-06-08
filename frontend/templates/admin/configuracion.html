@@ -1,0 +1,122 @@
+<!---Configuración--->
+{% extends "admin/base.html" %}
+
+{% block title %}Configuración - NAZA Admin{% endblock %}
+
+{% block content %}
+
+<h1 class="admin-page-title">Configuraciones.</h1>
+<p class="admin-page-subtitle">Personaliza el sitio web de tu restaurante.</p>
+
+<div class="admin-tabs">
+    <button class="admin-tab active" onclick="mostrarTab('general', this)">GENERAL</button>
+    <button class="admin-tab" onclick="mostrarTab('apariencia', this)">APARIENCIA</button>
+</div>
+
+<!-- TAB GENERAL -->
+<div id="tab-general" class="admin-config-section">
+    <div class="admin-config-grilla">
+
+        <div class="admin-campo-grupo">
+            <label>Nombre</label>
+            <input type="text" id="config-nombre" value="{{ config.nombre or 'Naza Restaurante' }}">
+        </div>
+
+        <div class="admin-campo-grupo">
+            <label>Email</label>
+            <input type="email" id="config-email" value="{{ config.email or 'restaurante@naza.com' }}">
+        </div>
+
+        <div class="admin-campo-grupo admin-campo-logo">
+            <label>Logo</label>
+            <div class="admin-logo-preview">
+                <span>NAZA</span>
+                <small>RESTAURANTE</small>
+            </div>
+            <button class="admin-btn-primario">CAMBIAR LOGO</button>
+        </div>
+
+        <div class="admin-campo-grupo">
+            <label>Teléfono</label>
+            <input type="text" id="config-telefono" value="{{ config.telefono or '11 2345 - 6789' }}">
+        </div>
+
+        <div class="admin-campo-grupo">
+            <label>Ubicación</label>
+            <input type="text" id="config-ubicacion" value="{{ config.ubicacion or 'Av. XXXXXXX 123' }}">
+        </div>
+
+        <div class="admin-campo-grupo">
+            <label>Horario</label>
+            <input type="text" id="config-horario" placeholder="Agregar horario...">
+        </div>
+
+    </div>
+    <div class="admin-acciones-bottom">
+        <button class="admin-btn-primario" onclick="guardarGeneral()">GUARDAR CAMBIOS</button>
+    </div>
+</div>
+
+<!-- TAB APARIENCIA -->
+<div id="tab-apariencia" class="admin-config-section" style="display:none;">
+    <div class="admin-config-grilla">
+
+        <div class="admin-campo-grupo admin-campo-imagen">
+            <label>Imagen banner principal</label>
+            <div class="admin-banner-preview">
+                <img src="{{ url_for('static', filename='images/restaurante_fondo.png') }}"
+                     alt="Banner" id="preview-banner">
+            </div>
+            <input type="file" id="input-banner" accept="image/*" style="display:none"
+                   onchange="previewBanner(this)">
+            <button class="admin-btn-primario"
+                    onclick="document.getElementById('input-banner').click()">
+                CAMBIAR IMAGEN
+            </button>
+        </div>
+
+        <div>
+            <div class="admin-campo-grupo">
+                <label>Color principal</label>
+                <div class="admin-color-picker">
+                    <input type="text" id="color-principal" value="#700c00">
+                    <input type="color" value="#700c00"
+                           oninput="document.getElementById('color-principal').value=this.value">
+                </div>
+            </div>
+            <div class="admin-campo-grupo">
+                <label>Color secundario</label>
+                <div class="admin-color-picker">
+                    <input type="text" id="color-secundario" value="#ffeaea">
+                    <input type="color" value="#ffeaea"
+                           oninput="document.getElementById('color-secundario').value=this.value">
+                </div>
+            </div>
+            <div class="admin-campo-grupo">
+                <label>Tipografía</label>
+                <select id="config-tipografia">
+                    <option value="Poppins" selected>Poppins</option>
+                    <option value="Roboto">Roboto</option>
+                    <option value="Lato">Lato</option>
+                    <option value="Montserrat">Montserrat</option>
+                </select>
+            </div>
+            <div class="admin-campo-grupo">
+                <label>Título</label>
+                <input type="text" id="config-titulo" placeholder="Agregar título...">
+            </div>
+            <div class="admin-campo-grupo">
+                <label>Subtítulo</label>
+                <input type="text" id="config-subtitulo" placeholder="Agregar subtítulo...">
+            </div>
+        </div>
+
+    </div>
+    <div class="admin-acciones-bottom">
+        <button class="admin-btn-primario" onclick="guardarApariencia()">GUARDAR CAMBIOS</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+
+{% endblock %}

@@ -1,11 +1,77 @@
+<!---Reservas--->
 {% extends "admin/base.html" %}
 
-{% block title %}Reservas{% endblock %}
+{% block title %}Reservas - NAZA Admin{% endblock %}
 
 {% block content %}
 
+<h1 class="admin-page-title">Reservas.</h1>
+<p class="admin-page-subtitle">Gestiona las reservas de tu restaurante.</p>
 
-    <h2>Reservas</h2>
+<div class="admin-tabs">
+    <a href="?estado=todas" class="admin-tab {% if estado_activo == 'todas' %}active{% endif %}">TODAS</a>
+    <a href="?estado=confirmada" class="admin-tab {% if estado_activo == 'confirmada' %}active{% endif %}">PRÓXIMAS</a>
+    <a href="?estado=cancelada" class="admin-tab {% if estado_activo == 'cancelada' %}active{% endif %}">CANCELADAS</a>
+</div>
 
+<input type="text" class="admin-buscador" placeholder="Buscar por nombre o mail...." id="buscador">
 
+<div class="admin-tabla-card">
+    <table class="admin-tabla" id="tabla-reservas">
+        <thead>
+            <tr>
+                <th>Horario</th>
+                <th>Nombre</th>
+                <th>Personas</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if reservas %}
+                {% for r in reservas %}
+                <tr>
+                    <td>
+                        <strong>{{ r.horario }}</strong><br>
+                        <small>{{ r.fecha }}</small>
+                    </td>
+                    <td>{{ r.nombre }} {{ r.apellido }}</td>
+                    <td>{{ r.cantidad_personas }}</td>
+                    <td>{{ r.email }}</td>
+                    <td>{{ r.telefono }}</td>
+                    <td>
+                        {% if r.estado == 'confirmada' %}
+                            <span class="badge-confirmada">✓</span>
+                            <button class="admin-btn-cancelar"
+                                data-plato="{{ r.id }}"
+                                onclick="abrirModalCancelar(this)">
+                                CANCELAR
+                            </button>
+                        {% else %}
+                            <span class="badge-cancelada">✗</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="6">No hay reservas.</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal cancelar reserva -->
+<div class="admin-modal" id="modal-cancelar" style="display:none;">
+    <div class="admin-modal-card">
+        <h2>Cancelar reserva.</h2>
+        <p><strong>Motivo:</strong></p>
+        <textarea id="motivo-cancelacion" placeholder="Ingrese el motivo de cancelación..."></textarea>
+        <div class="admin-modal-botones">
+            <button class="admin-btn-secundario" onclick="cerrarModal()">VOLVER</button>
+            <button class="admin-btn-primario" onclick="confirmarCancelacion()">CONFIRMAR CANCELACIÓN</button>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 {% endblock %}

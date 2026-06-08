@@ -53,6 +53,11 @@
                     Estadísticas
                 </a>
 
+                <a href="{{ url_for('configuracion_admin.configuracion') }}"
+                   class="{% if request.endpoint == 'configuracion_admin.configuracion' %}active{% endif %}">
+                    Configuración
+                </a>
+
             </nav>
 
         </aside>

@@ -21,6 +21,7 @@ from routes.admin.menu import menu_admin_bp
 from routes.admin.reseñas import reseñas_admin_bp
 from routes.admin.reservas import reservas_admin_bp
 from routes.admin.servicios import servicios_admin_bp
+from routes.admin.configuracion import configuracion_admin_bp
 
 
 app = Flask(__name__)
@@ -42,6 +43,7 @@ app.register_blueprint(menu_admin_bp)
 app.register_blueprint(reseñas_admin_bp)
 app.register_blueprint(servicios_admin_bp)
 app.register_blueprint(estadisticas_admin_bp)
+app.register_blueprint(configuracion_admin_bp)
 
 
 if __name__ == "__main__":

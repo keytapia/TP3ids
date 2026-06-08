@@ -1,11 +1,66 @@
+<!---Reseñas--->
 {% extends "admin/base.html" %}
 
-{% block title %}Reseñas{% endblock %}
+{% block title %}Reseñas - NAZA Admin{% endblock %}
 
 {% block content %}
 
+<h1 class="admin-page-title">Reseñas</h1>
+<p class="admin-page-subtitle">Gestiona las reseñas de tus clientes.</p>
 
-    <h2>Reseñas</h2>
+<div class="admin-tabs">
+    <a href="?filtro=todas" class="admin-tab {% if filtro == 'todas' %}active{% endif %}">TODAS</a>
+    <a href="?filtro=publica" class="admin-tab {% if filtro == 'publica' %}active{% endif %}">PÚBLICAS</a>
+    <a href="?filtro=oculta" class="admin-tab {% if filtro == 'oculta' %}active{% endif %}">OCULTAS</a>
+</div>
 
+<div class="admin-tabla-card">
+    <table class="admin-tabla">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Comentario</th>
+                <th>Estrellas</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if resenas %}
+                {% for r in resenas %}
+                <tr>
+                    <td>{{ r.nombre }} {{ r.apellido }}</td>
+                    <td>{{ r.comentario }}</td>
+                    <td>
+                        {% for i in range(r.puntuacion) %}
+                            <span class="estrella">★</span>
+                        {% endfor %}
+                        {% for i in range(5 - r.puntuacion) %}
+                            <span class="estrella-vacia">★</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if r.estado == 'publica' %}
+                            <span class="badge-publica">PÚBLICA</span>
+                        {% else %}
+                            <button class="admin-btn-mostrar"
+                                    onclick="cambiarEstado({{ r.id }}, 'publica')">
+                                MOSTRAR
+                            </button>
+                        {% endif %}
+                        <button class="admin-btn-eliminar"
+                                onclick="eliminarResena({{ r.id }})">
+                            ELIMINAR
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="4">No hay reseñas.</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 
 {% endblock %}
