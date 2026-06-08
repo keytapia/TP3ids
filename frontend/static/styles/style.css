@@ -1592,11 +1592,36 @@ body {
 
 /* DASHBOARD — grilla inferior */
 
-.admin-dashboard-grilla {
+.admin-dashboard-grilla{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-top: 40px;
+    grid-template-columns: 0.8fr 1fr 0.7fr;
+    row-gap: 24px;
+    column-gap: 16px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    padding-top: 10px;
+    align-items: stretch;
+}
+
+
+
+
+.dashboard-admin-tabla-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px;
+    margin-bottom: 2px;
+}
+
+
+
+.dashboard-lista-grid strong {
+    font-weight: 900;
+    font-size: 1.15rem;
+}
+
+.dashboard-lista-grid small {
+    font-size: 1rem;
 }
 
 .dashboard-resena {
