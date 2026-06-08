@@ -26,6 +26,7 @@ CREATE TABLE reservas (
     fecha DATE NOT NULL,
     horario TIME NOT NULL,
     cantidad_personas INT NOT NULL,
+    email_resena_enviada DATETIME DEFAULT NULL,
     notas_adicionales TEXT,
     estado ENUM('confirmada', 'cancelada') DEFAULT 'confirmada',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
