@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template
 
-admin_menu_bp = Blueprint("admin_menu", __name__)
+menu_admin_bp = Blueprint("menu_admin", __name__, url_prefix="/admin")
 
 
-@admin_menu_bp.route("/admin/menu")
+@menu_admin_bp.route("/menu")
 def menu():
     return render_template("admin/menu.html")

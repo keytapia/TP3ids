@@ -1,11 +1,88 @@
-{% extends "admin/base_admin.html" %}
+{% extends "admin/base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Estadísticas
+{% endblock %}
 
 {% block content %}
 
+<h1 class="estadisticas-titulo">
+    Estadísticas
+</h1>
 
-    <h2>Estadisticas</h2>
+<p class="estadisticas-subtitulo">
+    Información y métricas del restaurante
+</p>
 
+{% if error %}
+
+<p>{{ error }}</p>
+
+{% else %}
+
+<div class="estadisticas-cuadros">
+
+    <div class="estadisticas-cuadro">
+
+        <h2>
+            {{ estadisticas.reservas_totales }}
+        </h2>
+
+        <p>
+            Reservas Totales
+        </p>
+
+    </div>
+
+    <div class="estadisticas-cuadro">
+
+        <h2>
+            {{ estadisticas.cancelaciones_mes }}
+        </h2>
+
+        <p>
+            Cancelaciones Último Mes
+        </p>
+
+    </div>
+
+</div>
+
+<div class="estadisticas-graficos-cuadro">
+
+    <section class="estadisticas-grafico">
+
+        <h2>
+            Reservas por Horario
+        </h2>
+
+        <canvas
+            id="graficoHorarios"
+            data-labels='{{ estadisticas.reservas_por_horario | map(attribute="horario") | list | tojson }}'
+            data-values='{{ estadisticas.reservas_por_horario | map(attribute="cantidad") | list | tojson }}'>
+        </canvas>
+
+    </section>
+
+    <section class="estadisticas-grafico">
+
+        <h2>
+            Reservas por Día
+        </h2>
+
+        <canvas
+            id="graficoDias"
+            data-labels='{{ estadisticas.reservas_por_dia | map(attribute="fecha") | list | tojson }}'
+            data-values='{{ estadisticas.reservas_por_dia | map(attribute="cantidad") | list | tojson }}'>
+        </canvas>
+
+    </section>
+
+</div>
+
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='scripts/estadisticas.js') }}"></script>
 
 {% endblock %}

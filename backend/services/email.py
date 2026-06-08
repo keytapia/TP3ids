@@ -1,0 +1,86 @@
+import os
+import smtplib
+
+from email.message import EmailMessage
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+
+# Función para enviar un correo electrónico
+def enviar_email_confirmacion(reserva, qr_buffer):
+
+    try:
+        email_host = os.getenv("EMAIL_HOST")
+        email_port = os.getenv("EMAIL_PORT")
+        email_user = os.getenv("EMAIL_USER")
+        email_password = os.getenv("EMAIL_PASSWORD")
+
+        if not all([
+            email_host,
+            email_port,
+            email_user,
+            email_password
+        ]):
+            return False
+
+
+        mensaje = EmailMessage()
+
+        mensaje["Subject"] = 'Tu reserva en "NAZA Restaurante" ha sido confirmada'
+        mensaje["From"] = email_user
+        mensaje["To"] = reserva["email"]
+
+        cuerpo = f"""
+Hola {reserva["nombre"]} {reserva["apellido"]}, tu reserva está confirmada con los siguientes detalles:
+
+Reserva N°: {reserva["id"]}
+Fecha: {reserva["fecha"]}
+Horario: {reserva["horario"]}
+Cantidad de personas: {reserva["cantidad_personas"]}
+Mesa: {reserva["mesa_id"]}
+Notas adicionales: {reserva["notas_adicionales"]}
+
+Adjuntamos tu QR para que puedas mostrarlo al llegar al restaurante.
+
+Saludos,
+NAZA Restaurante
+"""
+
+        mensaje.set_content(cuerpo)
+
+        qr_buffer.seek(0)
+
+        mensaje.add_attachment(
+            qr_buffer.read(),
+            maintype="image",
+            subtype="png",
+            filename=f"reserva_{reserva['id']}_qr.png"
+        )
+
+        with smtplib.SMTP(
+            email_host,
+            int(email_port)
+        ) as server:
+
+            server.starttls()
+
+            server.login(
+                email_user,
+                email_password
+            )
+
+            server.send_message(mensaje)
+
+        return True
+
+    except Exception as error:
+
+        print(
+            "Error al enviar email de confirmación:",
+            error
+        )
+
+        return False

@@ -1,0 +1,52 @@
+<!---------- Menú ---------->
+{% extends "public/base.html" %}
+
+{% block contenido_body %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+
+<section class="banner-menu">
+
+    <div class="banner-fondo-para-imagen-menu">
+
+        <div class="banner-contenido-menu">
+            <h1>NUESTRO MENÚ</h1>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="categorias-menu">
+
+    
+    {% for categoria in categorias %}
+        <a href="{{ url_for('menu.menu', categoria=categoria.nombre) }}"
+            class="{{ 'activa' if categoria.nombre == categoria_activa else '' }}">
+            {{ categoria.nombre }}
+        </a>
+    {% endfor %}
+
+</div>
+
+<div class="contenedor-menu">
+
+    {% for plato in platos %}
+
+        <div class="card-menu">
+
+            <img src="{{ plato.imagen }}" alt="{{ plato.nombre }}">
+
+            <div class="contenido-card">
+                <h3>{{ plato.nombre }}</h3>
+                <p>{{ plato.descripcion }}</p>
+                <h4>${{ plato.precio }}</h4>
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

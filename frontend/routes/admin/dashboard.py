@@ -1,8 +1,22 @@
-from flask import Flask, render_template, Blueprint
+from flask import Blueprint, render_template
 
-dashboard_bp = Blueprint('dashboard', __name__)
+from services.dashboard import obtener_dashboard
 
-# Dashboard
-@dashboard_bp.route("/admin/dashboard")
+dashboard_admin_bp = Blueprint("dashboard_admin", __name__, url_prefix="/admin")
+
+
+@dashboard_admin_bp.route("/dashboard")
 def dashboard():
-    return render_template("admin/dashboard.html")
+
+    resultado = obtener_dashboard()
+
+    if not resultado["ok"]:
+        return render_template(
+            "admin/dashboard.html",
+            error=resultado["error"]
+        )
+
+    return render_template(
+        "admin/dashboard.html",
+        dashboard=resultado["data"]
+    )

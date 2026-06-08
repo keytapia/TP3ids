@@ -1,8 +1,22 @@
 from flask import Blueprint, render_template
 
-estadisticas_bp = Blueprint("estadisticas", __name__)
+from services.estadisticas import obtener_estadisticas
+
+estadisticas_admin_bp = Blueprint("estadisticas_admin", __name__, url_prefix="/admin")
 
 
-@estadisticas_bp.route("/admin/estadisticas")
+@estadisticas_admin_bp.route("/estadisticas")
 def estadisticas():
-    return render_template("admin/estadisticas.html")
+
+    resultado = obtener_estadisticas()
+
+    if not resultado["ok"]:
+        return render_template(
+            "admin/estadisticas.html",
+            error=resultado["error"]
+        )
+
+    return render_template(
+        "admin/estadisticas.html",
+        estadisticas=resultado["data"]
+    )

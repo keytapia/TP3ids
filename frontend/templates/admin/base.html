@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Panel Administrador{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/admin.css') }}">
+</head>
+<body>
+
+    <div class="admin-layout">
+
+        <aside class="admin-sidebar">
+
+            <div class="admin-logo">
+                <span>NAZA</span>
+                <small>RESTAURANTE</small>
+            </div>
+
+            <nav class="admin-menu">
+
+                <a href="{{ url_for('dashboard_admin.dashboard') }}"
+                   class="{% if request.endpoint == 'dashboard.dashboard' %}active{% endif %}">
+                    Dashboard
+                </a>
+
+                <a href="{{ url_for('reservas_admin.reservas') }}"
+                   class="{% if request.endpoint == 'reservas_admin.reservas' %}active{% endif %}">
+                    Reservas
+                </a>
+
+                <a href="{{ url_for('menu_admin.menu') }}"
+                   class="{% if request.endpoint == 'menu_admin.menu' %}active{% endif %}">
+                    Menú
+                </a>
+
+                <a href="{{ url_for('reseñas_admin.reseñas') }}"
+                   class="{% if request.endpoint == 'reseñas_admin.reseñas' %}active{% endif %}">
+                    Reseñas
+                </a>
+
+                <a href="{{ url_for('servicios_admin.servicios') }}"
+                   class="{% if request.endpoint == 'servicios_admin.servicios' %}active{% endif %}">
+                    Servicios
+                </a>
+
+                <a href="{{ url_for('estadisticas_admin.estadisticas') }}"
+                   class="{% if request.endpoint == 'estadisticas_admin.estadisticas' %}active{% endif %}">
+                    Estadísticas
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <main class="admin-content"> 
+            {% block content %}
+         
+            {% endblock %}
+        </main>
+
+    </div>
+
+</body>
+</html>

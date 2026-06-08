@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template
 
-admin_reservas_bp = Blueprint("admin_reservas", __name__)
+reservas_admin_bp = Blueprint("reservas_admin", __name__, url_prefix="/admin")
 
 
-@admin_reservas_bp.route("/admin/reservas")
+@reservas_admin_bp.route("/reservas")
 def reservas():
     return render_template("admin/reservas.html")

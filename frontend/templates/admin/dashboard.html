@@ -1,12 +1,152 @@
 <!---Dashboard--->
-{% extends "admin/base_admin.html" %}
+{% extends "admin/base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Dashboard
+{% endblock %}
 
 {% block content %}
 
+<h1 class="dashboard-titulo">
+    Dashboard
+</h1>
 
-    <h2>Dashboard.</h2>
+<p class="dashboard-subtitulo">
+    Resumen general del restaurante
+</p>
 
+{% if error %}
+
+<p>{{ error }}</p>
+
+{% else %}
+
+<div class="dashboard-layout">
+
+    <div class="dashboard-main">
+
+        <div class="dashboard-cuadros">
+
+            <div class="dashboard-cuadro">
+                <h2>{{ dashboard.resumen.reservas_hoy or 0 }}</h2>
+                <p>Reservas de Hoy</p>
+            </div>
+
+            <div class="dashboard-cuadro">
+                <h2>{{ dashboard.resumen.cancelaciones_hoy or 0 }}</h2>
+                <p>Cancelaciones de Hoy</p>
+            </div>
+
+        </div>
+
+        <section class="dashboard-panel">
+
+            <div class="dashboard-proximas-reservas-header">
+
+                <h2>Próximas Reservas</h2>
+
+                <a
+                    href="{{ url_for('reservas_admin.reservas') }}"
+                    class="boton-prox-reservas"
+                >
+                    Ver Todas
+                </a>
+
+            </div>
+
+            {% if dashboard.proximas_reservas %}
+
+            <table class="dashboard-proximas-reservas-tabla">
+
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Horario</th>
+                        <th>Cantidad de Personas</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for reserva in dashboard.proximas_reservas %}
+
+                    <tr>
+                        <td>
+                            {{ reserva.nombre }}
+                            {{ reserva.apellido }}
+                        </td>
+                        <td>{{ reserva.fecha }}</td>
+                        <td>{{ reserva.horario }}</td>
+                        <td>{{ reserva.cantidad_personas }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <p class="mensaje-si-no-hay-nada-que-mostrar">
+                No hay reservas próximas.
+            </p>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+
+    <aside class="dashboard-reseñas">
+
+        <section class="dashboard-panel reseñas-panel">
+
+            <h2>Últimas Reseñas</h2>
+
+            {% if dashboard.ultimas_reseñas %}
+
+            <div class="reseñas-lista">
+
+                {% for reseña in dashboard.ultimas_reseñas %}
+
+                <article class="reseñas-cuadro">
+
+                    <strong>
+                        {{ reseña.nombre }}
+                        {{ reseña.apellido }}
+                    </strong>
+
+                    <span>
+                        <i class="bi bi-star-fill estrella"></i> {{ reseña.puntuacion }}/5
+                    </span>
+
+                    <p>
+                        {{ reseña.comentario }}
+                    </p>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p class="mensaje-si-no-hay-nada-que-mostrar">
+                No hay reseñas todavía.
+            </p>
+
+            {% endif %}
+
+        </section>
+
+    </aside>
+
+</div>
+
+{% endif %}
 
 {% endblock %}

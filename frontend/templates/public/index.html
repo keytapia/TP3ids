@@ -1,0 +1,106 @@
+<!---------- Inicio ---------->
+{% extends "public/base.html" %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido_body %}
+
+<!--- BANNER PRINCIPAL (Resumen del Restaurante) --->
+<section class="banner">
+
+    <div class="banner-fondo-para-imagen">
+
+        <div class="banner-contenido">
+
+            <h1>
+                Un refugio para el paladar.
+            </h1>
+
+            <p>
+                Bienvenidos a Naza, una propuesta gastronómica creada
+                para elevar sus momentos más especiales.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!--- INFORMACIÓN --->
+<section class="resumen-restaurante">
+
+    <!--- Horarios --->
+    <div class="informacion">
+
+        <div class="icono">
+            <i class="bi bi-clock"></i>
+        </div>
+
+        <h2>
+            HORARIOS
+        </h2>
+
+        <h3>
+            Lunes a Domingos
+        </h3>
+
+        <p>
+            11:00 a 23:00
+        </p>
+
+    </div>
+
+
+    <!--- Ubicación --->
+    <div class="informacion">
+
+        <div class="icono">
+            <i class="bi bi-geo-alt-fill"></i>
+        </div>
+
+        <h2>
+            UBICACIÓN
+        </h2>
+
+        <p>
+            Av. XXXXXXXX 1234
+        </p>
+
+        <p>
+            Ciudad, País
+        </p>
+
+    </div>
+
+
+    <!--- Opiniones --->
+    <div class="informacion">
+
+        <div class="icono">
+            <i class="bi bi-chat-dots"></i>
+        </div>
+
+        <h2>
+            OPINIONES
+        </h2>
+
+        <h3>
+            5.0
+            <i class="bi bi-star-fill estrella"></i>
+            <i class="bi bi-star-fill estrella"></i>
+            <i class="bi bi-star-fill estrella"></i>
+            <i class="bi bi-star-fill estrella"></i>
+            <i class="bi bi-star-fill estrella"></i>
+        </h3>
+
+        <p>
+            Basado en 789 reseñas
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

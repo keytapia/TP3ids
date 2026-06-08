@@ -1,0 +1,287 @@
+from db import obtener_conexion
+
+
+def obtener_todas_las_reservas_db():
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            SELECT *
+            FROM reservas
+        """)
+
+        return cursor.fetchall()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def obtener_reservas_por_estado_db(estado):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT *
+            FROM reservas
+            WHERE estado = %s
+            """,
+            (estado,)
+        )
+
+        return cursor.fetchall()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def obtener_reserva_por_id_db(reserva_id):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                id,
+                usuario_id,
+                mesa_id,
+                fecha,
+                horario,
+                cantidad_personas,
+                notas_adicionales,
+                estado
+            FROM reservas
+            WHERE id = %s
+            """,
+            (reserva_id,)
+        )
+
+        return cursor.fetchone()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def buscar_mesa_disponible_db(
+    fecha,
+    horario,
+    cantidad_personas
+):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT *
+            FROM mesas
+            WHERE estado = 'disponible'
+            AND capacidad >= %s
+            AND id NOT IN (
+                SELECT mesa_id
+                FROM reservas
+                WHERE fecha = %s
+                AND horario = %s
+                AND estado = 'confirmada'
+            )
+            ORDER BY capacidad ASC
+            LIMIT 1
+            """,
+            (
+                cantidad_personas,
+                fecha,
+                horario
+            )
+        )
+
+        return cursor.fetchone()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def buscar_mesa_disponible_para_horario_db(
+    fecha,
+    horario
+):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                MAX(mesas.capacidad) AS capacidad_maxima
+            FROM mesas
+            WHERE mesas.estado = 'disponible'
+            AND mesas.id NOT IN (
+                SELECT reservas.mesa_id
+                FROM reservas
+                WHERE reservas.fecha = %s
+                AND reservas.horario = %s
+                AND reservas.estado = 'confirmada'
+            )
+            """,
+            (
+                fecha,
+                horario
+            )
+        )
+
+        return cursor.fetchone()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def obtener_mesas_por_estado_db(
+    fecha,
+    horario,
+    cantidad_personas
+):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT
+                m.id,
+                m.numero,
+                m.capacidad,
+                m.estado,
+
+                CASE
+                    WHEN r.id IS NOT NULL THEN TRUE
+                    ELSE FALSE
+                END AS reservada,
+
+                CASE
+                    WHEN r.id IS NULL THEN TRUE
+                    ELSE FALSE
+                END AS seleccionable,
+
+                CASE
+                    WHEN m.capacidad >= %s THEN TRUE
+                    ELSE FALSE
+                END AS capacidad_suficiente
+
+            FROM mesas m
+
+            LEFT JOIN reservas r
+                ON r.mesa_id = m.id
+                AND r.fecha = %s
+                AND r.horario = %s
+                AND r.estado = 'confirmada'
+
+            ORDER BY m.numero ASC
+            """,
+            (
+                cantidad_personas,
+                fecha,
+                horario
+            )
+        )
+
+        return cursor.fetchall()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def cancelar_reserva_db(reserva_id):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            UPDATE reservas
+            SET estado = %s
+            WHERE id = %s
+            """,
+            (
+                "cancelada",
+                reserva_id
+            )
+        )
+
+        conexion.commit()
+
+        return cursor.rowcount > 0
+
+    except Exception:
+        conexion.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def crear_reserva_db(
+    usuario_id,
+    mesa_id,
+    fecha,
+    horario,
+    cantidad_personas,
+    notas_adicionales=""
+):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            INSERT INTO reservas (
+                usuario_id,
+                mesa_id,
+                fecha,
+                horario,
+                cantidad_personas,
+                notas_adicionales,
+                estado
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """,
+            (
+                usuario_id,
+                mesa_id,
+                fecha,
+                horario,
+                cantidad_personas,
+                notas_adicionales,
+                "confirmada"
+            )
+        )
+
+        conexion.commit()
+
+        return {
+            "id": cursor.lastrowid
+        }
+
+    except Exception:
+        conexion.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conexion.close()

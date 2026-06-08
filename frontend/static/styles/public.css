@@ -1,0 +1,1109 @@
+/*** ESTILOS: FUENTES, TAMAÑOS Y COLORES (Para los templates públicos) ***/
+
+/*====================================================================================*/
+/*----------------------- HEADER, FOOTER Y BODY DE CADA PÁGINA -----------------------*/
+/*====================================================================================*/
+
+/* ESTILOS GENERALES (Solo para el margin y padding) */
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+/* BODY */
+body {
+
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    font-family:'Poppins',sans-serif;
+    background:#efe7dc;
+    color:#222;
+    
+}
+
+/* ETIQUETAS 'a' */
+a {
+
+    text-decoration:none;
+
+}
+
+/* LISTAS DESORDENADAS */
+ul {
+
+    list-style:none;
+
+}
+
+/* NAVBAR */
+.navbar {
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:90px;
+    padding:0 40px;
+    background:#f3ece3;
+    border-bottom:1px solid #eeeeee;
+    overflow:hidden;
+
+}
+
+/* LOGO */
+#logo {
+
+    display:flex;
+    align-items:center;
+    height:100%;
+
+}
+
+#logo img {
+
+    height:80px;
+    width:auto;
+    display:block;
+
+}
+
+/* LINKS DE NAVEGACIÓN */
+.nav-links {
+
+    display:flex;
+    gap:20px;
+
+}
+
+.nav-links a {
+
+    color:black;
+    font-size:18px;
+    font-weight:500;
+
+}
+
+.nav-links a:hover {
+
+    color:#700c00;
+
+}
+
+/* BOTÓN DE RESERVA */
+.boton-reserva {
+
+    background:#700c00;
+    color:white;
+    padding:12px 25px;
+    border-radius:25px;
+    font-weight:600;
+
+}
+
+.boton-reserva:hover {
+
+    opacity:.9;
+
+}
+
+
+/* CONTENIDO */
+main {
+
+    flex:1;
+
+}
+
+
+/* FOOTER (El pie de la página) */
+footer {
+
+    padding:15px;
+    text-align:center;
+    border-top:1px solid #ddd;
+    background:#f3ece3;
+
+}
+
+footer a {
+
+    color:#700c00;
+    font-weight:bold;
+
+}
+
+footer a:hover {
+
+    text-decoration:underline;
+
+}
+
+/* RESPONSIVE (Que la página se ajuste al tamaño del dispositivo) */
+@media(max-width:1000px){
+
+.navbar {
+
+    flex-direction:column;
+    gap:20px;
+
+}
+
+.nav-links {
+
+    flex-wrap:wrap;
+    justify-content:center;
+
+}
+
+}
+
+
+/*====================================================================================*/
+/*--------------------------------- PÁGINA DE INICIO ---------------------------------*/
+/*====================================================================================*/
+
+/* BANNER PRINCIPAL (Resumen del restaurante) */
+.banner {
+
+    background-image:
+    linear-gradient(
+        rgba(0,0,0,.6),
+        rgba(0,0,0,.6)
+    ),
+    url("../images/restaurante_fondo.png");
+
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+
+}
+
+.banner-fondo-para-imagen {
+
+    width:100%;
+    padding-left:100px;
+
+}
+
+.banner-contenido {
+
+    max-width:700px;
+    color:white;
+
+}
+
+.banner-contenido h1 {
+
+    font-size:3rem;
+    font-weight:900;
+    margin-bottom:25px;
+
+}
+
+.banner-contenido p {
+
+    font-size:1.5rem;
+    margin-bottom:40px;
+
+}
+
+/* INFORMACIÓN (Horarios, Ubicación y Opiniones) */
+.resumen-restaurante {
+
+    display:flex;
+    justify-content:space-around;
+    align-items:flex-start;
+    padding:40px 60px;
+    text-align:center;
+    gap:40px;
+
+}
+
+.icono {
+
+    font-size:2.5rem;
+    margin-bottom:15px;
+
+}
+
+.informacion {
+
+    max-width:250px;
+
+}
+
+.informacion h2 {
+
+    margin-bottom:10px;
+    font-size:1.2rem;
+    font-weight:700;
+    letter-spacing:1px;
+
+}
+
+.informacion h3 {
+
+    margin-bottom:10px;
+    font-size:1rem;
+    font-style:italic;
+    font-weight:500;
+
+}
+
+.informacion p {
+
+    font-size:.95rem;
+    line-height:1.5;
+    color:#444;
+
+}
+
+.estrella {
+
+    color:#f5c542;
+}
+
+
+/* RESPONSIVE (Que la página se ajuste al tamaño del dispositivo) */
+@media(max-width:1000px) {
+
+.resumen-restaurante {
+
+    flex-direction:column;
+    gap:50px;
+
+}
+
+.banner {
+
+    height:auto;
+    padding:80px 0;
+
+}
+
+.banner-fondo-para-imagen {
+
+    padding:40px;
+
+}
+
+.banner-contenido h1 {
+
+    font-size:2.5rem;
+
+}
+
+.banner-contenido p {
+
+    font-size:1.3rem;
+
+}
+
+}
+
+
+/*=====================================================================================*/
+/*----------------------------------- PÁGINA DE MENÚ ----------------------------------*/
+/*=====================================================================================*/
+
+.banner-menu {
+
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+ 
+.banner-fondo-para-imagen-menu {
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/bannerMenu.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.banner-contenido-menu h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #ffffff;
+}
+ 
+.categorias-menu {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 36px 48px 28px;
+}
+ 
+.categorias-menu a {
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    padding: 10px 28px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+ 
+.categorias-menu a:hover {
+    background-color: rgba(139, 26, 42, 0.12);
+    color: #8b1a2a;
+}
+
+.categorias-menu a.activa {
+    background-color: #8b1a2a;
+    color: #ffffff;
+}
+
+.contenedor-menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    padding: 0 64px 60px;
+}
+
+.card-menu {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.card-menu img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+ 
+.contenido-card {
+    padding: 20px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+ 
+.contenido-card h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.2;
+}
+ 
+.contenido-card p {
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: #666666;
+    line-height: 1.45;
+}
+ 
+.contenido-card h4 {
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    text-align: right;
+    margin-top: auto;
+    padding-top: 14px;
+}
+
+@media (max-width: 1024px) {
+    .contenedor-menu {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 32px 48px;
+    }
+}
+ 
+@media (max-width: 640px) {
+    .banner-contenido-menu h1 {
+        font-size: 1.8rem;
+    }
+ 
+    .categorias-menu {
+        padding: 24px 16px 20px;
+        gap: 6px;
+    }
+  
+    .categorias-menu a {
+        padding: 8px 16px;
+        font-size: 0.78rem;
+    }
+  
+    .contenedor-menu {
+        grid-template-columns: 1fr;
+        padding: 0 16px 40px;
+        gap: 20px;
+    }
+}
+
+/*=====================================================================================*/
+/*--------------------------------- PÁGINA DE RESERVA ---------------------------------*/
+/*=====================================================================================*/
+
+/* Mensaje de éxito al crear una reserva */
+.mensaje-exito {
+
+    background:#d4edda;
+    color:#155724;
+    border:1px solid #c3e6cb;
+    padding:15px 20px;
+    border-radius:5px;
+    max-width:600px;
+    margin:20px auto;
+    text-align:center;
+    font-size:1.2rem;
+
+}
+
+/* Mensaje de error al crear una reserva */
+.mensaje-error {
+
+    background:#f8d7da;
+    color:#721c24;
+    border:1px solid #f5c6cb;
+    padding:15px 20px;
+    border-radius:5px;
+    max-width:600px;
+    margin:20px auto;
+    text-align:center;
+    font-size:1.2rem;
+
+}
+
+/* El div principal de la página de reserva */
+.reserva-container {
+
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:25px;
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 40px;
+    
+}
+
+/* El contenedor del lado izquierdo */
+.reserva-lado-izquierdo {
+
+    flex:1;
+    padding-top:10px;
+
+}
+
+.reserva-lado-izquierdo h1 {
+
+    font-size:3rem;
+    margin-bottom:10px;
+
+}
+
+.reserva-lado-izquierdo p {
+
+    font-size:1.5rem;
+    margin-bottom:5px;
+
+}
+
+.reserva-lado-izquierdo img {
+
+    width:100%;
+    max-width:500px;
+
+}
+
+/* El contenedor del lado derecho */
+.reserva-lado-derecho {
+
+    flex:1;
+    padding-top:20px;
+    padding-right:20px;
+
+}
+
+/* Formulario */
+.reserva-lado-derecho form {
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+
+}
+
+/* Cada campo del form */
+.campo {
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+
+}
+
+.campo label {
+
+    font-size:1.3rem;
+    font-weight:700;
+    min-width:50px;
+
+}
+
+.campo input,
+.campo select {
+
+    width:450px;
+    padding:8px 30px;
+    border:none;
+    border-radius:40px;
+    background:#f5f5f5;
+    font-size:1.3rem;
+
+}
+
+/* El textarea para notas adicionales */
+.campo textarea {
+    
+    width:450px;
+    padding:8px 20px;
+    border:none;
+    border-radius:40px;
+    background:#f5f5f5;
+    font-size:1rem;
+    resize:none; /* Esto evita que el usuario pueda redimensionar el textarea */
+
+}
+
+/* Botón de confirmar reserva */
+.reserva-lado-derecho button {
+
+    width:420px;
+    margin-top:10px;
+    padding:10px;
+    align-self:center;
+    border:none;
+    border-radius:50px;
+    background:#8d2525;
+    color:white;
+    font-size:1.5rem;
+    font-weight:700;
+    cursor:pointer;
+
+}
+
+/*--------- MAPA DE LA RESERVA -----------*/
+/* CONTENEDOR GENERAL DEL MAPA */
+
+.mapa-mesas-section {
+    width: 100%;
+    max-width: 920px;
+}
+
+.mapa-titulo {
+    font-size: 34px;
+    margin-bottom: 18px;
+    color: #1f1f1f;
+}
+
+/* LEYENDA */
+
+.leyenda-mesas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 26px;
+    margin-bottom: 28px;
+    font-size: 15px;
+}
+
+.leyenda-mesas span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.color.disponible {
+    background-color: #d9ead3;
+    border: 2px solid #6aa84f;
+}
+
+.color.reservada {
+    background-color: #f4cccc;
+    border: 2px solid #cc0000;
+}
+
+.color.no-apta {
+    background-color: #e0e0e0;
+    border: 2px solid #888;
+}
+
+.color.seleccionada {
+    background-color: #6f1d1b;
+    border: 2px solid #3d0f0e;
+}
+
+/* MAPA GENERAL */
+
+.mapa-restaurante {
+    display: grid;
+    grid-template-columns: 440px 58px 230px;
+    gap: 24px;
+    align-items: start;
+}
+
+/* INTERIOR */
+
+.plano-interior {
+    position: relative;
+    width: 440px;
+    height: 700px;
+    border: 8px solid #747474;
+    background-color: #f8f8f8;
+}
+
+.cocina {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    height: 72px;
+    border: 2px solid #b5b5b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 800;
+    color: #7d7d7d;
+    letter-spacing: 2px;
+}
+
+.barra {
+    position: absolute;
+    top: 90px;
+    left: 18px;
+    right: 18px;
+    height: 56px;
+    border: 2px solid #b5b5b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 800;
+    color: #7d7d7d;
+    letter-spacing: 2px;
+}
+
+.label-interior {
+    position: absolute;
+    top: 195px;
+    left: 34px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #777;
+    line-height: 1.2;
+}
+
+.label-interior span {
+    font-size: 24px;
+}
+
+/* ENTRADA */
+
+.entrada-mapa {
+    width: 58px;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 3px solid #8a8a8a;
+    border-right: 3px solid #8a8a8a;
+    color: #777;
+    font-weight: 800;
+    letter-spacing: 3px;
+    writing-mode: vertical-rl;
+}
+
+/* EXTERIOR */
+
+.plano-exterior {
+    position: relative;
+    width: 230px;
+    height: 700px;
+    border: 4px solid #8c8c8c;
+    border-radius: 115px;
+    background-color: #f8f8f8;
+    overflow: hidden;
+}
+
+.exterior-superior,
+.exterior-inferior {
+    position: relative;
+    height: 50%;
+}
+
+.exterior-superior {
+    border-bottom: 2px solid #c2c2c2;
+}
+
+.texto-calle {
+    position: absolute;
+    bottom: -52px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: #777;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* MESAS */
+
+.mesa {
+    position: absolute;
+    border: 2px solid #9a9a9a;
+    background-color: #d9ead3;
+    color: #555;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-align: center;
+    padding: 8px;
+}
+
+.mesa span {
+    font-size: 18px;
+}
+
+.mesa small {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mesa:hover:not(:disabled) {
+    transform: scale(1.03);
+}
+
+/* MESAS INTERIOR */
+
+.mesa-8 {
+    width: 270px;
+    height: 90px;
+    top: 340px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-8:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.03);
+}
+
+.mesa-1 {
+    width: 95px;
+    height: 95px;
+    bottom: 68px;
+    left: 48px;
+}
+
+.mesa-2 {
+    width: 135px;
+    height: 95px;
+    bottom: 68px;
+    right: 48px;
+}
+
+/* MESAS EXTERIOR */
+
+.mesa-ext-2 {
+    width: 125px;
+    height: 95px;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-ext-2:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.03);
+}
+
+.mesa-ext-6 {
+    width: 145px;
+    height: 170px;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-ext-6:hover:not(:disabled) {
+    transform: translateX(-50%) scale(1.03);
+}
+
+/* ESTADOS DE MESAS */
+
+.mesa.disponible {
+    background-color: #d9ead3;
+    border-color: #6aa84f;
+}
+
+.mesa.reservada {
+    background-color: #f4cccc;
+    border-color: #cc0000;
+    color: #7f0000;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.mesa.no-apta {
+    background-color: #e0e0e0;
+    border-color: #888;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.mesa.seleccionada {
+    background-color: #6f1d1b;
+    border-color: #3d0f0e;
+    color: #fff;
+}
+
+/* DECORACIÓN */
+
+.cantero-interior {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: -82px;
+    height: 44px;
+    border: 2px solid #999;
+    background: repeating-linear-gradient(
+        90deg,
+        #d8e3cd 0,
+        #d8e3cd 14px,
+        #eef2e9 14px,
+        #eef2e9 28px
+    );
+}
+
+.limite-local {
+    position: absolute;
+    bottom: -130px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+    font-weight: 800;
+    border-top: 2px dashed #999;
+    padding-top: 10px;
+}
+
+
+.texto-mesa-seleccionada {
+    margin-top: 72px;
+    font-weight: 800;
+    color: #6f1d1b;
+    font-size: 16px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .mapa-restaurante {
+        grid-template-columns: 1fr;
+    }
+
+    .plano-interior,
+    .entrada-mapa,
+    .plano-exterior {
+        width: 100%;
+    }
+
+    .entrada-mapa {
+        height: 70px;
+        writing-mode: horizontal-tb;
+    }
+
+    .plano-interior,
+    .plano-exterior {
+        max-width: 440px;
+    }
+}
+
+
+/*=====================================================================================*/
+/*---------------------------------- PÁGINA DE RESEÑAS --------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de reseñas */
+
+
+/*=====================================================================================*/
+/*--------------------------------- PÁGINA DE NOSOTROS --------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de nosotros */
+
+
+/*=====================================================================================*/
+/*--------------------------------- PÁGINA DE CONTACTO --------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de contacto */
+
+
+/*=====================================================================================*/
+/*----------------------------------- PÁGINA DE ERROR ---------------------------------*/
+/*=====================================================================================*/
+
+/* Acá van los estilos para la página de error */
+
+
+/*=====================================================================================*/
+/*----------------------------------- PÁGINA DE LOGIN ---------------------------------*/
+/*=====================================================================================*/
+
+.login-container{
+
+    min-height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: #7f1f1f;
+
+}
+
+.login-card{
+    
+    width:500px;
+    background:#f2e3e3;
+    border-radius:25px;
+    padding:50px;
+    display:flex;
+    flex-direction:column;
+    
+
+}
+
+.login-logo{
+
+    width: 120px;
+    display: block;
+    margin:0 auto 30px auto;
+}
+
+
+.login-card form{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.login-card label{
+
+    font-weight: bold;
+    color: #222;
+}
+.login-card input{
+
+    border:none;
+    border-radius:30px;
+    padding:15px;
+}
+
+.login-card a{
+
+    color:#222;
+    text-decoration:none;
+    font-weight:bold;
+    text-align:right;
+}
+
+.login-card a:hover{
+
+    color:#000;
+    text-decoration:underline;
+}
+
+.login-card button{
+
+    margin-top:20px;
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:15px;
+
+    background:#7f1f1f;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* ---------- LOGIN EXITOSO ---------- */
+
+.welcome-container{
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#7f1f1f;
+}
+
+.welcome-card{
+
+    width:500px;
+
+    background:#f2e3e3;
+
+    border-radius:25px;
+
+    padding:50px;
+
+    text-align:center;
+}
+
+.welcome-card h1{
+
+    color:#7f1f1f;
+
+    margin-bottom:20px;
+}
+
+.welcome-card p{
+
+    color:#222;
+    font-family:'Poppins',sans-serif;
+    font-size:18px;
+}
