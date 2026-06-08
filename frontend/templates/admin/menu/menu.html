@@ -1,0 +1,87 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+ 
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+ 
+    <h1>Menú</h1>
+ 
+    <p>
+        Administra los platos y bebidas de tu restaurante.
+    </p>
+
+    <div class="categorias-menu-admin">
+
+        <a href="{{ url_for('admin_menu.menu') }}"
+           class="{{ 'activa' if not categoria_activa else '' }}">
+            Todas
+        </a>
+ 
+        {% for categoria in categorias %}
+            <a href="{{ url_for('admin_menu.menu', categoria=categoria.nombre) }}"
+               class="{{ 'activa' if categoria.nombre == categoria_activa else '' }}">
+                {{ categoria.nombre }}
+            </a>
+        {% endfor %}
+    </div>
+ 
+    <table>
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Plato</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+ 
+        <tbody>
+            {% for plato in platos %}
+            <tr>
+                <td>
+                    {% if plato.imagen %}
+                        <img src="{{ url_for('static', filename='images/' + plato.imagen) }}" width="80">
+                    {% else %}
+                        <span>Sin imagen</span>
+                    {% endif %}
+                </td>
+ 
+                <td>{{ plato.nombre }}</td>
+                
+                <td>
+                {% for cat in categorias %}
+                    {% if cat.id == plato.categoria_id %}
+                        {{ cat.nombre }}
+                    {% endif %}
+                {% endfor %}
+                </td>
+
+                <td>${{ plato.precio }}</td>
+ 
+                <td>
+                    <a href="{{ url_for('admin_menu.menu_editar', id=plato.id) }}">
+                        Editar
+                    </a>
+                </td>
+ 
+                <td>
+                    <form action="{{ url_for('admin_menu.menu_eliminar', id=plato.id) }}" method="POST"
+                          onsubmit="return confirm('¿Eliminar {{ plato.nombre }}?')">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="agregar-plato">
+        <a href="{{ url_for('admin_menu.menu_agregar') }}">
+            + Agregar plato
+        </a>
+    </div>
+
+ 
+{% endblock %}

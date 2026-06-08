@@ -108,3 +108,42 @@ def listar_categorias():
         
     finally: 
         con.close()
+
+def crear_plato(categoria_id, nombre, precio, imagen,
+                descripcion=None,
+                restricciones_alimentarias=None,
+                disponible=True):
+
+    con = obtener_conexion()
+
+    try:
+        with con.cursor() as cursor:
+            cursor.execute(
+                """
+                INSERT INTO platos (
+                    categoria_id,
+                    nombre,
+                    descripcion,
+                    precio,
+                    restricciones_alimentarias,
+                    imagen,
+                    disponible
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """,
+                (
+                    categoria_id,
+                    nombre,
+                    descripcion,
+                    precio,
+                    restricciones_alimentarias,
+                    imagen,
+                    disponible
+                )
+            )
+
+            con.commit()
+            return cursor.lastrowid
+
+    finally:
+        con.close()

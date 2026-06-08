@@ -16,8 +16,11 @@ from services.reservas_service import (
 
 from services.menu_service import (
     listar_menu,
+    listar_menu_por_categoria, 
+    obtener_plato_id,
     modificar_plato,
-    eliminar_plato
+    eliminar_plato,
+    crear_plato
 )
 
 from services.servicios_service import (
@@ -102,13 +105,30 @@ def delete_reserva(reserva_id):
 
 # -------------------------------- MENÚ -------------------------------- #
 
-# Listar el menú completo
+# Listar menú (completo o por categorias)
 @admin_bp.route("/menu", methods=["GET"])
-def get_platos():
+def get_menu():
+    categoria = request.args.get('categoria')
 
-    resultado = listar_menu()
+    if categoria:
+        categoria = categoria.lower()
+        menu = listar_menu_por_categoria(categoria)
+        if not menu:
+            return jsonify({"message":"No hay ningún plato en esa categoria"}), 404
+        return jsonify(menu),200
+    menu = listar_menu()
+    return jsonify(menu), 200
 
-    return jsonify(resultado), 200
+
+# Filtrar un plato especifico por numero id
+@admin_bp.route('/menu/<int:id>', methods=['GET'])
+def get_plato(id):
+    plato = obtener_plato_id(id)
+
+    if not plato:
+        return jsonify({"message": "EL plato no pudo ser encontrado"}), 404
+    
+    return jsonify(plato), 200
 
 # Crear un plato del menú
 @admin_bp.route("/menu", methods=["POST"])
@@ -116,21 +136,40 @@ def post_plato():
 
     data = request.get_json()
 
+    categoria_id = data.get("categoria_id")
     nombre = data.get("nombre")
-    descripcion = data.get("descripcion")
     precio = data.get("precio")
+    imagen = data.get("imagen")
 
-    if (not nombre or not precio):
-        return jsonify({"error": "El nombre y el precio son obligatorios"}), 400
+    descripcion = data.get("descripcion")
+    restricciones = data.get("restricciones_alimentarias")
 
-    # Acá va la función del servicio para crear el plato
-    # resultado = crear_plato(nombre, descripcion, precio)
+    if not categoria_id or not nombre or precio is None:
+        return jsonify({
+            "error": "categoria_id, nombre y precio son obligatorios"
+        }), 400
 
-    # if resultado:
-    #     return jsonify({"mensaje": "Plato creado exitosamente"}), 201
-    # else:
-    #     return jsonify({"mensaje": "No se pudo crear el plato"}), 400
-    return jsonify({"mensaje": "Falta hacer función de crear plato"}), 200
+    try:
+        precio = float(precio)
+    except:
+        return jsonify({"error": "Precio inválido"}), 400
+
+    if precio < 0:
+        return jsonify({"error": "El precio no puede ser negativo"}), 400
+
+    id = crear_plato(
+        categoria_id=categoria_id,
+        nombre=nombre,
+        precio=precio,
+        imagen=imagen,
+        descripcion=descripcion,
+        restricciones_alimentarias=restricciones
+    )
+
+    return jsonify({
+        "mensaje": "Plato creado correctamente",
+        "id": id
+    }), 201
 
 # Modificar un plato del menú
 @admin_bp.route("/menu/<int:id>", methods=["PUT"])

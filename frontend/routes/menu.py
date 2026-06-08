@@ -1,4 +1,4 @@
-from flask import request, render_template, Blueprint
+from flask import request, render_template, Blueprint, redirect, url_for
 import requests
 
 menu_bp = Blueprint("menu", __name__)
@@ -11,7 +11,6 @@ def menu():
     categorias = response_cat.json()
 
     if not categoria and categorias:
-        from flask import redirect, url_for
         return redirect(url_for('menu.menu', categoria=categorias[0]['nombre']))
 
     url = "http://127.0.0.1:5000/api/menu"

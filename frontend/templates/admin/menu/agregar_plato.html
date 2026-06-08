@@ -1,0 +1,46 @@
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+
+<div class="pagina-admin-form">
+    
+    <div class="editar-agregar-container">
+    
+        <form action="{{ url_for('admin_menu.menu_agregar') }}" method="POST" enctype="multipart/form-data">
+        
+            <label>Nombre</label>
+            <input type="text" name="nombre" placeholder="Ingrese el nombre del plato" required>
+        
+            <label>Precio</label>
+            <input type="number" name="precio" placeholder="$" required>
+        
+            <label>Categoría</label>
+            <select name="categoria_id" required>
+                <option value="" disabled selected>
+                    Elija la categoría de su plato
+                </option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}">
+                        {{ categoria.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <label>Descripción</label>
+            <textarea name="descripcion" placeholder="Agrega una descripción del producto..."></textarea>
+        
+            <label>Restricciones (opcional)</label>
+            <input type="text" name="restricciones_alimentarias" placeholder="Ej: vegano, sin TACC, etc.">
+        
+            <label>Imagen</label>
+            <input type="file" name="imagen" accept="image/*" required>
+        
+            <button type="submit">CONFIRMAR</button>
+        
+        </form>
+    
+    </div>
+    
+</div>
+
+{% endblock %}

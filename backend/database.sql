@@ -42,6 +42,7 @@ CREATE TABLE platos (
     categoria_id INT NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
+    restricciones_alimentarias VARCHAR(100) NULL,
     precio DECIMAL(10,2) NOT NULL,
     imagen VARCHAR(255),
     disponible BOOLEAN DEFAULT TRUE,
@@ -121,19 +122,17 @@ VALUES
 -- PLATOS
 -- =========================
 
-INSERT INTO platos
-(categoria_id,nombre,descripcion,precio,imagen)
-
+INSERT INTO platos 
+(categoria_id, nombre, descripcion, restricciones_alimentarias, precio, imagen)
 VALUES
-(1,'Empanadas','Empanadas caseras',2000,'empanadas.png'),
-(1,'Pizza','Pizza de Muzza',8200,'pizza.png'),
-(2,'Bife','Bife con guarnicion',12000,'bife.png'),
-(2,'Milanesa Napolitana','Milanesa Napolitana con guarnicion',9500,'milanesa_napolitana.png'),
-(3,'Ravioles','Ravioles con salsa bolognesa',8000,'ravioles.png'),
-(4,'Coca Cola','Bebida 500ml',2500,'coca.png'),
-(4,'Agua Mineral','Agua Mineral',1000,'agua_mineral.png'),
-(5,'Flan','Flan casero',2800,'flan.png');
-
+(1, 'Empanadas', 'Empanadas caseras', NULL, 2000.00, 'ejemplos/empanadas.png'),
+(1, 'Pizza', 'Pizza de Muzza', 'Vegetariano', 8200.00, 'ejemplos/pizza.png'),
+(2, 'Bife', 'Bife con guarnicion', 'Sin TACC', 12000.00, 'ejemplos/bife.png'),
+(2, 'Milanesa Napolitana', 'Milanesa Napolitana con guarnicion', NULL, 9500.00, 'ejemplos/milanesa_napolitana.png'),
+(3, 'Ravioles', 'Ravioles con salsa bolognesa', NULL, 8000.00, 'ejemplos/ravioles.png'),
+(4, 'Coca Cola', 'Bebida 500ml', 'Vegano, Sin TACC', 2500.00, 'ejemplos/coca.png'),
+(4, 'Agua Mineral', 'Agua Mineral', 'Vegano, Sin TACC', 1000.00, 'ejemplos/agua_mineral.png'),
+(5, 'Flan', 'Flan casero', 'Vegetariano', 2800.00, 'ejemplos/flan.png');
 
 -- =========================
 -- RESERVAS

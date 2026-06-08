@@ -34,11 +34,20 @@
 
         <div class="card-menu">
 
-            <img src="{{ plato.imagen }}" alt="{{ plato.nombre }}">
+            {% if plato.imagen %}
+                <img src="{{ url_for('static', filename='images/' + plato.imagen) }}">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default.jpg') }}">
+            {% endif %}
 
             <div class="contenido-card">
                 <h3>{{ plato.nombre }}</h3>
                 <p>{{ plato.descripcion }}</p>
+
+                {% if plato.restricciones_alimentarias %}
+                    <p class="restricciones-alimentarias"> {{ plato.restricciones_alimentarias }} </p>
+                {% endif %}
+
                 <h4>${{ plato.precio }}</h4>
             </div>
 
