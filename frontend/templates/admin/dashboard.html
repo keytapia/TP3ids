@@ -6,6 +6,108 @@
 {% block content %}
 
 <h1 class="admin-page-title">Dashboard.</h1>
+<p class="admin-page-subtitle">Resumen general de tu restaurante.</p>
+
+<div class="admin-cards">
+    <div class="admin-card">
+        <h2>{{ stats.reservas_hoy}}</h2>
+        <p>Reservas hoy.</p>
+    </div>
+    <div class="admin-card">
+        <h2>{{ stats.comensales_total }}</h2>
+        <p>Comensales en total.</p>
+    </div>
+    <div class="admin-card">
+        <h2>{{ stats.cancelaciones_hoy }}</h2>
+        <p>Cancelaciones hoy.</p>
+    </div>
+    <div class="admin-card">
+        <h2>{{ stats.calificacion_promedio }}</h2>
+        <p>Calificación promedio.</p>
+    </div>
+</div>
+
+<div class="admin-dashboard-grilla">
+
+    <div class="dashboard-admin-tabla-card">
+        <h3 style="text-align: center; margin-bottom: 24px;">Reservas próximas</h3>
+
+        <div class="admin-dashboard-grilla">
+            {% if reservas_proximas %}
+            {% for r in reservas_proximas %}
+            <div>
+                <strong>{{ r.horario }}</strong><br>
+                <small>{{ r.fecha }}</small>
+            </div>
+            <div>
+                {{ r.nombre }}<br>
+                {{ r.apellido }}
+            </div>
+            <div>
+                {{ r.cantidad_personas }}<br>
+                personas
+            </div>
+            {% endfor %}
+            {% else %}
+            <p style="grid-column: 1 / -1; text-align: center; padding: 20px;">No hay reservas próximas.</p>
+            {% endif %}
+        <div style="text-align: center; margin-top: 32px; width: 100%; grid-column: 1 / -1;"">
+            <a href="{{ url_for('admin_reservas.reservas') }}" class="admin-btn-primario" style="display: inline-block; padding: 14px 40px; font-size: 1rem; text-decoration: none;">VER TODAS</a>
+        </div>
+        </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
+
+
+<div class="dashboard-admin-tabla-card">
+    <h3 style="text-align: center; margin-bottom: 24px;">Cancelaciones recientes.</h3>
+            <div class="admin-dashboard-grilla">
+
+
+                {% if ultimas_cancelaciones %}
+                    {% for c in ultimas_cancelaciones %}
+                        <div>
+                            <strong>{{ c.horario }}</strong><br>
+                            <small>{{ c.fecha }}</small>
+                        </div>
+                        <div>
+                            {{ c.nombre }}<br>
+                            {{ c.apellido }}
+                        </div>
+                        <div>
+                            {{ c.cantidad_personas }}<br>
+                            personas
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="grid-column: 1 / -1; text-align: center; padding: 20px;">No hay cancelaciones recientes.</p>
+                {% endif %}
+            </div>
+</div>
+
+<div class="dashboard-admin-tabla-card">
+            <h3 style="text-align: center; margin-bottom: 20px;">Últimas reseñas</h3>
+
+            <div>
+                {% if ultimas_resenas %}
+                    {% for resena in ultimas_resenas %}
+                    <div class="dashboard-resena">
+                        <strong>{{ resena.nombre }}</strong>
+                        <span class="estrellas-pequenas">
+                            {% for _ in range(resena.estrellas) %}★{% endfor %}
+                        </span>
+                        <p>{{ resena.comentario }}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="text-align: center; padding: 20px;">No hay reseñas aún.</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div> </div>
+
 
 
 {% endblock %}
