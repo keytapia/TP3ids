@@ -1,0 +1,47 @@
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin.css') }}">
+
+<div class="pagina-admin-form">
+    <div class="editar-agregar-container">
+    
+        <form action="{{ url_for('menu_admin.menu_editar', id=plato.id) }}" method="POST" enctype="multipart/form-data">
+        
+            <label>Nombre</label>
+            <input type="text" name="nombre" value="{{ plato.nombre }}">
+        
+            <label>Precio</label>
+            <input type="number" name="precio" value="{{ plato.precio }}">
+        
+            <label>Categoría</label>
+            <select name="categoria_id">
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}"
+                        {% if categoria.id == plato.categoria_id %}selected{% endif %}>
+                        {{ categoria.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <label>Descripción</label>
+            <textarea name="descripcion">{{ plato.descripcion }}</textarea>
+        
+            <label>Restricciones</label>
+            <input type="text" name="restricciones_alimentarias"
+                   value="{{ plato.restricciones_alimentarias }}">
+        
+            <input type="hidden" name="imagen_actual" value="{{ plato.imagen }}">
+
+            <label>Cambiar imagen (opcional)</label>
+                <p>Seleccione una nueva imagen o deje el campo vacío para conservar la actual.</p>
+            <input type="file" name="imagen" accept="image/*">
+        
+            <button type="submit">Guardar cambios</button>
+        
+        </form>
+    
+    </div>
+
+</div>
+
+{% endblock %}

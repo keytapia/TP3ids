@@ -1,26 +1,39 @@
-from flask import request, render_template, Blueprint
-import requests
+from flask import request, render_template, Blueprint, redirect, url_for
+
+from services.menu import (
+    obtener_categorias,
+    obtener_menu
+)
 
 menu_bp = Blueprint("menu", __name__)
 
 
-# Mostrar el menú con opción de filtrar por categoría
 @menu_bp.route("/menu")
 def menu():
     categoria = request.args.get("categoria")
 
-    response_cat = requests.get("http://127.0.0.1:5000/api/categorias")
-    categorias = response_cat.json()
+    resp_categorias = obtener_categorias()
+    categorias = resp_categorias["data"] if resp_categorias["ok"] else []
 
-    if not categoria and categorias:
-        from flask import redirect, url_for
-        return redirect(url_for('menu.menu', categoria=categorias[0]['nombre']))
+    if not categorias:
+        return render_template(
+            "public/menu.html",
+            platos=[],
+            categorias=[],
+            categoria_activa=None
+        )
 
-    url = "http://127.0.0.1:5000/api/menu"
-    if categoria:
-        url += f"?categoria={categoria}"
+    if not categoria:
+        return redirect(
+            url_for("menu.menu", categoria=categorias[0]["nombre"])
+        )
 
-    response = requests.get(url)
-    platos = response.json()
+    resp_menu = obtener_menu(categoria)
+    platos = resp_menu["data"] if resp_menu["ok"] else []
 
-    return render_template("public/menu.html", platos=platos, categorias=categorias, categoria_activa=categoria)
+    return render_template(
+        "public/menu.html",
+        platos=platos,
+        categorias=categorias,
+        categoria_activa=categoria
+    )
