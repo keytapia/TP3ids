@@ -12,7 +12,7 @@ from routes.menu_routes import menu_bp
 from routes.reservas_routes import reservas_bp
 from routes.servicios_routes import servicios_bp
 from routes.auth_routes import auth_bp
-# from routes.reseñas_routes import reseñas_bp    <--- FALTA IMPLEMENTAR
+from routes.resenas_routes import resenas_bp
 # from routes.usuarios_routes import usuarios_bp    <--- FALTA IMPLEMENTAR
 
 # Rutas del Administrador
@@ -34,7 +34,7 @@ app.register_blueprint(menu_bp)
 app.register_blueprint(reservas_bp)
 app.register_blueprint(servicios_bp)
 app.register_blueprint(auth_bp)
-# app.register_blueprint(reseñas_bp)   <--- FALTA IMPLEMENTAR
+app.register_blueprint(resenas_bp)
 # app.register_blueprint(usuarios_bp)  <--- FALTA IMPLEMENTAR
 
 # Blueprints para rutas del administrador
