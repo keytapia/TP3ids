@@ -32,7 +32,7 @@
 
                     <td>
                         <form action="{{ url_for('servicios_admin.eliminar_servicio', id=r.id) }}" method="POST"
-                              onsubmit="return confirm('¿Eliminar {{ servicio.nombre }}?')">
+                              onsubmit="return confirm('¿Eliminar {{ r.servicio }}?')">
                               <button type="submit">Eliminar</button>
                         </form>
                     </td>
