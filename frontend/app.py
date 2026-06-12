@@ -11,14 +11,14 @@ from routes.public.inicio import inicio_bp
 from routes.public.login import login_bp
 from routes.public.menu import menu_bp
 from routes.public.nosotros import nosotros_bp
-from routes.public.reseñas import reseñas_bp
+from routes.public.resenas import resenas_bp
 from routes.public.reservas import reservas_bp
 
 # Rutas del Administrador
 from routes.admin.dashboard import dashboard_admin_bp
 from routes.admin.estadisticas import estadisticas_admin_bp
 from routes.admin.menu import menu_admin_bp
-from routes.admin.reseñas import reseñas_admin_bp
+from routes.admin.resenas import resenas_admin_bp
 from routes.admin.reservas import reservas_admin_bp
 from routes.admin.servicios import servicios_admin_bp
 from routes.admin.configuracion import configuracion_admin_bp
@@ -31,7 +31,7 @@ app.secret_key = "Nazarestaurante"
 app.register_blueprint(inicio_bp)
 app.register_blueprint(menu_bp)
 app.register_blueprint(reservas_bp)
-app.register_blueprint(reseñas_bp)
+app.register_blueprint(resenas_bp)
 app.register_blueprint(nosotros_bp)
 app.register_blueprint(contacto_bp)
 app.register_blueprint(login_bp)
@@ -40,7 +40,7 @@ app.register_blueprint(login_bp)
 app.register_blueprint(dashboard_admin_bp)
 app.register_blueprint(reservas_admin_bp)
 app.register_blueprint(menu_admin_bp)
-app.register_blueprint(reseñas_admin_bp)
+app.register_blueprint(resenas_admin_bp)
 app.register_blueprint(servicios_admin_bp)
 app.register_blueprint(estadisticas_admin_bp)
 app.register_blueprint(configuracion_admin_bp)
