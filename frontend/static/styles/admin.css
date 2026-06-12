@@ -103,6 +103,32 @@ body {
 
 }
 
+.volverinicio {
+
+    display: block;
+    margin: 250px 70px 0 55px;
+    padding: 8px 10px !important;
+    background-color: #E8DDDD;
+    color: #000000 !important;
+    text-align: center !important;
+    text-decoration: none;
+
+    letter-spacing: 0px !important;
+    text-transform: none !important;
+
+    border-radius: 10px;
+    font-size: 20px !important;
+    white-space: nowrap;
+    font-weight: 600 !important;
+    transition: background-color 0.2s ease;
+
+}
+
+.volverinicio:hover {
+    background-color: #DDD0C0;
+    transform: translateY(-2px);
+}
+
 /* CONTENIDO PRINCIPAL */
 
 .admin-content {
