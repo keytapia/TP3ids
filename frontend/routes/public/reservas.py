@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
-from datetime import date
+from datetime import date, datetime
 from services.reservas import (
     crear_reserva as crear_reserva_service,
     obtener_mesas_por_estado as obtener_mesas_con_estado
@@ -115,5 +115,6 @@ def reservas():
         fecha=fecha,
         horario=horario,
         cantidad_personas=cantidad_personas,
-        fecha_actual=date.today().isoformat()
+        fecha_actual=date.today().isoformat(),
+        hora_actual=datetime.now().strftime("%H:%M")
     )
