@@ -1,5 +1,5 @@
 from db import obtener_conexion
-
+from datetime import datetime
 
 def obtener_todas_las_reservas_db():
 
@@ -248,6 +248,12 @@ def crear_reserva_db(
     cursor = conexion.cursor(dictionary=True)
 
     try:
+
+        fecha_reserva = datetime.strptime(fecha, "%Y-%m-%d").date()
+        fecha_actual = datetime.now().date()
+        if fecha_reserva < fecha_actual:
+            raise ValueError("La fecha de la reserva no puede ser anterior a la fecha actual")
+        
         cursor.execute(
             """
             INSERT INTO reservas (

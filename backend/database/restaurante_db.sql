@@ -53,7 +53,7 @@ CREATE TABLE platos (
 CREATE TABLE resenas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
-    reserva_id INT NOT NULL FOREIGN KEY (reserva_id) REFERENCES reservas(id),
+    reserva_id INT NOT NULL,
     comentario TEXT,
     puntuacion INT CHECK (puntuacion >= 1 AND puntuacion <= 5),
     fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

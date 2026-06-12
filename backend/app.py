@@ -13,7 +13,7 @@ from utils.constants import (
 # Rutas públicas
 from routes.public.auth import auth_bp
 from routes.public.menu import menu_bp
-from TP3ids.backend.routes.public.resenas import resenas_bp
+from routes.public.resenas import resenas_bp
 from routes.public.reservas import reservas_bp
 from routes.public.servicios import servicios_bp
 from routes.public.usuarios import usuarios_bp
