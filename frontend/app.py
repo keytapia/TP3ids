@@ -1,6 +1,10 @@
-from flask import Flask
 import sys
 import os
+from flask import Flask
+
+from services.configuracion import (
+  obtener_configuracion
+)
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.append(BASE_DIR)
@@ -44,6 +48,17 @@ app.register_blueprint(resenas_admin_bp)
 app.register_blueprint(servicios_admin_bp)
 app.register_blueprint(estadisticas_admin_bp)
 app.register_blueprint(configuracion_admin_bp)
+
+
+@app.context_processor
+def configuracion_app():
+
+    try:
+        config = obtener_configuracion()
+    except:
+        config = {}
+
+    return dict(config=config)
 
 
 if __name__ == "__main__":

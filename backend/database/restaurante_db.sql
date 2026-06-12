@@ -73,6 +73,7 @@ CREATE TABLE configuracion (
     email VARCHAR(100),
     telefono VARCHAR(50),
     ubicacion VARCHAR(255),
+    dias VARCHAR(255),
     horario VARCHAR(255)
 );
 
@@ -194,7 +195,7 @@ VALUES
 -- =========================
 
 INSERT INTO configuracion
-(nombre, email, telefono, ubicacion, horario)
+(nombre, email, telefono, ubicacion, dias, horario)
 
 VALUES
-('Naza Restaurante','restaurante@naza.com','11 2345-6789','Av. XXX 123','Lunes a Domingo de 11:30 a 23:00');
+('NAZA RESTAURANTE','restaurante@naza.com','11 2345-6789','Av. XXX 123, Ciudad, País','Lunes a Domingo', '11:30 a 23:00');

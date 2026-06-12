@@ -16,6 +16,7 @@ def guardar_configuracion(data):
         email=data.get("email"),
         telefono=data.get("telefono"),
         ubicacion=data.get("ubicacion"),
+        dias=data.get("dias"),
         horario=data.get("horario")
     )
 

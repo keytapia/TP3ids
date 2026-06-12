@@ -25,6 +25,7 @@ def actualizar_configuracion(
     email,
     telefono,
     ubicacion,
+    dias,
     horario
 ):
 
@@ -38,6 +39,7 @@ def actualizar_configuracion(
             email = %s,
             telefono = %s,
             ubicacion = %s,
+            dias = %s,
             horario = %s
         WHERE id = 1
     """, (
@@ -45,6 +47,7 @@ def actualizar_configuracion(
         email,
         telefono,
         ubicacion,
+        dias,
         horario
     ))
 

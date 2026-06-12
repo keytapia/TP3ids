@@ -18,6 +18,7 @@ def configuracion():
             "email":request.form.get("email"),
             "telefono":request.form.get("telefono"),
             "ubicacion":request.form.get("ubicacion"),
+            "dias":request.form.get("dias"),
             "horario":request.form.get("horario")
         }
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from datetime import date, datetime
 from services.reservas import (
     crear_reserva as crear_reserva_service,
