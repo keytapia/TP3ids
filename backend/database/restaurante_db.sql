@@ -67,6 +67,15 @@ CREATE TABLE servicios (
     descripcion TEXT
 );
 
+CREATE TABLE configuracion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    telefono VARCHAR(50),
+    ubicacion VARCHAR(255),
+    horario VARCHAR(255)
+);
+
 
 
 -- ====================================
@@ -178,3 +187,14 @@ VALUES
 ('WiFi','Internet gratuito'),
 ('Pet Friendly','Mascotas permitidas :D'),
 ('Estacionamiento','Lugar para estacionar');
+
+
+-- =========================
+-- CONFIGURACIÓN
+-- =========================
+
+INSERT INTO configuracion
+(nombre, email, telefono, ubicacion, horario)
+
+VALUES
+('Naza Restaurante','restaurante@naza.com','11 2345-6789','Av. XXX 123','Lunes a Domingo de 11:30 a 23:00');

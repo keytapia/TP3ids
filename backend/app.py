@@ -25,6 +25,7 @@ from routes.admin.menu import menu_admin_bp
 from routes.admin.resenas import resenas_admin_bp
 from routes.admin.reservas import reservas_admin_bp
 from routes.admin.servicios import servicios_admin_bp
+from routes.admin.configuracion import configuracion_admin_bp
 
 
 load_dotenv()
@@ -53,6 +54,7 @@ def create_app():
     app.register_blueprint(resenas_admin_bp)
     app.register_blueprint(reservas_admin_bp)
     app.register_blueprint(servicios_admin_bp)
+    app.register_blueprint(configuracion_admin_bp)
 
     return app
 
