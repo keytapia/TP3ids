@@ -196,7 +196,9 @@
                 <select id="cantidad_personas" name="cantidad_personas" required>
                     <option value="">Seleccione para cuántas personas</option>
                     {%for cantidad in range(1,9)%}
-                        <option value="{{ cantidad }}" {% if cantidad_personas == cantidad|string == cantidad|string%}selected{% endif %}>{{ cantidad }}</option>
+                        <option value="{{ cantidad }}" {% if cantidad_personas|string == cantidad|string%}selected{% endif %}>
+                            {{ cantidad }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>

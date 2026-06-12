@@ -35,12 +35,8 @@ def crear_reserva(
         )
 
         if response.status_code == 201:
-            print("Reserva creada exitosamente:", response.json())
             return {"ok": True, "data": response.json()}
 
-        print("ERROR AL CREAR RESERVA")
-        print("STATUS:", response.status_code)
-        print("RESPUESTA BACKEND:", response.text)
         return {"ok": False, "error": response.text}
 
     except requests.exceptions.ConnectionError:

@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from utils.constants import (
     DIAS_DISPONIBILIDAD,
@@ -145,6 +145,17 @@ def cancelar_reserva(reserva_id):
 
     return cancelar_reserva_db(reserva_id)
 
+# Validar horario de reserva
+def fecha_horario_valido(fecha, horario):
+    try:
+        fecha_hora_reserva = datetime.strptime(
+            f"{fecha} {horario}",
+            "%Y-%m-%d %H:%M"
+        )
+
+        return fecha_hora_reserva > datetime.now()
+    except ValueError:
+        return False
 
 # Crear reserva
 def crear_reserva(
@@ -158,7 +169,9 @@ def crear_reserva(
     cantidad_personas,
     notas_adicionales=""
 ):
-
+    if not fecha_horario_valido(fecha, horario):
+        return None
+    
     usuario = buscar_usuario_por_email(email)
 
     if not usuario:
