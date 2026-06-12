@@ -1,11 +1,11 @@
 from flask import jsonify, Blueprint
 
-reseñas_admin_bp = Blueprint('reseñas_admin', __name__, url_prefix='/api/admin')
+resenas_admin_bp = Blueprint('resenas_admin', __name__, url_prefix='/api/admin')
 
 
 # Obtener todas las reseñas
-@reseñas_admin_bp.route("/reseñas", methods=["GET"])
-def get_reseñas():
+@resenas_admin_bp.route("/resenas", methods=["GET"])
+def get_resenas():
     # Acá va la función del servicio para obtener todas las reseñas
     # resultado = obtener_reseñas()
 
@@ -17,8 +17,8 @@ def get_reseñas():
 
 
 # Eliminar una reseña por id
-@reseñas_admin_bp.route("/reseñas/<int:id>", methods=["DELETE"])
-def delete_reseña(id):
+@resenas_admin_bp.route("/resenas/<int:id>", methods=["DELETE"])
+def delete_resena(id):
 
     # Acá va la función del servicio para eliminar la reseña
     # (O capaz poner una columna a la tabla 'resenas' donde diga estado='publica' u 'oculta', y hacer un patch en vez de eliminar para actualizar el estado)

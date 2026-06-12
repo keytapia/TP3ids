@@ -13,7 +13,7 @@ from utils.constants import (
 # Rutas públicas
 from routes.public.auth import auth_bp
 from routes.public.menu import menu_bp
-from routes.public.reseñas import reseñas_bp
+from TP3ids.backend.routes.public.resenas import resenas_bp
 from routes.public.reservas import reservas_bp
 from routes.public.servicios import servicios_bp
 from routes.public.usuarios import usuarios_bp
@@ -22,7 +22,7 @@ from routes.public.usuarios import usuarios_bp
 from routes.admin.dashboard import dashboard_admin_bp
 from routes.admin.estadisticas import estadisticas_admin_bp
 from routes.admin.menu import menu_admin_bp
-from routes.admin.reseñas import reseñas_admin_bp
+from routes.admin.resenas import resenas_admin_bp
 from routes.admin.reservas import reservas_admin_bp
 from routes.admin.servicios import servicios_admin_bp
 
@@ -43,14 +43,14 @@ def create_app():
     app.register_blueprint(menu_bp)
     app.register_blueprint(reservas_bp)
     app.register_blueprint(servicios_bp)
-    app.register_blueprint(reseñas_bp)
+    app.register_blueprint(resenas_bp)
     app.register_blueprint(usuarios_bp)
 
     # Administrador
     app.register_blueprint(dashboard_admin_bp)
     app.register_blueprint(estadisticas_admin_bp)
     app.register_blueprint(menu_admin_bp)
-    app.register_blueprint(reseñas_admin_bp)
+    app.register_blueprint(resenas_admin_bp)
     app.register_blueprint(reservas_admin_bp)
     app.register_blueprint(servicios_admin_bp)
 
