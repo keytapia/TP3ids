@@ -38,8 +38,8 @@
                     Menú
                 </a>
 
-                <a href="{{ url_for('reseñas_admin.reseñas') }}"
-                   class="{% if request.endpoint == 'reseñas_admin.reseñas' %}active{% endif %}">
+                <a href="{{ url_for('resenas_admin.resenas') }}"
+                   class="{% if request.endpoint == 'resenas_admin.resenas' %}active{% endif %}">
                     Reseñas
                 </a>
 
@@ -58,6 +58,9 @@
                     Configuración
                 </a>
 
+                <a href="{{ url_for('inicio.inicio') }}">
+                    Cerrar Sesión
+                </a>
             </nav>
 
         </aside>
