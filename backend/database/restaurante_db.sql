@@ -27,7 +27,7 @@ CREATE TABLE reservas (
     fecha DATE NOT NULL,
     horario TIME NOT NULL,
     cantidad_personas INT NOT NULL,
-    notas_adicionales TEXT,
+    notas_adicionales TEXT NULL,
     estado ENUM('confirmada', 'cancelada') DEFAULT 'confirmada',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (mesa_id) REFERENCES mesas(id)
@@ -135,15 +135,16 @@ VALUES
 
 INSERT INTO platos 
 (categoria_id, nombre, descripcion, restricciones_alimentarias, precio, imagen)
+
 VALUES
-(1, 'Empanadas', 'Empanadas caseras', NULL, 2000.00, 'empanadas.png'),
-(1, 'Pizza', 'Pizza de Muzza', 'Vegetariano', 8200.00, 'pizza.png'),
-(2, 'Bife', 'Bife con guarnicion', 'Sin TACC', 12000.00, 'bife.png'),
-(2, 'Milanesa Napolitana', 'Milanesa Napolitana con guarnicion', NULL, 9500.00, 'milanesa_napolitana.png'),
-(3, 'Ravioles', 'Ravioles con salsa bolognesa', NULL, 8000.00, 'ravioles.png'),
-(4, 'Coca Cola', 'Bebida 500ml', 'Vegano, Sin TACC', 2500.00, 'coca.png'),
-(4, 'Agua Mineral', 'Agua Mineral', 'Vegano, Sin TACC', 1000.00, 'agua_mineral.png'),
-(5, 'Flan', 'Flan casero', 'Vegetariano', 2800.00, 'flan.png');
+(1,'Empanadas','Empanadas caseras',NULL,2000.00,'empanadas.png'),
+(1,'Pizza','Pizza de Muzza','Vegetariano',8200.00,'pizza.png'),
+(2,'Bife','Bife con guarnicion','Sin TACC',12000.00,'bife.png'),
+(2,'Milanesa Napolitana','Milanesa Napolitana con guarnicion',NULL,9500.00,'milanesa_napolitana.png'),
+(3,'Ravioles','Ravioles con salsa bolognesa',NULL,8000.00,'ravioles.png'),
+(4,'Coca Cola','Bebida 500ml',NULL,2500.00,'coca.png'),
+(4,'Agua Mineral','Agua Mineral','Vegano, Sin TACC',1000.00,'agua_mineral.png'),
+(5,'Flan','Flan casero','Vegetariano',2800.00,'flan.png');
 
 -- =========================
 -- RESERVAS
@@ -155,11 +156,11 @@ INSERT INTO reservas
 VALUES
 
 (2,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada'),
-(3,2,'2026-05-11','21:00:00',4,'','confirmada'),
+(3,2,'2026-05-11','21:00:00',4,NULL,'confirmada'),
 (4,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada'),
-(5,4,'2026-05-15','22:00:00',2,'','confirmada'),
-(2,2,'2026-05-16','20:00:00',4,'','confirmada'),
-(2,1,'2026-05-17','20:00:00',2,'','cancelada');
+(5,4,'2026-05-15','22:00:00',2,NULL,'confirmada'),
+(2,2,'2026-05-16','20:00:00',4,NULL,'confirmada'),
+(2,1,'2026-05-17','20:00:00',2,NULL,'cancelada');
 
 
 -- =========================
@@ -182,7 +183,7 @@ VALUES
 -- =========================
 
 INSERT INTO servicios
-(nombre,descripcion)
+(nombre, descripcion)
 
 VALUES
 ('WiFi','Internet gratuito'),
@@ -198,4 +199,4 @@ INSERT INTO configuracion
 (nombre, email, telefono, ubicacion, dias, horario)
 
 VALUES
-('NAZA RESTAURANTE','restaurante@naza.com','11 2345-6789','Av. XXX 123, Ciudad, País','Lunes a Domingo', '11:30 a 23:00');
+('NAZA RESTAURANTE','restaurante@naza.com','11 2345-6789','Av. XXX 123, Ciudad, País','Lunes a Domingo','11:30 a 23:00');

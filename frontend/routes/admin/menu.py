@@ -1,13 +1,7 @@
-from flask import (
-    Blueprint,
-    render_template,
-    request,
-    redirect,
-    url_for
-)
+from flask import Blueprint, render_template, request, redirect, url_for
 
 from services.menu import (
-    obtener_menu,
+    obtener_menu_admin,
     obtener_plato,
     crear_plato,
     editar_plato,
@@ -25,7 +19,7 @@ def menu():
 
     categoria = request.args.get("categoria")
 
-    resultado_menu = obtener_menu(categoria)
+    resultado_menu = obtener_menu_admin(categoria)
     resultado_categorias = obtener_categorias()
 
     platos = resultado_menu.get("data", [])
@@ -44,14 +38,19 @@ def menu_agregar():
 
     if request.method == "POST":
 
+        restricciones = request.form.get(
+            "restricciones_alimentarias"
+        )
+
+        if restricciones == "":
+            restricciones = None
+
         data = {
             "categoria_id": int(request.form.get("categoria_id")),
             "nombre": request.form.get("nombre"),
             "precio": float(request.form.get("precio")),
             "descripcion": request.form.get("descripcion"),
-            "restricciones_alimentarias": request.form.get(
-                "restricciones_alimentarias"
-            ),
+            "restricciones_alimentarias": restricciones,
             "disponible": True
         }
 
@@ -67,9 +66,7 @@ def menu_agregar():
         resultado = crear_plato(data)
 
         if resultado["ok"]:
-            return redirect(
-                url_for("menu_admin.menu")
-            )
+            return redirect(url_for("menu_admin.menu"))
 
         return resultado["error"]
 
@@ -86,16 +83,21 @@ def menu_editar(id):
 
     if request.method == "POST":
 
+        restricciones = request.form.get(
+            "restricciones_alimentarias"
+        )
+
+        if restricciones == "":
+            restricciones = None
+
         data = {
             "categoria_id": int(request.form.get("categoria_id")),
             "nombre": request.form.get("nombre"),
             "precio": float(request.form.get("precio")),
             "descripcion": request.form.get("descripcion"),
-            "restricciones_alimentarias": request.form.get(
-                "restricciones_alimentarias"
-            ),
+            "restricciones_alimentarias": restricciones,
             "disponible": (
-                request.form.get("disponible") == "on"
+                request.form.get("disponible") == "True"
             )
         }
 
@@ -117,9 +119,7 @@ def menu_editar(id):
         resultado = editar_plato(id, data)
 
         if resultado["ok"]:
-            return redirect(
-                url_for("admin_menu.menu")
-            )
+            return redirect(url_for("menu_admin.menu"))
 
         return resultado["error"]
 
@@ -138,6 +138,4 @@ def menu_eliminar(id):
 
     eliminar_plato(id)
 
-    return redirect(
-        url_for("menu_admin.menu")
-    )
+    return redirect(url_for("menu_admin.menu"))

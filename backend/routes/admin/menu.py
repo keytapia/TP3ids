@@ -66,7 +66,9 @@ def put_plato(id):
 
     data = request.get_json()
 
-    if modificar_plato(id, data) == 0:
+    resultado = modificar_plato(id, data)
+
+    if resultado is None:
         return jsonify({"error": "Plato no encontrado"}), 404
 
     return jsonify({"mensaje": "Plato modificado exitosamente"}), 200

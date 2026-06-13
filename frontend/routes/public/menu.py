@@ -2,7 +2,7 @@ from flask import request, render_template, Blueprint, redirect, url_for
 
 from services.menu import (
     obtener_categorias,
-    obtener_menu
+    obtener_menu_publico
 )
 
 menu_bp = Blueprint("menu", __name__)
@@ -10,6 +10,7 @@ menu_bp = Blueprint("menu", __name__)
 
 @menu_bp.route("/menu")
 def menu():
+
     categoria = request.args.get("categoria")
 
     resp_categorias = obtener_categorias()
@@ -25,10 +26,13 @@ def menu():
 
     if not categoria:
         return redirect(
-            url_for("menu.menu", categoria=categorias[0]["nombre"])
+            url_for(
+                "menu.menu",
+                categoria=categorias[0]["nombre"]
+            )
         )
 
-    resp_menu = obtener_menu(categoria)
+    resp_menu = obtener_menu_publico(categoria)
     platos = resp_menu["data"] if resp_menu["ok"] else []
 
     return render_template(

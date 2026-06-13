@@ -2,6 +2,8 @@ from repositories.menu import (
     obtener_todos_los_platos,
     obtener_plato_por_id,
     obtener_platos_por_categoria,
+    obtener_platos_disponibles,
+    obtener_platos_disponibles_por_categoria,
     actualizar_plato,
     eliminar_plato_por_id,
     obtener_categorias,
@@ -27,10 +29,27 @@ def listar_menu_por_categoria(categoria):
     return obtener_platos_por_categoria(categoria)
 
 
+# Obtener platos disponibles del menú
+def listar_menu_publico():
+
+    return obtener_platos_disponibles()
+
+
+# Obtener platos disponibles por categoría del menú
+def listar_menu_publico_por_categoria(categoria):
+
+    return obtener_platos_disponibles_por_categoria(categoria)
+
+
 # Modificar un plato
 def modificar_plato(id, data):
 
-    return actualizar_plato(id, data)
+    resultado = actualizar_plato(id, data)
+
+    if resultado is None:
+        return None
+
+    return True
 
 
 # Eliminar un plato

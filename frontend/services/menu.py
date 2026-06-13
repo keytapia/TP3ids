@@ -3,9 +3,54 @@ import requests
 API_BACKEND_URL = "http://127.0.0.1:5000"
 
 
-def obtener_menu(categoria=None):
+# =========================
+# ADMIN
+# =========================
+
+def obtener_menu_admin(categoria=None):
     try:
         url = f"{API_BACKEND_URL}/api/admin/menu"
+
+        params = {}
+        if categoria:
+            params["categoria"] = categoria
+
+        response = requests.get(url, params=params, timeout=10)
+
+        if response.status_code == 200:
+            return {
+                "ok": True,
+                "data": response.json()
+            }
+
+        return {
+            "ok": False,
+            "data": [],
+            "error": response.text
+        }
+
+    except requests.exceptions.ConnectionError:
+        return {
+            "ok": False,
+            "data": [],
+            "error": "No se pudo conectar con el backend."
+        }
+
+    except requests.exceptions.RequestException as e:
+        return {
+            "ok": False,
+            "data": [],
+            "error": str(e)
+        }
+
+
+# =========================
+# PUBLICO
+# =========================
+
+def obtener_menu_publico(categoria=None):
+    try:
+        url = f"{API_BACKEND_URL}/api/menu"
 
         params = {}
         if categoria:

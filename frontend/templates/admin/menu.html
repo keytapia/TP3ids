@@ -32,7 +32,10 @@
                 <th>Imagen</th>
                 <th>Plato</th>
                 <th>Categoría</th>
+                <th>Descripción</th>
+                <th>Restricción Alimentaria</th>
                 <th>Precio</th>
+                <th>Disponible</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -52,14 +55,30 @@
                 <td>{{ plato.nombre }}</td>
                 
                 <td>
-                {% for cat in categorias %}
-                    {% if cat.id == plato.categoria_id %}
-                        {{ cat.nombre }}
+                    {% for cat in categorias %}
+                        {% if cat.id == plato.categoria_id %}
+                            {{ cat.nombre }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+
+                <td>{{ plato.descripcion }}</td>
+
+                <td>
+                    {% if plato.restricciones_alimentarias is not none %}
+                        {{ plato.restricciones_alimentarias }}
                     {% endif %}
-                {% endfor %}
                 </td>
 
                 <td>${{ plato.precio }}</td>
+
+                <td>
+                    {% if plato.disponible %}
+                        SI
+                    {% else %}
+                        NO
+                    {% endif %}
+                </td>
  
                 <td>
                     <a href="{{ url_for('menu_admin.menu_editar', id=plato.id) }}">

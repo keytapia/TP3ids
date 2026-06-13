@@ -26,9 +26,20 @@
             <label>Descripción</label>
             <textarea name="descripcion">{{ plato.descripcion }}</textarea>
         
-            <label>Restricciones</label>
-            <input type="text" name="restricciones_alimentarias"
-                   value="{{ plato.restricciones_alimentarias }}">
+            <label>Restricciones Alimentarias</label>
+            <input type="text" name="restricciones_alimentarias" value="{{ '' if plato.restricciones_alimentarias is none else plato.restricciones_alimentarias }}">
+
+            <label>Disponible</label>
+            <select name="disponible">
+                <option value="True"
+                    {% if plato.disponible %}selected{% endif %}>
+                    SI
+                </option>
+                <option value="False"
+                    {% if not plato.disponible %}selected{% endif %}>
+                    NO
+                </option>
+            </select>
         
             <input type="hidden" name="imagen_actual" value="{{ plato.imagen }}">
 

@@ -63,7 +63,7 @@ def obtener_platos_por_categoria(categoria):
         conexion.close()
 
 
-def actualizar_plato(plato_id, data):
+def obtener_platos_disponibles():
 
     conexion = obtener_conexion()
 
@@ -71,10 +71,63 @@ def actualizar_plato(plato_id, data):
         with conexion.cursor(dictionary=True) as cursor:
 
             cursor.execute("""
+                SELECT *
+                FROM platos
+                WHERE disponible = TRUE
+            """)
+
+            return cursor.fetchall()
+
+    finally:
+        conexion.close()
+
+
+def obtener_platos_disponibles_por_categoria(categoria):
+
+    conexion = obtener_conexion()
+
+    try:
+        with conexion.cursor(dictionary=True) as cursor:
+
+            cursor.execute("""
+                SELECT
+                    platos.*,
+                    categorias_platos.nombre AS categoria
+                FROM platos
+                JOIN categorias_platos
+                    ON platos.categoria_id = categorias_platos.id
+                WHERE LOWER(categorias_platos.nombre) = %s
+                AND platos.disponible = TRUE
+            """, (categoria,))
+
+            return cursor.fetchall()
+
+    finally:
+        conexion.close()
+
+
+def actualizar_plato(plato_id, data):
+
+    conexion = obtener_conexion()
+
+    try:
+        with conexion.cursor(dictionary=True) as cursor:
+
+            # Verificar que exista el plato
+            cursor.execute(
+                "SELECT id FROM platos WHERE id = %s",
+                (plato_id,)
+            )
+
+            if cursor.fetchone() is None:
+                return None
+
+            cursor.execute("""
                 UPDATE platos
                 SET categoria_id = %s,
                     nombre = %s,
                     descripcion = %s,
+                    restricciones_alimentarias = %s,
                     precio = %s,
                     imagen = %s,
                     disponible = %s
@@ -83,6 +136,7 @@ def actualizar_plato(plato_id, data):
                 data.get("categoria_id"),
                 data.get("nombre"),
                 data.get("descripcion"),
+                data.get("restricciones_alimentarias"),
                 data.get("precio"),
                 data.get("imagen"),
                 data.get("disponible"),
@@ -91,7 +145,7 @@ def actualizar_plato(plato_id, data):
 
             conexion.commit()
 
-            return cursor.rowcount
+            return True
 
     finally:
         conexion.close()
