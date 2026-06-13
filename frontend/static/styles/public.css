@@ -1204,3 +1204,73 @@ footer a:hover {
     font-family:'Poppins',sans-serif;
     font-size:18px;
 }
+
+/*=====================================================================================*/
+/*----------------------------- PÁGINA DE CANCELAR RESERVA ----------------------------*/
+/*=====================================================================================*/
+
+.cancelar-reserva-page {
+
+    min-height: calc(100vh - 90px); /* calcula(100% pantalla - 90px desde arriva) resta 90px xq es lo q mide el narvar*/
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #3d0f0e !important;
+}
+
+.cancelar-reserva-card {
+
+    background: #f3ece3;
+    margin-top: 140px !important;
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    min-width: 500px;
+}
+
+.cancelar-reserva-card h1 {
+
+    color: #700c00 !important;
+    margin-bottom: 20px !important;
+}
+
+.cancelar-reserva-card p {
+
+    margin-bottom: 30px !important;
+    font-size: 1.1rem !important;
+}
+
+.cancelar-reserva-botones {
+
+    display: flex !important;
+    justify-content: center !important;
+    gap: 20px !important;
+}
+
+.cancelar-reserva-botones button {
+
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 12px 30px !important;
+    cursor: pointer !important;
+    font-weight: 700 !important;
+}
+
+.cancelar-reserva-botones button[value="si"] {
+
+    background: #700c00 !important;
+    color: #f3ece3 !important;
+}
+
+.cancelar-reserva-botones button[value="no"] {
+
+    background: #b1a4a4 !important;
+    color: #222 !important;
+}
+
+.cancelar-reserva-botones button:hover {
+
+    opacity: 0.9 !important;
+    background-color: #97897e2a;
+    transform: translateY(-2px);
+}

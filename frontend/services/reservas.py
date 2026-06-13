@@ -81,3 +81,20 @@ def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
 
     except requests.exceptions.Timeout:
         return {"ok": False, "error": "El backend tardó demasiado en responder."}
+    
+def cancelar_reserva(id):
+    try:
+        response = requests.patch(
+            f"{API_BACKEND_URL}/api/reservas/{id}/cancelar-cliente",
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            return {"ok": True, "data": response.json()}
+        return {"ok": False, "data": response.text}
+    
+    except requests.exceptions.ConnectionError:
+        return {"ok": False, "error": "No se pudo conectar con el backend"}
+    
+    except requests.exceptions.Timeout:
+        return {"ok": False, "error": "El backend tardo demasiado en responder"}
