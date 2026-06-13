@@ -8,8 +8,23 @@ def obtener_todas_las_reservas_db():
 
     try:
         cursor.execute("""
-            SELECT *
-            FROM reservas
+            SELECT 
+                r.id,
+                r.usuario_id,
+                r.mesa_id,
+                r.fecha,
+                r.horario,
+                r.cantidad_personas,
+                r.notas_adicionales,
+                r.estado,
+                u.nombre,
+                u.apellido,
+                u.email,
+                u.telefono
+            FROM reservas r
+            INNER JOIN usuarios u
+                ON r.usuario_id = u.id
+            ORDER BY r.fecha DESC, r.horario DESC
         """)
 
         return cursor.fetchall()
@@ -25,11 +40,25 @@ def obtener_reservas_por_estado_db(estado):
     cursor = conexion.cursor(dictionary=True)
 
     try:
-        cursor.execute(
-            """
-            SELECT *
-            FROM reservas
-            WHERE estado = %s
+        cursor.execute("""
+            SELECT 
+                r.id,
+                r.usuario_id,
+                r.mesa_id,
+                r.fecha,
+                r.horario,
+                r.cantidad_personas,
+                r.notas_adicionales,
+                r.estado,
+                u.nombre,
+                u.apellido,
+                u.email,
+                u.telefono
+            FROM reservas r
+            INNER JOIN usuarios u
+                ON r.usuario_id = u.id
+            WHERE r.estado = %s
+            ORDER BY r.fecha DESC, r.horario DESC
             """,
             (estado,)
         )
@@ -50,16 +79,22 @@ def obtener_reserva_por_id_db(reserva_id):
         cursor.execute(
             """
             SELECT
-                id,
-                usuario_id,
-                mesa_id,
-                fecha,
-                horario,
-                cantidad_personas,
-                notas_adicionales,
-                estado
-            FROM reservas
-            WHERE id = %s
+                r.id,
+                r.usuario_id,
+                r.mesa_id,
+                r.fecha,
+                r.horario,
+                r.cantidad_personas,
+                r.notas_adicionales,
+                r.estado,
+                u.nombre,
+                u.apellido,
+                u.email,
+                u.telefono
+            FROM reservas r
+            INNER JOIN usuarios u
+                ON r.usuario_id = u.id
+            WHERE r.id = %s
             """,
             (reserva_id,)
         )

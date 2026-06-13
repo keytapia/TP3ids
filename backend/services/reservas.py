@@ -15,7 +15,8 @@ from services.qr import (
 )
 
 from services.email import (
-    enviar_email_confirmacion
+    enviar_email_confirmacion,
+    enviar_email_cancelacion
 )
 
 from repositories.reservas import (
@@ -224,3 +225,33 @@ def crear_reserva(
     reserva["email_enviado"] = email_enviado
 
     return reserva
+
+def cancelar_reserva_con_email(id):
+    reserva = buscar_reserva_por_id(id)
+
+    if not reserva:
+        return None
+    
+    if reserva["estado"] == "cancelada":
+        return {
+            "cancelada": False,
+            "mensaje": "La reserva ya estaba cancelada"
+        }
+    
+    cancelada = cancelar_reserva_db(id)
+
+    if not cancelada:
+        return {
+            "cancelada": False,
+            "mensaje": "No se pudo cancelar la reserva"
+        }
+    
+    reserva["estado"] = "cancelada"
+
+    email_enviado = enviar_email_cancelacion(reserva)
+
+    return {
+        "cancelada": True,
+        "email_enviado": email_enviado,
+        "reservas": reserva
+    }

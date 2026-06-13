@@ -3,7 +3,7 @@ from flask import jsonify, Blueprint
 from services.reservas import (
     listar_reservas,
     listar_reservas_por_estado,
-    cancelar_reserva
+    cancelar_reserva_con_email
 )
 
 reservas_admin_bp = Blueprint('reservas_admin', __name__, url_prefix='/api/admin')
@@ -28,12 +28,18 @@ def get_reservas_por_estado(estado):
 
 
 # Cancelar una reserva por id cambiando su estado a "cancelada"
-@reservas_admin_bp.route('/reservas/cancelar/<int:reserva_id>', methods=['PATCH'])
-def delete_reserva(reserva_id):
+@reservas_admin_bp.route('/reservas/cancelar/<int:id>', methods=['PATCH'])
+def delete_reserva(id):
     
-    resultado = cancelar_reserva(reserva_id)
+    resultado = cancelar_reserva_con_email(id)
     
-    if resultado:
-        return jsonify({"mensaje": "Reserva cancelada exitosamente"}), 200
-    else:
-        return jsonify({"mensaje": "No se pudo cancelar la reserva"}), 400
+    if not resultado:
+        return jsonify({"mensaje": "Reserva no encontrada"}), 404
+    
+    if not resultado["cancelada"]:
+        return jsonify({"mensaje": resultado["mensaje"]}), 400
+    
+    return jsonify({
+        "mensaje": "Reserva cancelada exitosamente",
+        "email_enviado": resultado["email_enviado"]
+    }), 200
