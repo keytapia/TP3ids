@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from datetime import date, datetime
 from services.reservas import (
     crear_reserva as crear_reserva_service,
-    obtener_mesas_por_estado as obtener_mesas_con_estado
+    obtener_mesas_por_estado as obtener_mesas_con_estado,
+    cancelar_reserva as cancelar_reserva_service
 )
 
 reservas_bp = Blueprint("reservas", __name__)
@@ -117,4 +118,17 @@ def reservas():
         cantidad_personas=cantidad_personas,
         fecha_actual=date.today().isoformat(),
         hora_actual=datetime.now().strftime("%H:%M")
+    )
+
+@reservas_bp.route("/reservas/<int:id>/cancelar", methods=["GET", "POST"])
+def cancelar_reserva_cliente(id):
+    if request.method == "POST":
+        decision = request.form.get("decision")
+        if decision == "si":
+            cancelar_reserva_service(id)
+
+        return redirect(url_for("inicio.inicio"))
+    return render_template(
+        "public/cancelar_reserva.html",
+        id=id
     )

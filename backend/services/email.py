@@ -33,6 +33,8 @@ def enviar_email_confirmacion(reserva, qr_buffer):
         mensaje["From"] = email_user
         mensaje["To"] = reserva["email"]
 
+        url_cancelacion = f"http://127.0.0.1:8080/reservas/{reserva['id']}/cancelar"
+
         cuerpo = f"""
 Hola {reserva["nombre"]} {reserva["apellido"]}, tu reserva está confirmada con los siguientes detalles:
 
@@ -43,7 +45,9 @@ Cantidad de personas: {reserva["cantidad_personas"]}
 Mesa: {reserva["mesa_id"]}
 Notas adicionales: {reserva["notas_adicionales"]}
 
-Adjuntamos tu QR para que puedas mostrarlo al llegar al restaurante.
+Adjuntamos tu QR para que puedas mostrarlo al llegar al restaurante y un boton de cancelacion.
+
+{url_cancelacion}
 
 Saludos,
 NAZA Restaurante

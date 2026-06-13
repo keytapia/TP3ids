@@ -1,0 +1,18 @@
+{% extends "public/base.html" %}
+{% block titulo %}Cancelar reserva{% endblock %}
+{% block contenido_body %}
+
+<section class="cancelar-reserva-page">
+    <form method="POST" class="cancelar-reserva-card">
+        <h1>¿Seguro que desea cancelar?</h1>
+        <p>Esta accion cancelara su reserva definitivamente</p>
+        <div class="cancelar-reservas-botones">
+            <button type="submit" name="decision" value="si">
+                Si
+            </button>
+            <button type="submit" name="decision" value="no">
+                No
+            </button>   
+        </div>
+    </form>
+</section>
