@@ -6,19 +6,23 @@ servicios_admin_bp = Blueprint("servicios_admin", __name__, url_prefix="/admin")
 @servicios_admin_bp.route("/servicios")
 def servicios():
 
-    servicios_prueba = [
-        {"servicio": 'WIFI', "id":1},
-        {"servicio": 'Pet Friendly', "id":2},
-        {"servicio": 'Estacionamiento', "id":3},
+    resultado = obtener_servicios()
 
-    ]
+    if not resultado["ok"]:
+        return render_template("admin/servicios.html", error=resultado["error"])
 
-    return render_template("admin/servicios.html", servicios=servicios_prueba)
+    return render_template("admin/servicios.html", servicios=resultado["data"])
 
 
 @servicios_admin_bp.route("/servicios/agregar", methods=["GET", "POST"])
 def agregar_servicio():
-    return render_template("admin/agregar_servicio.html")
+
+    resultado = crear_servicio()
+
+    if not resultado["ok"]:
+        return render_template("admin/servicios.html", error=resultado["error"])
+
+    return render_template("admin/agregar_servicio.html", servicios=resultado["data"])
 
 
 @servicios_admin_bp.route("/servicios/editar/<int:id>", methods=["GET", "POST"])
@@ -28,4 +32,11 @@ def editar_servicio(id):
 
 @servicios_admin_bp.route("/servicios/eliminar/<int:id>", methods=["POST"])
 def eliminar_servicio(id):
-    pass
+
+
+    eliminar_servicio(id)
+
+    return redirect(url_for("servicios_admin.servicios"))
+
+
+

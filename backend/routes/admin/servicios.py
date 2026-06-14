@@ -26,7 +26,7 @@ def post_servicio():
     data = request.get_json()
 
     nombre = data.get("nombre")
-    descripcion = data.get("descripcion")
+    disponible = data.get("disponible")
 
     if not nombre:
         return jsonify({"mensaje": "El nombre es obligatorio"}), 400
@@ -43,9 +43,9 @@ def put_servicio(id):
     data = request.get_json()
 
     nombre = data.get("nombre")
-    descripcion = data.get("descripcion")
+    disponible = data.get("disponible")
 
-    actualizado = modificar_servicio(nombre, descripcion, id)
+    actualizado = modificar_servicio(nombre, disponible, id)
 
     if not actualizado:
         return jsonify({"mensaje": "No se pudo modificar el servicio"}), 404

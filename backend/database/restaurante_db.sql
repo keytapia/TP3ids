@@ -64,7 +64,7 @@ CREATE TABLE resenas (
 CREATE TABLE servicios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT
+    disponible CHAR(2) NOT NULL
 );
 
 

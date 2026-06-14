@@ -15,25 +15,25 @@ def listar_servicios():
 # Crear un servicio
 def crear_servicio(
     nombre,
-    descripcion
+    disponible
 ):
 
     return crear_servicio_db(
         nombre,
-        descripcion
+        disponible
     )
 
 
 # Modificar un servicio
 def modificar_servicio(
     nombre,
-    descripcion,
+    disponible,
     servicio_id
 ):
 
     return modificar_servicio_db(
         nombre,
-        descripcion,
+        disponible,
         servicio_id
     )
 

@@ -15,6 +15,7 @@
             <tr>
                 <th>Servicio</th>
                 <th>Disponibilidad</th>
+
             </tr>
         </thead>
         <tbody>
@@ -22,7 +23,8 @@
                 {% for r in servicios %}
                 <tr>
                     <td>{{ r.servicio }}</td>
-                    <td>{{ r.id }}</td>
+                    <td>{{ r.disponible }}</td>
+
 
                     <td>
                         <a href="{{ url_for('servicios_admin.editar_servicio', id=r.id) }}">

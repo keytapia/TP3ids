@@ -7,7 +7,19 @@
         <form action="{{ url_for('servicios_admin.editar_servicio', id=id) }}" method="POST", enctype="multipart/form-data" >
 
             <label>Nombre</label>
-            <input type="text" name="nombre" value="hola">
+            <input type="text" name="nombre">
+
+
+            <label>Disponibilidad</label>
+            <select name="disponible" id="disponible">
+                <option value="si" {% if disponible == 'si' %}selected{% endif %}>Sí</option>
+                <option value="no" {% if disponible == 'no' %}selected{% endif %}>No</option>
+            </select>
+
+
+
+
+            <button type="submit">Guardar cambios</button>
 
             
 
