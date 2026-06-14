@@ -964,7 +964,221 @@ footer a:hover {
 /*---------------------------------- PÁGINA DE RESEÑAS --------------------------------*/
 /*=====================================================================================*/
 
-/* Acá van los estilos para la página de reseñas */
+.resenas-section{
+    padding:80px 40px;
+}
+
+.resenas-container{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:25px;
+}
+
+.resenas-slider{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    max-width:900px;
+    scrollbar-width:none;
+}
+
+.resenas-slider::-webkit-scrollbar{
+    display:none;
+}
+
+.resena-card{
+    min-width:280px;
+    max-width:280px;
+    background:#f5f5f5;
+    border-radius:30px;
+    padding:30px;
+    flex-shrink:0;
+}
+
+.resena-card h3{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.estrellas{
+    margin-bottom:20px;
+}
+
+.estrella{
+    color:#d4a33d;
+    font-size:24px;
+}
+
+.estrella-vacia{
+    color:#cccccc;
+    font-size:24px;
+}
+
+.resena-card p{
+    font-size:18px;
+    line-height:1.5;
+}
+
+.slider-btn{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:10px;
+    background:#7d1f1f;
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.slider-btn:hover{
+    opacity:0.9;
+}
+
+.sin-resenas{
+    text-align:center;
+    font-size:20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .resenas-section{
+        padding:40px 20px;
+    }
+
+    .resena-card{
+        min-width:250px;
+    }
+
+}
+
+/*========================================================*/
+/*--------------------- PÁGINA CREAR RESEÑAS -------------------*/
+/*========================================================*/
+
+.resena-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.resena-container {
+    width: 100%;
+    max-width: 700px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+.resena-container h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #700c00;
+}
+
+.resena-subtitulo {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.resena-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.rating {
+    display: flex;
+    gap: 10px;
+}
+
+.star {
+    font-size: 35px;
+    cursor: pointer;
+    color: #cccccc;
+    transition: 0.2s;
+}
+
+.star.active {
+    color: #ffc107;
+}
+
+.btn-enviar {
+    background-color: #700c00;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-enviar:hover {
+    opacity: 0.9;
+}
+
+#mensaje {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.resenas-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:0 auto 30px auto;
+    padding:0 20px;
+}
+
+.resenas-header h1{
+    color:#700c00;
+}
+
+.btn-crear-resena{
+    background:#700c00;
+    color:white;
+    padding:12px 25px;
+    border-radius:25px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-crear-resena:hover{
+    opacity:.9;
+}
+
+
 
 
 /*=====================================================================================*/

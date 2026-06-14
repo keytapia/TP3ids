@@ -1,8 +1,77 @@
 <!---------- Reseñas ---------->
 {% extends "base.html" %}
 
-{% block titulo %}Reseñas{% endblock %}
+{% block titulo %}Reseñas - Naza Restaurante{% endblock %}
 
 {% block contenido_body %}
-    <h2>Reseñas</h2>
+<section class="resenas-section">
+    
+    <div class="resenas-header">
+
+    <h1>Nuestras Reseñas</h1>
+
+    <a
+        href="{{ url_for('resenas.form_resena') }}"
+        class="btn-crear-resena"
+    >
+        Crear reseña
+    </a>
+
+</div>
+
+    <div class="resenas-container">
+
+        {% if resenas %}
+
+        <button class="slider-btn prev-btn">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <div class="resenas-slider">
+
+            {% for r in resenas %}
+
+            <div class="resena-card">
+
+                <h3>
+                    {{ r.nombre }}
+                </h3>
+
+                <div class="estrellas">
+
+                    {% for i in range(r.puntuacion) %}
+                    <span class="estrella">★</span>
+                    {% endfor %}
+
+                    {% for i in range(5 - r.puntuacion) %}
+                    <span class="estrella-vacia">★</span>
+                    {% endfor %}
+
+                </div>
+
+                <p>
+                    {{ r.comentario }}
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <button class="slider-btn next-btn">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+
+        {% else %}
+
+        <div class="sin-resenas">
+            <p>Todavía no hay reseñas publicadas.</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
 {% endblock %}
