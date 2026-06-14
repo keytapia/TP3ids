@@ -37,3 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+function togglePassword(inputId, iconId) {
+
+    const input = document.getElementById(inputId);
+    const icono = document.getElementById(iconId);
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        icono.className = 'bi bi-eye-slash';
+    } else {
+        input.type = 'password';
+        icono.className = 'bi bi-eye';
+    }
+}

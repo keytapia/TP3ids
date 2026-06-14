@@ -87,8 +87,8 @@
             </ul>
 
             <a class="boton-reserva"
-            href="{{ url_for('reservas.reservas') }}">
-                RESERVAR MESA
+            href="{{ url_for('login.login_cliente') }}">
+                INICIAR SESION
             </a>
 
         </nav>
@@ -101,7 +101,7 @@
     <footer>
         <p>
             &copy; 2026 NAZA RESTAURANTE - 
-            <a href="{{ url_for('login.login', _external=True) }}">
+            <a href="{{ url_for('login.login_admin', _external=True) }}">
                 ACCESO STAFF
             </a>
         </p>

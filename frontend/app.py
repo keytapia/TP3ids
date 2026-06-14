@@ -12,7 +12,7 @@ from routes.reservas import reservas_bp
 from routes.resenas import resenas_bp
 from routes.nosotros import nosotros_bp
 from routes.contacto import contacto_bp
-from routes.login import login_bp
+from routes.login import login_bp, registro_bp
 
 # Rutas del Administrador
 
@@ -37,6 +37,8 @@ app.register_blueprint(resenas_bp)
 app.register_blueprint(nosotros_bp)
 app.register_blueprint(contacto_bp)
 app.register_blueprint(login_bp)
+app.register_blueprint(registro_bp)
+
 
 # Blueprints para rutas del administrador
 

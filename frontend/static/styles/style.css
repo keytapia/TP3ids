@@ -1332,13 +1332,21 @@ body {
 /*----------------------------------- PÁGINA DE LOGIN ---------------------------------*/
 /*=====================================================================================*/
 
+.login-body {
+    background: #700c00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
 .login-container{
 
-    min-height:100vh;
+    width: 100%;
     display:flex;
     justify-content: center;
     align-items: center;
-    background: #7f1f1f;
+    padding: 40px 20px;
 
 }
 
@@ -1356,49 +1364,97 @@ body {
 
 .login-logo{
 
-    width: 120px;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 8 px;
+}
+
+.login-logo span {
     display: block;
-    margin:0 auto 30px auto;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #1a1a1a;
 }
 
-
-.login-card form{
-
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+.login-logo small {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #1a1a1a;
 }
 
-.login-card label{
+.login-campos {
 
-    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-campos label{
+    margin-top: 8px ;
+    font-weight: 1000;
+    letter-spacing: 3px;
     color: #222;
 }
-.login-card input{
 
+.login-campos input{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding:15px;
     border:none;
     border-radius:30px;
-    padding:15px;
+    background: #fff;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
 }
 
-.login-card a{
+.login-password-wrapper {
+    position: relative;
+}
 
+.login-password-wrapper input {
+    width: 100%;
+    padding-right: 50px;
+}
+
+.login-toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.registrarse-link{
+
+    margin-top:20px;
+    text-align:center;
     color:#222;
-    text-decoration:none;
-    font-weight:bold;
-    text-align:right;
+    font-size:0.95rem;
 }
 
-.login-card a:hover{
+.registrarse-link a{
 
-    color:#000;
+    color:#701515 !important;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.registrarse-link a:hover{
     text-decoration:underline;
 }
 
-.login-card button{
+.login-button{
 
     margin-top:20px;
-
+    
     border:none;
 
     border-radius:30px;
@@ -1408,14 +1464,50 @@ body {
     background:#7f1f1f;
 
     color:white;
+    font-size: 1.1rem;
 
     font-weight:bold;
 
     cursor:pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: opacity 0.2s;
+    display: flex;
+    margin-left:auto;
+    margin-right:auto;
 }
+
+.login-button:hover {
+    opacity: 0.9;
+}
+
+.login-error {
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+
 
 /* ---------- LOGIN EXITOSO ---------- */
 
+.acceso-body {
+    background: #700c00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.welcome-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
 .welcome-container{
 
     min-height:100vh;
@@ -1429,6 +1521,8 @@ body {
 
 .welcome-card{
 
+    
+
     width:500px;
 
     background:#f2e3e3;
@@ -1438,20 +1532,78 @@ body {
     padding:50px;
 
     text-align:center;
+
+    box-sizing:border-box;
+
 }
 
-.welcome-card h1{
+.check-icon{
 
-    color:#7f1f1f;
+    width:120px;
+    height:120px;
 
-    margin-bottom:20px;
+    margin:auto;
+
+    border-radius:50%;
+
+    background:#7f1f1f;
+
+    color:white;
+
+    font-size:80px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-.welcome-card p{
+.welcome-barra{
 
-    color:#222;
-    font-family:'Poppins',sans-serif;
-    font-size:18px;
+    width:250px;
+
+    height:20px;
+
+    margin:20px auto;
+
+    border:3px solid #7f1f1f;
+
+    border-radius:20px;
+
+    overflow:hidden;
+}
+
+.progreso{
+
+    width:60%;
+
+    height:100%;
+
+    background:#7f1f1f;
+}
+
+.registro-card{
+
+    max-width:550px;
+
+    padding:40px 56px;
+}
+
+.registro-card form{
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.registro-card .login-campos input{
+
+    width:100%;
+    box-sizing:border-box;
+}
+
+.registro-card .login-button{
+
+    margin-top:30px;
 }
 
 /*========================================================================================================*/

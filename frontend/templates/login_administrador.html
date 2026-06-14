@@ -1,0 +1,86 @@
+<!---------- Login ADMIN ---------->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Staff - NAZA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="login-body">
+<div class="login-wrapper">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            <span>NAZA</span>
+            <small>RESTAURANTE</small>
+        </div>
+
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                <div class="login-error">
+                    {% for mensaje in mensajes %}
+                        <p>{{ mensaje }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login.login_admin') }}" method="POST">
+
+            
+            <div class="login-campos">
+                <label for="email">
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="admin@naza"
+                    required
+                >
+            </div>
+
+            <div class="login-campos">
+                <label for="contrasena">
+                    CONTRASEÑA
+                </label>
+                <div class="login-password-wrapper">
+                    <input
+                        type="password"
+                        id="contrasena"
+                        name="contrasena"
+                        placeholder="••••••••" 
+                        required
+                        
+                    >
+                    <button
+                        type="button"
+                        class="login-toggle-password"
+                        onclick="togglePassword('contrasena','icono-ojo')">
+                        <i class="bi bi-eye" id="icono-ojo"></i>
+                    </button>
+                </div>
+            </div>
+
+
+            <button type="submit" class="login-button">
+                INICIAR SESIÓN
+            </button>
+
+            
+        
+        </form>
+
+    </div>
+
+</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+</body>
+</html>
