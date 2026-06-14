@@ -1162,6 +1162,7 @@ td a {
 }
 
 td form {
+    display: inline-block; /* con esto el boton CANCELAR que vive dentro del form se queda en la misma linea con otros objetos*/
     margin: 0;
 }
 

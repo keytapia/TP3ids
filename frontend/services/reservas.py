@@ -98,3 +98,48 @@ def cancelar_reserva(id):
     
     except requests.exceptions.Timeout:
         return {"ok": False, "error": "El backend tardo demasiado en responder"}
+    
+
+#FUNCIONES PARA ADMIN RESERVAS
+
+def obtener_reservas():
+    try:
+        response = requests.get(
+            f"{API_BACKEND_URL}/api/admin/reservas",
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            return {"ok": True, "data": response.json()}
+        
+        return {"ok": False, "error": response.text}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+    
+def obtener_reservas_por_estado(estado):
+    try:
+        response = requests.get(
+            f"{API_BACKEND_URL}/api/admin/reservas/estado/{estado}",
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            return {"ok": True, "data": response.json()}
+        
+        return {"ok": False, "error": response.text}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+    
+def cancelar_reserva_admin(id):
+    try:
+        response = requests.patch(
+            f"{API_BACKEND_URL}/api/admin/reservas/cancelar/{id}",
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            return {"ok": True, "data": response.json()}
+        
+        return {"ok": False, "error": response.text}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}

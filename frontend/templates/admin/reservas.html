@@ -43,11 +43,11 @@
                     <td>
                         {% if r.estado == 'confirmada' %}
                             <span class="badge-confirmada">✓</span>
-                            <button class="admin-btn-cancelar"
-                                data-plato="{{ r.id }}"
-                                onclick="abrirModalCancelar(this)">
-                                CANCELAR
-                            </button>
+                            <form action="{{url_for('reservas_admin.cancelar_reserva_admin_route', id=r.id) }}" method="POST">
+                                <button type="submit" class="admin-btn-cancelar">
+                                    CANCELAR
+                                </button>
+                            </form>
                         {% else %}
                             <span class="badge-cancelada">✗</span>
                         {% endif %}
@@ -60,18 +60,4 @@
         </tbody>
     </table>
 </div>
-
-<!-- Modal cancelar reserva -->
-<div class="admin-modal" id="modal-cancelar" style="display:none;">
-    <div class="admin-modal-card">
-        <h2>Cancelar reserva.</h2>
-        <p><strong>Motivo:</strong></p>
-        <textarea id="motivo-cancelacion" placeholder="Ingrese el motivo de cancelación..."></textarea>
-        <div class="admin-modal-botones">
-            <button class="admin-btn-secundario" onclick="cerrarModal()">VOLVER</button>
-            <button class="admin-btn-primario" onclick="confirmarCancelacion()">CONFIRMAR CANCELACIÓN</button>
-        </div>
-    </div>
-</div>
-<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 {% endblock %}
