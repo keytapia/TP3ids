@@ -3,7 +3,8 @@ from flask import jsonify, Blueprint
 from services.reservas import (
     listar_reservas,
     listar_reservas_por_estado,
-    cancelar_reserva_con_email
+    cancelar_reserva_con_email,
+    finalizar_reservas_vencidas
 )
 
 reservas_admin_bp = Blueprint('reservas_admin', __name__, url_prefix='/api/admin')
@@ -12,6 +13,8 @@ reservas_admin_bp = Blueprint('reservas_admin', __name__, url_prefix='/api/admin
 # Visualizar las reservas
 @reservas_admin_bp.route('/reservas', methods=['GET'])
 def get_reservas():
+
+    finalizar_reservas_vencidas()
     
     reservas = listar_reservas()
     
@@ -21,6 +24,8 @@ def get_reservas():
 # Visualizar el estado de las reservas (filtra por estado)
 @reservas_admin_bp.route('/reservas/estado/<estado>', methods=['GET'])
 def get_reservas_por_estado(estado):
+
+    finalizar_reservas_vencidas()
     
     reservas = listar_reservas_por_estado(estado)
     

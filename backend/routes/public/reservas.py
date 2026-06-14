@@ -6,7 +6,8 @@ from services.reservas import (
     cancelar_reserva,
     obtener_disponibilidad,
     obtener_mesas_por_estado,
-    buscar_mesa_disponible
+    buscar_mesa_disponible,
+    finalizar_reservas_vencidas
 )
 
 from utils.validators import (
@@ -21,6 +22,8 @@ reservas_bp = Blueprint("reservas", __name__, url_prefix="/api")
 @reservas_bp.route("/reservas/<int:id>/cancelar-cliente", methods=["PATCH"])
 def patch_cancelar_reserva(id):
 
+    finalizar_reservas_vencidas()
+
     reserva = buscar_reserva_por_id(id)
 
     if not reserva:
@@ -31,6 +34,11 @@ def patch_cancelar_reserva(id):
     if reserva["estado"] == "cancelada":
         return jsonify({
             "mensaje": "Reserva ya cancelada"
+        }), 400
+    
+    if reserva["estado"] == "finalizada":
+        return jsonify({
+            "mensaje": "No se puede cancelar una reserva finalizada"
         }), 400
 
     resultado = cancelar_reserva(id)

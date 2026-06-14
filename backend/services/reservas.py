@@ -27,12 +27,15 @@ from repositories.reservas import (
     buscar_mesa_disponible_para_horario_db,
     obtener_mesas_por_estado_db,
     cancelar_reserva_db,
-    crear_reserva_db
+    crear_reserva_db,
+    finalizar_reservas_vencidas_db
 )
 
 
 # Mostrar todas las reservas
 def listar_reservas():
+
+    finalizar_reservas_vencidas()
 
     reservas = obtener_todas_las_reservas_db()
 
@@ -48,6 +51,8 @@ def listar_reservas():
 
 # Mostrar reservas por estado
 def listar_reservas_por_estado(estado):
+
+    finalizar_reservas_vencidas()
 
     reservas = obtener_reservas_por_estado_db(estado)
 
@@ -227,6 +232,9 @@ def crear_reserva(
     return reserva
 
 def cancelar_reserva_con_email(id):
+
+    finalizar_reservas_vencidas()
+
     reserva = buscar_reserva_por_id(id)
 
     if not reserva:
@@ -236,6 +244,12 @@ def cancelar_reserva_con_email(id):
         return {
             "cancelada": False,
             "mensaje": "La reserva ya estaba cancelada"
+        }
+    
+    if reserva["estado"] == "finalizada":
+        return {
+            "cancelada": False,
+            "mensaje": "No se puede cancelar una reserva finalizada"
         }
     
     cancelada = cancelar_reserva_db(id)
@@ -255,3 +269,7 @@ def cancelar_reserva_con_email(id):
         "email_enviado": email_enviado,
         "reservas": reserva
     }
+
+
+def finalizar_reservas_vencidas():
+    return finalizar_reservas_vencidas_db()

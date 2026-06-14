@@ -48,6 +48,11 @@
                                     CANCELAR
                                 </button>
                             </form>
+                        {% elif r.estado == 'finalizada' %}
+                            <span class="badge-confirmada">✓</span>
+                                <button type="submit" class="admin-btn-finalizada" disabled>
+                                    FINALIZADA
+                                </button>
                         {% else %}
                             <span class="badge-cancelada">✗</span>
                         {% endif %}

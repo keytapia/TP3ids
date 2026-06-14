@@ -326,3 +326,31 @@ def crear_reserva_db(
     finally:
         cursor.close()
         conexion.close()
+
+
+def finalizar_reservas_vencidas_db():
+    
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            UPDATE reservas
+            SET estado = 'finalizada'
+            WHERE estado = 'confirmada'
+            AND TIMESTAMP(fecha,horario) < NOW()
+            """
+        )
+
+        conexion.commit()
+
+        return cursor.rowcount
+    
+    except Exception:
+        conexion.rollback()
+        raise
+
+    finally:
+        cursor.close()
+        conexion.close()
