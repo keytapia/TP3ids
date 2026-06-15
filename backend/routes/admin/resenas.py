@@ -1,31 +1,58 @@
 from flask import jsonify, Blueprint
 
+from services.resenas import (
+    listar_resenas,
+    buscar_resena_por_id,
+    modificar_resena,
+    eliminar_resena
+)
+
 resenas_admin_bp = Blueprint('resenas_admin', __name__, url_prefix='/api/admin')
 
 
 # Obtener todas las reseñas
 @resenas_admin_bp.route("/resenas", methods=["GET"])
 def get_resenas():
-    # Acá va la función del servicio para obtener todas las reseñas
-    # resultado = obtener_reseñas()
 
-    # if resultado:
-    #     return jsonify(resultado), 200
-    # else:
-    #     return jsonify({"mensaje": "No se pudieron obtener las reseñas"}), 400
-    return jsonify({"mensaje": "Falta hacer función de obtener reseñas"}), 200
+    resultado = listar_resenas()
+
+    if resultado:
+        return jsonify(resultado), 200
+    else:
+        return jsonify({"mensaje": "No se pudieron obtener las reseñas"}), 400
+
+
+# Obtener reseña por id
+@resenas_admin_bp.route("/resenas/<int:id>", methods=["GET"])
+def get_resena_por_id(id):
+
+    resultado = buscar_resena_por_id(id)
+
+    if resultado:
+        return jsonify(resultado), 200
+    else:
+        return jsonify({"mensaje": f"No se pudo obtener la reseña con id {id}"}), 404
+
+
+# Modificar el estado de la reseña por id
+@resenas_admin_bp.route("/resenas/<int:id>", methods=["PATCH"])
+def put_resena(id):
+
+    resultado = modificar_resena(id)
+
+    if resultado:
+        return jsonify({"mensaje": "Reseña modificada exitosamente"}), 200
+
+    return jsonify({"mensaje": f"No se pudo obtener la reseña con id {id}"}), 404
 
 
 # Eliminar una reseña por id
 @resenas_admin_bp.route("/resenas/<int:id>", methods=["DELETE"])
 def delete_resena(id):
 
-    # Acá va la función del servicio para eliminar la reseña
-    # (O capaz poner una columna a la tabla 'resenas' donde diga estado='publica' u 'oculta', y hacer un patch en vez de eliminar para actualizar el estado)
-    # resultado = eliminar_reseña(id)
+    resultado = eliminar_resena(id)
 
-    # if resultado:
-    #     return jsonify({"mensaje": "Reseña eliminada exitosamente"}), 200
-    # else:
-    #     return jsonify({"mensaje": "No se pudo eliminar la reseña"}), 400
-    return jsonify({"mensaje": "Falta hacer función de eliminar reseña"}), 200
+    if resultado:
+        return jsonify({"mensaje": "Reseña eliminada exitosamente"}), 200
+    else:
+        return jsonify({"mensaje": "No se pudo eliminar la reseña"}), 400

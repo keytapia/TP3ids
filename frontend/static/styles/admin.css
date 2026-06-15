@@ -353,7 +353,16 @@ body {
 
 .estrella {
 
-    color:#f5c542;
+    color: #f5c542;
+    font-size: 1.2rem;
+
+}
+
+.estrella-vacia {
+
+    color: #000000;
+    font-size: 1.2rem;
+
 }
 
 /* MENSAJES */

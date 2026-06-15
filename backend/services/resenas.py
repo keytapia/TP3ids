@@ -3,11 +3,11 @@ from repositories.resenas import (
     obtener_resena_por_id_db,
     obtener_reserva_para_resena_db,
     obtener_resena_por_reserva_db,
-    crear_resena_db
+    crear_resena_db,
+    modificar_estado_resena_db,
+    eliminar_resena_db
 )
-from services.reservas import (
-    finalizar_reservas_vencidas
-)
+
 
 def listar_resenas():
     resenas = obtener_resenas_db()
@@ -114,3 +114,20 @@ def crear_resena(reserva_id, nombre, apellido, comentario, puntuacion):
         "mensaje": "Reseña creada exitosamente!",
         "resena": nueva_resena
     }
+
+
+def modificar_resena(id):
+
+    resena = buscar_resena_por_id(id)
+
+    if not resena:
+        return None
+
+    nuevo_estado = not resena["disponible"]
+
+    return modificar_estado_resena_db(nuevo_estado, id)
+
+
+def eliminar_resena(id):
+
+    return eliminar_resena_db(id)

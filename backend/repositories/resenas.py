@@ -12,6 +12,7 @@ def obtener_resenas_db():
                 resenas.comentario,
                 resenas.puntuacion,
                 resenas.fecha_publicacion,
+                resenas.disponible,
                 usuarios.nombre,
                 usuarios.apellido
             FROM resenas
@@ -40,6 +41,7 @@ def obtener_resena_por_id_db(id):
                 resenas.comentario,
                 resenas.puntuacion,
                 resenas.fecha_publicacion,
+                resenas.disponible,
                 usuarios.nombre,
                 usuarios.apellido
             FROM resenas
@@ -131,4 +133,41 @@ def crear_resena_db(usuario_id, reserva_id, comentario, puntuacion):
 
     finally:
         cursor.close()
+        conexion.close()
+
+
+def modificar_estado_resena_db(estado, id):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            UPDATE resenas
+            SET disponible = %s
+            WHERE id = %s
+        """, (estado, id))
+
+        conexion.commit()
+
+        return cursor.rowcount
+
+    finally:
+        conexion.close()
+
+
+def eliminar_resena_db(id):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            DELETE FROM resenas
+            WHERE id = %s
+        """, (id,))
+
+        conexion.commit()
+
+        return cursor.rowcount
+
+    finally:
         conexion.close()
