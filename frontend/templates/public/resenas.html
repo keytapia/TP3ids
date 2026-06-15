@@ -12,7 +12,7 @@
         
         {% if resenas %}
 
-            <button class="slider-btn">‹</button>
+            <button class="slider-btn prev-btn">‹</button>
 
             <div class="resenas-slider">
 
@@ -50,7 +50,7 @@
 
             </div>
 
-            <button class="slider-btn">›</button>
+            <button class="slider-btn next-btn">›</button>
 
         {% else %}
 
@@ -63,5 +63,7 @@
     </div>
 
 </section>
+
+<script src="{{url_for('static', filename='scripts/resenas.js')}}"></script>
 
 {% endblock %}
