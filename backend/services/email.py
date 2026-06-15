@@ -5,12 +5,21 @@ from email.message import EmailMessage
 
 from dotenv import load_dotenv
 
+from services.configuracion import (
+    obtener_configuracion
+)
+
 
 load_dotenv()
 
 
 # Función para enviar un correo electrónico
 def enviar_email_confirmacion(reserva, qr_buffer):
+
+    datos_del_restaurante = obtener_configuracion()
+    nombre_restaurante = datos_del_restaurante.get("nombre")
+    ubicacion_restaurante = datos_del_restaurante.get("ubicacion")
+    telefono_restaurante = datos_del_restaurante.get("telefono")
 
     try:
         email_host = os.getenv("EMAIL_HOST")
@@ -29,7 +38,7 @@ def enviar_email_confirmacion(reserva, qr_buffer):
 
         mensaje = EmailMessage()
 
-        mensaje["Subject"] = 'Tu reserva en "NAZA Restaurante" ha sido confirmada'
+        mensaje["Subject"] = (f'Tu reserva en "{nombre_restaurante}" ha sido confirmada')
         mensaje["From"] = email_user
         mensaje["To"] = reserva["email"]
 
@@ -45,12 +54,14 @@ Cantidad de personas: {reserva["cantidad_personas"]}
 Mesa: {reserva["mesa_id"]}
 Notas adicionales: {reserva["notas_adicionales"]}
 
-Adjuntamos tu QR para que puedas mostrarlo al llegar al restaurante y un boton de cancelacion.
+Adjuntamos tu QR para que puedas mostrarlo al llegar al restaurante y un link de cancelación.
 
 {url_cancelacion}
 
 Saludos,
-NAZA Restaurante
+{nombre_restaurante}
+{ubicacion_restaurante}
+{telefono_restaurante}
 """
 
         mensaje.set_content(cuerpo)
@@ -90,6 +101,12 @@ NAZA Restaurante
         return False
     
 def enviar_email_cancelacion(reserva):
+
+    datos_del_restaurante = obtener_configuracion()
+    nombre_restaurante = datos_del_restaurante.get("nombre")
+    ubicacion_restaurante = datos_del_restaurante.get("ubicacion")
+    telefono_restaurante = datos_del_restaurante.get("telefono")
+
     try:
         email_host = os.getenv("EMAIL_HOST")
         email_port = os.getenv("EMAIL_PORT")
@@ -107,14 +124,14 @@ def enviar_email_cancelacion(reserva):
 
         mensaje = EmailMessage()
 
-        mensaje["Subject"] = 'Tu reserva en "NAZA Restaurante" ha sido cancelada'
+        mensaje["Subject"] = (f'Tu reserva en "{nombre_restaurante}" ha sido cancelada')
         mensaje["From"] = email_user
         mensaje["To"] = reserva["email"]
 
         cuerpo = f"""
 Buen dia {reserva["nombre"]} {reserva["apellido"]},
 
-Le informamos que su reserva fue cancelada, para consultar puede enviar un mensaje al numero de contacto de nuestra pagina
+Le informamos que su reserva fue cancelada, para consultar puede enviar un mensaje al número {telefono_restaurante}
 
 Detalles de la reserva:
 Reserva N°: {reserva["id"]}
@@ -124,7 +141,9 @@ Cantidad de personas: {reserva["cantidad_personas"]}
 Mesa: {reserva["mesa_id"]}
 
 Saludos,
-NAZA Restaurante
+{nombre_restaurante}
+{ubicacion_restaurante}
+{telefono_restaurante}
 """
         mensaje.set_content(cuerpo)
 
@@ -149,6 +168,11 @@ NAZA Restaurante
 
 def enviar_email_pedir_resena(reserva):
 
+    datos_del_restaurante = obtener_configuracion()
+    nombre_restaurante = datos_del_restaurante.get("nombre")
+    ubicacion_restaurante = datos_del_restaurante.get("ubicacion")
+    telefono_restaurante = datos_del_restaurante.get("telefono")
+
     try:
         email_host = os.getenv("EMAIL_HOST")
         email_port = os.getenv("EMAIL_PORT")
@@ -166,7 +190,7 @@ def enviar_email_pedir_resena(reserva):
 
         mensaje = EmailMessage()
 
-        mensaje["Subject"] = 'Contanos como fue tu experiencia en "NAZA Restaurante".'
+        mensaje["Subject"] = (f'Contanos como fue tu experiencia en "{nombre_restaurante}".')
         mensaje["From"] = email_user
         mensaje["To"] = reserva["email"]
 
@@ -175,14 +199,16 @@ def enviar_email_pedir_resena(reserva):
         cuerpo = f"""
 Hola {reserva["nombre"]} {reserva["apellido"]}
 
-Gracias por visitar NAZA Restaurante!
+Gracias por visitar {nombre_restaurante}!
 Nos gustaria saber como fue tu experiencia.
 Podes dejar tu reseña ingresando al siguiente link:
 
 {url_resena}
 
 Saludos,
-NAZA Restaurante
+{nombre_restaurante}
+{ubicacion_restaurante}
+{telefono_restaurante}
 """
         mensaje.set_content(cuerpo)
 
