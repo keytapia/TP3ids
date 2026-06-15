@@ -29,6 +29,7 @@ CREATE TABLE reservas (
     cantidad_personas INT NOT NULL,
     notas_adicionales TEXT NULL,
     estado ENUM('confirmada', 'cancelada', 'finalizada') DEFAULT 'confirmada',
+    email_resena_enviado BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (mesa_id) REFERENCES mesas(id)
 );

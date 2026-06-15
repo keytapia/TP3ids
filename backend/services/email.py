@@ -145,3 +145,62 @@ NAZA Restaurante
     
     except Exception:
         return False
+    
+
+def enviar_email_pedir_resena(reserva):
+
+    try:
+        email_host = os.getenv("EMAIL_HOST")
+        email_port = os.getenv("EMAIL_PORT")
+        email_user = os.getenv("EMAIL_USER")
+        email_password = os.getenv("EMAIL_PASSWORD")
+
+        if not all([
+            email_host,
+            email_port,
+            email_user,
+            email_password
+        ]):
+            return False
+
+
+        mensaje = EmailMessage()
+
+        mensaje["Subject"] = 'Contanos como fue tu experiencia en "NAZA Restaurante".'
+        mensaje["From"] = email_user
+        mensaje["To"] = reserva["email"]
+
+        url_resena = f"http://127.0.0.1:8080/resenas/crear/{resena['id']}"
+
+        cuerpo = f"""
+Hola {reserva["nombre"]} {reserva["apellido"]}
+
+Gracias por visitar NAZA Restaurante!
+Nos gustaria saber como fue tu experiencia.
+Podes dejar tu reseña ingresando al siguiente link:
+
+{url_resena}
+
+Saludos,
+NAZA Restaurante
+"""
+        mensaje.set_content(cuerpo)
+
+        with smtplib.SMTP(
+            email_host,
+            int(email_port)
+        ) as server:
+
+            server.starttls()
+
+            server.login(
+                email_user,
+                email_password
+            )
+
+            server.send_message(mensaje)
+        return True
+    
+    except Exception as error:
+        print("Error al enviar email de reseña:", error)
+        return False
