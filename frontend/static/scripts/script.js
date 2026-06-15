@@ -51,3 +51,31 @@ function togglePassword(inputId, iconId) {
         icono.className = 'bi bi-eye';
     }
 }
+document.addEventListener("DOMContentLoaded", () => {
+   const slider = document.querySelector(".resenas-slider");
+   const nextBtn = document.querySelector(".next-btn");
+   const prevBtn = document.querySelector(".prev-btn");
+
+   if (!slider || !nextBtn || !prevBtn) return;
+
+   const card = document.querySelector(".resena-card");
+
+   if (!card) return;
+
+   const gap = 20; 
+   const scrollAmount = card.offsetWidth * 3 + gap * 3;
+
+   nextBtn.addEventListener("click", () => {
+       slider.scrollBy({
+           left: scrollAmount,
+           behavior: "smooth"
+       });
+   });
+
+   prevBtn.addEventListener("click", () => {
+       slider.scrollBy({
+           left: -scrollAmount,
+           behavior: "smooth"
+       });
+   });
+});

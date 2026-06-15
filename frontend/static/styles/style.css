@@ -978,10 +978,9 @@ footer a:hover {
 .resenas-slider{
     display:flex;
     gap:20px;
-    overflow-x:auto;
+    overflow: hidden;
     scroll-behavior:smooth;
-    max-width:900px;
-    scrollbar-width:none;
+    width: 880px;
 }
 
 .resenas-slider::-webkit-scrollbar{
@@ -1177,8 +1176,6 @@ footer a:hover {
 .btn-crear-resena:hover{
     opacity:.9;
 }
-
-
 
 
 /*=====================================================================================*/
