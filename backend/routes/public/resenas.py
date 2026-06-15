@@ -3,10 +3,12 @@ from flask import request, jsonify, Blueprint
 from services.resenas import (
     listar_resenas,
     buscar_resena_por_id,
-    crear_resena
+    crear_resena,
+    obtener_cantidad_total_y_promedio_de_resenas
 )
 
 resenas_bp = Blueprint('resenas', __name__, url_prefix='/api')
+
 
 @resenas_bp.route("/resenas", methods=["GET"])
 def get_resenas():
@@ -46,3 +48,11 @@ def post_resenas():
         return jsonify({resultado}), 201
 
     return jsonify(resultado), 400
+
+
+@resenas_bp.route("/resenas/promedio", methods=["GET"])
+def get_promedio_resenas():
+
+    resultado = obtener_cantidad_total_y_promedio_de_resenas()
+
+    return jsonify(resultado), 200

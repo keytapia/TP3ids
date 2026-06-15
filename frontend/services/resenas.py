@@ -125,3 +125,21 @@ def crear_resena(reserva_id, nombre, apellido, comentario, puntuacion):
             "ok": False,
             "error": "No se pudo conectar al backend"
         }
+
+
+def obtener_promedio_resenas():
+
+    response = requests.get(
+        f"{API_BACKEND_URL}/api/resenas/promedio"
+    )
+
+    if response.status_code == 200:
+        return {
+            "ok": True,
+            "data": response.json()
+        }
+
+    return {
+        "ok": False,
+        "data": None
+    }

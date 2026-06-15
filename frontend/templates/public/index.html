@@ -83,16 +83,17 @@
         </h2>
 
         <h3>
-            5.0
-            <i class="bi bi-star-fill estrella"></i>
-            <i class="bi bi-star-fill estrella"></i>
-            <i class="bi bi-star-fill estrella"></i>
-            <i class="bi bi-star-fill estrella"></i>
-            <i class="bi bi-star-fill estrella"></i>
+            {% for i in range(promedio) %}
+                <i class="bi bi-star-fill estrella"></i>
+            {% endfor %}
+
+            {% for i in range(5 - promedio) %}
+                <i class="bi bi-star-fill estrella-vacia"></i>
+            {% endfor %}
         </h3>
 
         <p>
-            Basado en 789 reseñas
+            Basado en {{ cantidad_resenas }} reseñas
         </p>
 
     </div>

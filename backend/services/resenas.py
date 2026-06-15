@@ -5,7 +5,8 @@ from repositories.resenas import (
     obtener_resena_por_reserva_db,
     crear_resena_db,
     modificar_estado_resena_db,
-    eliminar_resena_db
+    eliminar_resena_db,
+    obtener_cantidad_total_y_promedio_de_resenas_db
 )
 
 
@@ -131,3 +132,8 @@ def modificar_resena(id):
 def eliminar_resena(id):
 
     return eliminar_resena_db(id)
+
+
+def obtener_cantidad_total_y_promedio_de_resenas():
+
+    return obtener_cantidad_total_y_promedio_de_resenas_db()

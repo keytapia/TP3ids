@@ -233,3 +233,23 @@ def marcar_email_resena_enviado_db(reserva_id):
 
     finally:
         conexion.close()
+
+
+def obtener_cantidad_total_y_promedio_de_resenas_db():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            SELECT
+                COUNT(*) AS cantidad_resenas,
+                AVG(puntuacion) AS promedio_estrellas
+            FROM resenas
+            WHERE disponible = TRUE
+        """)
+    
+        return cursor.fetchone()
+
+    finally:
+
+        conexion.close()    
