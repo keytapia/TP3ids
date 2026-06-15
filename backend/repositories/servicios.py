@@ -21,7 +21,29 @@ def listar_servicios_db():
         conexion.close()
 
 
-def crear_servicio_db(nombre, descripcion):
+def listar_servicio_por_id_db(id):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT *
+            FROM servicios
+            WHERE id = %s
+            """,
+            (id,)
+        )
+
+        return cursor.fetchone()
+    
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def crear_servicio_db(nombre, disponible):
 
     conexion = obtener_conexion()
     cursor = conexion.cursor(dictionary=True)
@@ -31,13 +53,13 @@ def crear_servicio_db(nombre, descripcion):
             """
             INSERT INTO servicios (
                 nombre,
-                descripcion
+                disponible
             )
             VALUES (%s, %s)
             """,
             (
                 nombre,
-                descripcion
+                disponible
             )
         )
 
@@ -67,7 +89,7 @@ def crear_servicio_db(nombre, descripcion):
 
 def modificar_servicio_db(
     nombre,
-    descripcion,
+    disponible,
     servicio_id
 ):
 
@@ -80,12 +102,12 @@ def modificar_servicio_db(
             UPDATE servicios
             SET
                 nombre = %s,
-                descripcion = %s
+                disponible = %s
             WHERE id = %s
             """,
             (
                 nombre,
-                descripcion,
+                disponible,
                 servicio_id
             )
         )

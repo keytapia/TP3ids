@@ -1,0 +1,46 @@
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/admin.css') }}">
+
+<div class="pagina-admin-form">
+
+    <div class="editar-agregar-container">
+
+        <form
+            action="{{ url_for('servicios_admin.agregar_servicio') }}"
+            method="POST"
+        >
+
+            <label>Nombre</label>
+
+            <input
+                type="text"
+                name="nombre"
+                required
+            >
+
+            <label>Disponible</label>
+
+            <select name="disponible">
+
+                <option value="SI">
+                    SI
+                </option>
+
+                <option value="NO">
+                    NO
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Crear servicio
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

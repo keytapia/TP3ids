@@ -64,7 +64,7 @@ CREATE TABLE resenas (
 CREATE TABLE servicios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT
+    disponible CHAR(2) NOT NULL DEFAULT 'SI'
 );
 
 CREATE TABLE configuracion (
@@ -146,6 +146,7 @@ VALUES
 (4,'Agua Mineral','Agua Mineral','Vegano, Sin TACC',1000.00,'agua_mineral.png'),
 (5,'Flan','Flan casero','Vegetariano',2800.00,'flan.png');
 
+
 -- =========================
 -- RESERVAS
 -- =========================
@@ -183,12 +184,12 @@ VALUES
 -- =========================
 
 INSERT INTO servicios
-(nombre, descripcion)
+(nombre,disponible)
 
 VALUES
-('WiFi','Internet gratuito'),
-('Pet Friendly','Mascotas permitidas :D'),
-('Estacionamiento','Lugar para estacionar');
+('WiFi','SI'),
+('Pet Friendly','SI'),
+('Estacionamiento','SI');
 
 
 -- =========================
@@ -199,4 +200,4 @@ INSERT INTO configuracion
 (nombre, email, telefono, ubicacion, dias, horario)
 
 VALUES
-('NAZA RESTAURANTE','restaurante@naza.com','11 2345-6789','Av. XXX 123, Ciudad, País','Lunes a Domingo','11:30 a 23:00');
+('NAZA RESTAURANTE','restaurante@naza.com','11 2345-6789','Av. XXX 123, Ciudad, País','Lunes a Domingo','11:00 a 23:00');
