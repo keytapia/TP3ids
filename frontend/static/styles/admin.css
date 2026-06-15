@@ -360,9 +360,13 @@ body {
 
 .estrella-vacia {
 
-    color: #000000;
+    color: #888484;
     font-size: 1.2rem;
 
+}
+
+.resena-adm-most{
+    color: #18da49 !important;
 }
 
 /* MENSAJES */
