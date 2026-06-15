@@ -1,8 +1,67 @@
 <!---------- Reseñas ---------->
 {% extends "public/base.html" %}
 
-{% block titulo %}Reseñas{% endblock %}
+{% block titulo %}Reseñas - Naza Restaurante{% endblock %}
 
 {% block contenido_body %}
-    <h2>Reseñas</h2>
+<section class="resenas-section">
+
+    <h1 class=""resenas-titulo>Reseñas de nuestros clientes</h1>
+
+    <div class="resenas-container">
+        
+        {% if resenas %}
+
+            <button class="slider-btn">‹</button>
+
+            <div class="resenas-slider">
+
+                {% for resena in resenas %}
+
+                    <div class="resena-card">
+
+                        <h3>
+                            {{ resena.nombre }} {{ resena.apellido}}
+                        </h3>
+
+                        <div class="estrellas">
+
+                            {% for i in range(resena.puntuacion) %}
+                                <span class="estrella">⭐</span>
+                            {% endfor %}
+
+                            {% for i in range(5 - resena.puntuacion) %}
+                                <span class="estrella-vacia">☆</span>
+                            {% endfor %}
+
+                         </div>
+
+                        <p>
+                            {{ resena.comentario }}
+                        </p>
+
+                        <small>
+                            {{ resena.fecha_publicacion }}
+                        </small>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <button class="slider-btn">›</button>
+
+        {% else %}
+
+            <div class="sin-resenas">
+                <p>Todavía no hay reseñas publicadas.</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
 {% endblock %}
