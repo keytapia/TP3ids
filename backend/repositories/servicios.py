@@ -21,6 +21,28 @@ def listar_servicios_db():
         conexion.close()
 
 
+def listar_servicio_por_id_db(id):
+
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute(
+            """
+            SELECT *
+            FROM servicios
+            WHERE id = %s
+            """,
+            (id,)
+        )
+
+        return cursor.fetchone()
+    
+    finally:
+        cursor.close()
+        conexion.close()
+
+
 def crear_servicio_db(nombre, disponible):
 
     conexion = obtener_conexion()

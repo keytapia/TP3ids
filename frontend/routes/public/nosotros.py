@@ -1,8 +1,20 @@
-from flask import Flask, render_template, Blueprint
+from flask import render_template, Blueprint
 
-nosotros_bp = Blueprint('nosotros', __name__)
+from services.servicios import (
+    obtener_servicios
+)
 
-# Nosotros
+nosotros_bp = Blueprint("nosotros", __name__)
+
+
 @nosotros_bp.route("/nosotros")
 def nosotros():
-    return render_template("public/nosotros.html")
+
+    resultado = obtener_servicios()
+
+    if resultado["ok"]:
+        servicios = resultado["data"]
+    else:
+        servicios = []
+
+    return render_template("public/nosotros.html", servicios=servicios)

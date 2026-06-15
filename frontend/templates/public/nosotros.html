@@ -37,19 +37,16 @@
     </p>
 
     <div class="nosotros-servicios">
-        <h2>Nuestros servicios.</h2>
-        <ul class="servicios-lista">
-            {% if servicios %}
+        {% if servicios %}
+            <h2>Nuestros servicios</h2>
+            <ul class="servicios-lista">
                 {% for servicio in servicios %}
-                    <li>{{ servicio.nombre }}</li>
+                    {% if servicio.disponible == "SI" %}
+                        <li>{{ servicio.nombre }}</li>
+                    {% endif %}
                 {% endfor %}
-            {% else %}
-                <li>Wi-Fi</li>
-                <li>Estacionamiento</li>
-                <li>Acceso para discapacitados</li>
-                <li>Terraza</li>
-            {% endif %}
-        </ul>
+            </ul>
+        {% endif %}
     </div>
 
 </section>

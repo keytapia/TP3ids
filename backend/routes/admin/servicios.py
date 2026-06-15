@@ -2,6 +2,7 @@ from flask import request, jsonify, Blueprint
 
 from services.servicios import (
     listar_servicios,
+    listar_servicio_por_id,
     modificar_servicio,
     crear_servicio,
     eliminar_servicio
@@ -19,6 +20,15 @@ def get_servicios():
     return jsonify(servicios), 200
 
 
+# Listar un servicio por id
+@servicios_admin_bp.route('/servicios/<int:id>', methods=['GET'])
+def get_servicio_por_id(id):
+
+    servicio = listar_servicio_por_id(id)
+
+    return jsonify(servicio), 200
+
+
 # Crear un servicio
 @servicios_admin_bp.route('/servicios', methods=['POST'])
 def post_servicio():
@@ -31,9 +41,9 @@ def post_servicio():
     if not nombre:
         return jsonify({"mensaje": "El nombre es obligatorio"}), 400
 
-    servicio = crear_servicio(nombre, descripcion)
+    nuevo_servicio = crear_servicio(nombre, disponible)
 
-    return jsonify({"mensaje": "Servicio creado correctamente"}), 201
+    return jsonify({"mensaje": "Servicio creado correctamente"}, nuevo_servicio), 201
 
 
 # Modificar un servicio

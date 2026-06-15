@@ -64,7 +64,7 @@ CREATE TABLE resenas (
 CREATE TABLE servicios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    disponible CHAR(2) NOT NULL
+    disponible CHAR(2) NOT NULL DEFAULT 'SI'
 );
 
 
@@ -172,9 +172,9 @@ VALUES
 -- =========================
 
 INSERT INTO servicios
-(nombre,descripcion)
+(nombre,disponible)
 
 VALUES
-('WiFi','Internet gratuito'),
-('Pet Friendly','Mascotas permitidas :D'),
-('Estacionamiento','Lugar para estacionar');
+('WiFi','SI'),
+('Pet Friendly','SI'),
+('Estacionamiento','SI');

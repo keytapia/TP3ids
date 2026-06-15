@@ -5,22 +5,42 @@
 <div class="pagina-admin-form">
 
     <div class="editar-agregar-container">
-        <form action="{{ url_for('servicios_admin.agregar_servicio') }}" method="POST" enctype="multipart/form-data">
+
+        <form
+            action="{{ url_for('servicios_admin.agregar_servicio') }}"
+            method="POST"
+        >
 
             <label>Nombre</label>
-            <input type="text" name="nombre" placeholder="Ingrese el nombre del servicio" required>
 
-            <label>Descripcion</label>
-            <textarea name="descripcion" placeholder="Agrega una descripcion del servicio..."></textarea>
+            <input
+                type="text"
+                name="nombre"
+                required
+            >
 
-            <button type="submit">CONFIRMAR</button>
+            <label>Disponible</label>
 
+            <select name="disponible">
 
+                <option value="SI">
+                    SI
+                </option>
+
+                <option value="NO">
+                    NO
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Crear servicio
+            </button>
 
         </form>
+
     </div>
+
 </div>
-
-
 
 {% endblock %}
