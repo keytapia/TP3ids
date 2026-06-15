@@ -6,7 +6,12 @@ from repositories.resenas import (
     crear_resena_db,
     modificar_estado_resena_db,
     eliminar_resena_db,
-    obtener_cantidad_total_y_promedio_de_resenas_db
+    obtener_cantidad_total_y_promedio_de_resenas_db,
+    obtener_resenas_admin_db
+)
+
+from services.reservas import (
+    finalizar_reservas_vencidas
 )
 
 
@@ -116,6 +121,19 @@ def crear_resena(reserva_id, nombre, apellido, comentario, puntuacion):
         "resena": nueva_resena
     }
 
+##
+##-----ADMIN
+##
+
+
+def listar_resenas_admin():
+    resenas = obtener_resenas_admin_db()
+
+    for resena in resenas:
+        if resena.get("fecha_publicacion"):
+            resena["fecha_publicacion"] = str(resena["fecha_publicacion"])
+    
+    return resenas
 
 def modificar_resena(id):
 

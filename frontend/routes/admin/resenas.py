@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 
 from services.resenas import (
-    obtener_resenas,
+    obtener_resenas_admin,
     ocultar_mostrar_resena,
     eliminar_resena
 )
@@ -14,7 +14,7 @@ def resenas():
 
     filtro = request.args.get("filtro", "todas")
 
-    resultado = obtener_resenas()
+    resultado = obtener_resenas_admin()
 
     if not resultado["ok"]:
 

@@ -1,6 +1,37 @@
 from db import obtener_conexion
 
+#para publico
 def obtener_resenas_db():
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            SELECT
+                resenas.id,
+                resenas.reserva_id,
+                resenas.comentario,
+                resenas.puntuacion,
+                resenas.fecha_publicacion,
+                resenas.disponible,
+                usuarios.nombre,
+                usuarios.apellido
+            FROM resenas
+            INNER JOIN usuarios
+                ON resenas.usuario_id = usuarios.id
+            WHERE resenas.disponible = TRUE
+            ORDER BY resenas.fecha_publicacion DESC
+        """)
+
+        return cursor.fetchall()
+    
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+#para admin
+def obtener_resenas_admin_db():
     conexion = obtener_conexion()
     cursor = conexion.cursor(dictionary=True)
 

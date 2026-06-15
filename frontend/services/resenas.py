@@ -2,11 +2,41 @@ import requests
 
 API_BACKEND_URL = "http://127.0.0.1:5000"
 
+## PARA EL PUBLICO
 def obtener_resenas():
 
     try:
         response = requests.get(
             f"{API_BACKEND_URL}/api/resenas",
+            timeout=10
+        )
+
+        if response.status_code == 200:
+
+            return {
+                "ok": True,
+                "data": response.json()
+            }
+
+        return {
+            "ok": False,
+            "error": response.text
+        }
+
+    except requests.exceptions.ConnectionError:
+        
+        return {
+            "ok": False,
+            "error": "No se pudo conectar con el backend."
+        }
+    
+
+## PARA ADMIN
+def obtener_resenas_admin():
+
+    try:
+        response = requests.get(
+            f"{API_BACKEND_URL}/api/admin/resenas",
             timeout=10
         )
 
