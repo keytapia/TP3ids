@@ -27,6 +27,8 @@ from routes.admin.reservas import reservas_admin_bp
 from routes.admin.servicios import servicios_admin_bp
 from routes.admin.configuracion import configuracion_admin_bp
 
+# Iniciador de conteo para enviar email pidiendo reseña
+from services.scheduler import iniciar_scheduler
 
 load_dotenv()
 
@@ -58,6 +60,7 @@ def create_app():
 
     return app
 
+scheduler = iniciar_scheduler()
 
 app = create_app()
 

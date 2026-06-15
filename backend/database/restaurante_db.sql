@@ -29,6 +29,7 @@ CREATE TABLE reservas (
     cantidad_personas INT NOT NULL,
     notas_adicionales TEXT NULL,
     estado ENUM('confirmada', 'cancelada', 'finalizada') DEFAULT 'confirmada',
+    email_resena_enviado BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (mesa_id) REFERENCES mesas(id)
 );
@@ -153,16 +154,16 @@ VALUES
 -- =========================
 
 INSERT INTO reservas
-(usuario_id,mesa_id,fecha,horario,cantidad_personas,notas_adicionales,estado)
+(usuario_id,mesa_id,fecha,horario,cantidad_personas,notas_adicionales,estado,email_resena_enviado)
 
 VALUES
 
-(2,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada'),
-(3,2,'2026-05-11','21:00:00',4,NULL,'confirmada'),
-(4,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada'),
-(5,4,'2026-05-15','22:00:00',2,NULL,'confirmada'),
-(2,2,'2026-05-16','20:00:00',4,NULL,'confirmada'),
-(2,1,'2026-05-17','20:00:00',2,NULL,'cancelada');
+(2,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada',TRUE),
+(3,2,'2026-05-11','21:00:00',4,NULL,'confirmada',TRUE),
+(4,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada',TRUE),
+(5,4,'2026-05-15','22:00:00',2,NULL,'confirmada',TRUE),
+(2,2,'2026-05-16','20:00:00',4,NULL,'confirmada',TRUE),
+(2,1,'2026-05-17','20:00:00',2,NULL,'cancelada',TRUE);
 
 
 -- =========================

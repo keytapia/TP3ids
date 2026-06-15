@@ -16,7 +16,8 @@ from services.qr import (
 
 from services.email import (
     enviar_email_confirmacion,
-    enviar_email_cancelacion
+    enviar_email_cancelacion,
+    enviar_email_pedir_resena
 )
 
 from repositories.reservas import (
@@ -31,6 +32,10 @@ from repositories.reservas import (
     finalizar_reservas_vencidas_db
 )
 
+from repositories.resenas import (
+    obtener_reservas_para_email_resena_db,
+    marcar_email_resena_enviado_db
+)
 
 # Mostrar todas las reservas
 def listar_reservas():
@@ -273,3 +278,20 @@ def cancelar_reserva_con_email(id):
 
 def finalizar_reservas_vencidas():
     return finalizar_reservas_vencidas_db()
+
+
+def enviar_emails_resena_pendientes():
+
+    finalizar_reservas_vencidas()
+
+    reservas = obtener_reservas_para_email_resena_db()
+
+    for reserva in reservas:
+        enviado = enviar_email_pedir_resena(reserva)
+
+        if enviado:
+            marcar_email_resena_enviado_db(reserva["id"])
+
+    return {
+        "cantidad": len(reservas)
+    }

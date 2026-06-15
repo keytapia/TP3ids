@@ -36,7 +36,6 @@ def obtener_resena_por_id_db(id):
         cursor.execute("""
             SELECT
                 resenas.id,
-                resenas.usuario_id,
                 resenas.reserva_id,
                 resenas.comentario,
                 resenas.puntuacion,
@@ -135,21 +134,21 @@ def crear_resena_db(usuario_id, reserva_id, comentario, puntuacion):
         cursor.close()
         conexion.close()
 
-
 def modificar_estado_resena_db(estado, id):
     conexion = obtener_conexion()
-    cursor = conexion.cursor(dictionary=True)
 
     try:
-        cursor.execute("""
-            UPDATE resenas
-            SET disponible = %s
-            WHERE id = %s
-        """, (estado, id))
+        with conexion.cursor(dictionary=True) as cursor:
 
-        conexion.commit()
+            cursor.execute("""
+                UPDATE resenas
+                SET disponible = %s
+                WHERE id = %s
+            """, (estado, id))
 
-        return cursor.rowcount
+            conexion.commit()
+
+            return cursor.rowcount
 
     finally:
         conexion.close()
@@ -157,17 +156,80 @@ def modificar_estado_resena_db(estado, id):
 
 def eliminar_resena_db(id):
     conexion = obtener_conexion()
-    cursor = conexion.cursor(dictionary=True)
 
     try:
-        cursor.execute("""
-            DELETE FROM resenas
-            WHERE id = %s
-        """, (id,))
+        with conexion.cursor(dictionary=True) as cursor:
 
-        conexion.commit()
+            cursor.execute("""
+                DELETE FROM resenas
+                WHERE id = %s
+            """, (id,))
 
-        return cursor.rowcount
+            conexion.commit()
+
+            return cursor.rowcount
+
+    finally:
+        conexion.close()
+
+
+def obtener_reservas_para_email_resena_db():
+    conexion = obtener_conexion()
+
+    try:
+        with conexion.cursor(dictionary=True) as cursor:
+
+            cursor.execute("""
+                SELECT
+                    reservas.id,
+                    reservas.usuario_id,
+                    reservas.mesa_id,
+                    reservas.fecha,
+                    reservas.horario,
+                    reservas.cantidad_personas,
+                    reservas.notas_adicionales,
+                    reservas.estado,
+                    usuarios.nombre,
+                    usuarios.apellido,
+                    usuarios.email,
+                    usuarios.telefono
+                FROM reservas
+                INNER JOIN usuarios
+                    ON reservas.usuario_id = usuarios.id
+                WHERE reservas.estado = 'finalizada'
+                AND reservas.email_resena_enviado = FALSE
+                AND TIMESTAMP(reservas.fecha, reservas.horario) + INTERVAL 1 MINUTE <= NOW()
+                AND reservas.id NOT IN (
+                    SELECT reserva_id
+                    FROM resenas
+                )
+            """)
+
+            return cursor.fetchall()
+
+    finally:
+        conexion.close()
+
+
+def marcar_email_resena_enviado_db(reserva_id):
+    conexion = obtener_conexion()
+
+    try:
+        with conexion.cursor(dictionary=True) as cursor:
+
+            cursor.execute("""
+                UPDATE reservas
+                SET email_resena_enviado = TRUE
+                WHERE id = %s
+            """, (reserva_id,))
+
+            conexion.commit()
+
+            return cursor.rowcount > 0
+
+    except Exception:
+        conexion.rollback()
+        raise
 
     finally:
         conexion.close()
