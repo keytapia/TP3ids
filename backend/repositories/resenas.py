@@ -35,7 +35,6 @@ def obtener_resena_por_id_db(id):
         cursor.execute("""
             SELECT
                 resenas.id,
-                resenas.usuario_id,
                 resenas.reserva_id,
                 resenas.comentario,
                 resenas.puntuacion,
@@ -158,7 +157,11 @@ def obtener_reservas_para_email_resena_db():
                 ON reservas.usuario_id = usuarios.id
             WHERE reservas.estado = 'finalizada'
             AND reservas.email_resena_enviado = FALSE
-            AND TIMESTAMP(reservas.fecha, reservas.horario) + INTERVAL 3 HOUR <= NOW()
+            AND TIMESTAMP(reservas.fecha, reservas.horario) + INTERVAL 1 MINUTE <= NOW()
+            AND reservas.id NOT IN (
+                SELECT reserva_id
+                FROM resenas
+            )
         """)
 
         return cursor.fetchall()

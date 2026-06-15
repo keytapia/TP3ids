@@ -170,7 +170,7 @@ def enviar_email_pedir_resena(reserva):
         mensaje["From"] = email_user
         mensaje["To"] = reserva["email"]
 
-        url_resena = f"http://127.0.0.1:8080/resenas/crear/{resena['id']}"
+        url_resena = f"http://127.0.0.1:8080/resenas/crear/{reserva['id']}"
 
         cuerpo = f"""
 Hola {reserva["nombre"]} {reserva["apellido"]}
