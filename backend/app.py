@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
 from dotenv import (
@@ -20,6 +21,8 @@ from routes.admin_routes import admin_bp
 
 
 
+
+
 # ---------- APP PRINCIPAL ----------
 
 # Carga las variables de entorno desde el archivo .env
@@ -28,6 +31,9 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)  # Habilita CORS para todas las rutas
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY") # La clave que vamos a usar para mantener la sesión del usuario
+app.config["JWT_SECRET_KEY"] = os.getenv("SECRET_KEY")
+
+jwt = JWTManager(app)
 
 # Blueprints para rutas públicas
 app.register_blueprint(menu_bp)

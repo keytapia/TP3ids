@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, request, redirect, url_for, flash
+from flask import Flask, render_template, Blueprint, request, redirect, url_for, flash, session
 
 from services.login import (iniciar_sesion, registrar_usuario)
 
@@ -12,12 +12,20 @@ def login_cliente():
     if request.method == "POST":
         email = request.form["email"]
         contrasena = request.form["contrasena"]
-        usuario = iniciar_sesion(email, contrasena)
+        respuesta = iniciar_sesion(email, contrasena)
         
-        if usuario:
+        if respuesta:
+
+            session["token"] = respuesta["token"]
+
+            usuario = respuesta["usuario"]
+
+            session["usuario"] = usuario
             print(usuario)
+
             if usuario["rol"] == "admin":
                 return redirect(url_for("login.login_exitoso"))
+
             return redirect(url_for("inicio.inicio"))
     return render_template("login_cliente.html")
 
@@ -29,9 +37,16 @@ def login_admin():
     if request.method == "POST":
         email = request.form["email"]
         contrasena = request.form["contrasena"]
-        usuario = iniciar_sesion(email, contrasena)
-        if usuario and usuario["rol"] == "admin":
-            return redirect(url_for("login.login_exitoso"))
+        respuesta = iniciar_sesion(email, contrasena)
+        if respuesta:
+            session["token"] = respuesta["token"]
+
+            usuario = respuesta["usuario"]
+
+            session["usuario"] = usuario
+
+            if usuario["rol"] == "admin":
+                return redirect(url_for("login.login_exitoso"))
         flash("No tenés permisos de administrador")
     return render_template("login_administrador.html")
 
@@ -67,3 +82,11 @@ def registro():
         return redirect(url_for("inicio.inicio"))
 
     return render_template("registrar_cuenta.html")
+
+
+@login_bp.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/")
