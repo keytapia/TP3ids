@@ -6,7 +6,7 @@
 {% block contenido_body %}
 <section class="resenas-section">
 
-    <h1 class=""resenas-titulo>Reseñas de nuestros clientes</h1>
+    <h1 class="resenas-titulo">Reseñas de nuestros clientes</h1>
 
     <div class="resenas-container">
         
@@ -27,11 +27,11 @@
                         <div class="estrellas">
 
                             {% for i in range(resena.puntuacion) %}
-                                <span class="estrella">⭐</span>
+                                <span class="estrella">★</span>
                             {% endfor %}
 
                             {% for i in range(5 - resena.puntuacion) %}
-                                <span class="estrella-vacia">☆</span>
+                                <span class="estrella-vacia">★</span>
                             {% endfor %}
 
                          </div>
