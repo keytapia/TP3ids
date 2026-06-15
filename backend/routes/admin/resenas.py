@@ -1,7 +1,7 @@
 from flask import jsonify, Blueprint
 
 from services.resenas import (
-    listar_resenas,
+    listar_resenas_admin,
     buscar_resena_por_id,
     modificar_resena,
     eliminar_resena
@@ -14,7 +14,7 @@ resenas_admin_bp = Blueprint('resenas_admin', __name__, url_prefix='/api/admin')
 @resenas_admin_bp.route("/resenas", methods=["GET"])
 def get_resenas():
 
-    resultado = listar_resenas()
+    resultado = listar_resenas_admin()
 
     if resultado:
         return jsonify(resultado), 200
