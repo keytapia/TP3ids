@@ -14,10 +14,10 @@
     
     <link rel="icon"
           type="image/x-icon"
-          href="{{ url_for('static', filename='images/favicon.ico', _external=True) }}">
+          href="{{ url_for('static', filename='images/favicon.ico') }}">
     
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='styles/public.css', _external=True) }}">
+          href="{{ url_for('static', filename='styles/public.css') }}">
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -41,7 +41,7 @@
 
             <div id="logo">
 
-                <img src="{{ url_for('static', filename='images/logo.png', _external=True) }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}">
 
             </div>
 
@@ -49,37 +49,37 @@
             <ul class="nav-links">
 
                 <li>
-                    <a href="{{ url_for('inicio.inicio', _external=True) }}">
+                    <a href="{{ url_for('inicio.inicio') }}">
                         INICIO
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('menu.menu', _external=True) }}">
+                    <a href="{{ url_for('menu.menu') }}">
                         MENÚ
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('reservas.reservas', _external=True) }}">
+                    <a href="{{ url_for('reservas.reservas') }}">
                         RESERVAS
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('resenas.resenas', _external=True) }}">
+                    <a href="{{ url_for('resenas.resenas') }}">
                         RESEÑAS
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('nosotros.nosotros', _external=True) }}">
+                    <a href="{{ url_for('nosotros.nosotros') }}">
                         NOSOTROS
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('contacto.contacto', _external=True) }}">
+                    <a href="{{ url_for('contacto.contacto') }}">
                         CONTACTO
                     </a>
                 </li>
@@ -101,13 +101,13 @@
     <footer>
         <p>
             &copy; 2026 {{ config.nombre }} - 
-            <a href="{{ url_for('login.login', _external=True) }}">
+            <a href="{{ url_for('login.login') }}">
                 ACCESO STAFF
             </a>
         </p>
     </footer>
 
-    <script src="{{ url_for('static', filename='scripts/script.js', _external=True) }}"></script>
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 </body>
 
 </html>
