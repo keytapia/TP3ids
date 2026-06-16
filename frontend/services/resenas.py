@@ -129,10 +129,16 @@ def crear_resena(reserva_id, nombre, apellido, comentario, puntuacion):
         "puntuacion": puntuacion
     }
 
+    if reserva_id:
+        url = f"{API_BACKEND_URL}/api/resenas/crear/{reserva_id}"
+    
+    else:
+        url = f"{API_BACKEND_URL}/api/resenas/crear"
+
     try:
 
         response = requests.post(
-            f"{API_BACKEND_URL}/api/resenas",
+            url,
             json=datos,
             timeout=10
         )

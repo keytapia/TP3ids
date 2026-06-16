@@ -26,7 +26,7 @@ def resenas():
         resenas=listar_resenas
     )
 
-@resenas_bp.route("/crear-resena", methods=["GET", "POST"])
+@resenas_bp.route("/resenas/crear", methods=["GET", "POST"])
 def crear_resena_form():
 
     if request.method == "POST":

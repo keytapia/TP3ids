@@ -10,7 +10,15 @@
 
         <h1>Deja tu reseña</h1>
 
-        <p>Contanos como fue tu experiencia en Naza Restaurante</p>
+        {% if reserva_id %}
+        <p>
+            Tu reseña esta asociada a la reserva #{{ reserva_id }}
+        </p>
+        {% else %}
+        <p>
+            Contanos tu experiencia en Naza Restaurante
+        </p>
+        {% endif %}
 
         <form method="POST" action="{{ url_for('resenas.crear_resena_form')}}">
 
@@ -19,7 +27,7 @@
                 type="number"
                 name="reserva_id"
                 value="{{ reserva_id or '' }}"
-                required
+                {% if reserva_id %}readonly{% endif %}
             >
 
             <label>Nombre</label>
