@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const slider = document.querySelector("resenas-slider");
+    const slider = document.querySelector(".resenas-slider");
     const nextBtn = document.querySelector(".next-btn");
     const prevBtn = document.querySelector(".prev-btn");
 
@@ -13,16 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollAmount = card.offsetWidth +25;
 
     nextBtn.addEventListener("click", () => {
-        slider.scrollBy([
+        slider.scrollBy({
             left: scrollAmount,
             behavior: "smooth"
-        ])
+        })
     })
 
     prevBtn.addEventListener("click", () => {
-        slider.scrollBy([
+        slider.scrollBy({
             left: -scrollAmount,
             behavior: "smooth"
-        ])
+        })
     })
 })

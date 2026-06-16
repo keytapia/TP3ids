@@ -980,9 +980,9 @@ footer a:hover {
 
 .resenas-slider {
     display: flex;
-    gap: 25px;
-    overflow-x: auto;
-    scrollbar-width: none;  /**/
+    gap: 20px;
+    overflow: hidden;
+    width: 1200px;
 }
 
 .resenas-slider::-webkit-scrollbar {
