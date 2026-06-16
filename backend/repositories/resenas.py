@@ -8,23 +8,58 @@ def obtener_resenas_db():
     try:
         cursor.execute("""
             SELECT
-                resenas.id,
-                resenas.reserva_id,
-                resenas.comentario,
-                resenas.puntuacion,
-                resenas.fecha_publicacion,
-                resenas.disponible,
-                usuarios.nombre,
-                usuarios.apellido
+                id,
+                reserva_id,
+                nombre,
+                apellido,
+                comentario,
+                puntuacion,
+                fecha_publicacion,
+                disponible
             FROM resenas
-            INNER JOIN usuarios
-                ON resenas.usuario_id = usuarios.id
             WHERE resenas.disponible = TRUE
             ORDER BY resenas.fecha_publicacion DESC
         """)
 
         return cursor.fetchall()
     
+    finally:
+        cursor.close()
+        conexion.close()
+
+
+def crear_resena_db(usuario_id, reserva_id, nombre, apellido, comentario, puntuacion):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""
+            INSERT INTO resenas (
+                usuario_id,
+                reserva_id,
+                nombre,
+                apellido,
+                comentario,
+                puntuacion
+            )
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """,(
+            usuario_id,
+            reserva_id,
+            nombre,
+            apellido,
+            comentario,
+            puntuacion
+        ))
+
+        conexion.commit()
+
+        return {"id": cursor.lastrowid}
+    
+    except Exception:
+        conexion.rollback()
+        raise
+
     finally:
         cursor.close()
         conexion.close()
@@ -130,40 +165,6 @@ def obtener_reserva_para_resena_db(reserva_id):
         cursor.close()
         conexion.close()
 
-
-def crear_resena_db(usuario_id, reserva_id, comentario, puntuacion):
-    conexion = obtener_conexion()
-    cursor = conexion.cursor(dictionary=True)
-
-    try:
-        cursor.execute("""
-            INSERT INTO resenas (
-                usuario_id,
-                reserva_id,
-                comentario,
-                puntuacion
-            )
-            VALUES (%s, %s, %s, %s)
-        """, (
-            usuario_id,
-            reserva_id,
-            comentario,
-            puntuacion
-        ))
-
-        conexion.commit()
-
-        return {
-            "id": cursor.lastrowid
-        }
-    
-    except Exception:
-        conexion.rollback()
-        raise
-
-    finally:
-        cursor.close()
-        conexion.close()
 
 def modificar_estado_resena_db(estado, id):
     conexion = obtener_conexion()

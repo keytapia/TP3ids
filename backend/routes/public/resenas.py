@@ -3,8 +3,9 @@ from flask import request, jsonify, Blueprint
 from services.resenas import (
     listar_resenas,
     buscar_resena_por_id,
-    crear_resena,
-    obtener_cantidad_total_y_promedio_de_resenas
+    obtener_cantidad_total_y_promedio_de_resenas,
+    crear_resena_libre,
+    crear_resena_con_reserva
 )
 
 resenas_bp = Blueprint('resenas', __name__, url_prefix='/api')
@@ -31,13 +32,12 @@ def get_resena_por_id(id):
     return jsonify(resena), 200
 
 
-@resenas_bp.route("/resenas", methods=["POST"])
-def post_resenas():
+@resenas_bp.route("/resenas/crear", methods=["POST"])
+def post_resena_libre():
 
     datos = request.get_json()
 
-    resultado = crear_resena(
-        reserva_id=datos.get("reserva_id"),
+    resultado = crear_resena_libre(
         nombre=datos.get("nombre"),
         apellido=datos.get("apellido"),
         comentario=datos.get("comentario"),
@@ -45,7 +45,26 @@ def post_resenas():
     )
 
     if resultado["ok"]:
-        return jsonify({resultado}), 201
+        return jsonify(resultado), 201
+
+    return jsonify(resultado), 400
+
+
+@resenas_bp.route("/resenas/crear/<int:reserva_id>", methods=["POST"])
+def post_resena_con_reserva(reserva_id):
+
+    datos = request.get_json()
+
+    resultado = crear_resena_con_reserva(
+        reserva_id=reserva_id,
+        nombre=datos.get("nombre"),
+        apellido=datos.get("apellido"),
+        comentario=datos.get("comentario"),
+        puntuacion=datos.get("puntuacion")
+    )
+
+    if resultado["ok"]:
+        return jsonify(resultado), 201
 
     return jsonify(resultado), 400
 

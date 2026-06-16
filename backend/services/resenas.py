@@ -34,7 +34,7 @@ def buscar_resena_por_id(id):
     return resena
 
 
-def crear_resena(reserva_id, nombre, apellido, comentario, puntuacion):
+def crear_resena_con_reserva(reserva_id, nombre, apellido, comentario, puntuacion):
 
     finalizar_reservas_vencidas()
     
@@ -111,15 +111,61 @@ def crear_resena(reserva_id, nombre, apellido, comentario, puntuacion):
     nueva_resena = crear_resena_db(
         usuario_id=reserva["usuario_id"],
         reserva_id=reserva_id,
+        nombre=nombre,
+        apellido=apellido,
         comentario=comentario,
         puntuacion=puntuacion
     )
 
     return {
-        "ok": False,
+        "ok": True,
         "mensaje": "Reseña creada exitosamente!",
         "resena": nueva_resena
     }
+
+
+def crear_resena_libre(nombre, apellido, comentario, puntuacion):
+
+    finalizar_reservas_vencidas()
+    
+    if not nombre or not apellido or not comentario or not puntuacion:
+        
+        return {
+            "ok": False,
+            "mensaje": "Faltan datos obligatorios"
+        }
+    
+    try:
+        puntuacion = int(puntuacion)
+    
+    except ValueError:
+        return {
+            "ok": False,
+            "mensaje": "Puntuacion invalida"
+        }
+    
+    if puntuacion < 1 or puntuacion > 5:
+
+        return {
+            "ok": False,
+            "mensaje": "La puntuacion debe estar entre 1 y 5"
+        }
+    
+    nueva_resena = crear_resena_db(
+        usuario_id=None,
+        reserva_id=None,
+        nombre=nombre,
+        apellido=apellido,
+        comentario=comentario,
+        puntuacion=puntuacion
+    )
+
+    return {
+        "ok": True,
+        "mensaje": "Reseña creada exitosamente!",
+        "resena": nueva_resena
+    }
+
 
 ##
 ##-----ADMIN

@@ -1,0 +1,77 @@
+{% extends "public/base.html" %}
+
+{% block titulo %}Crear reseña - Naza Restaurante{% endblock %}
+
+{% block contenido_body %}
+
+<section class="crear-resena-page">
+
+    <div class="crear-resena-card">
+
+        <h1>Deja tu reseña</h1>
+
+        <p>Contanos como fue tu experiencia en Naza Restaurante</p>
+
+        <form method="POST" action="{{ url_for('resenas.crear_resena_form')}}">
+
+            <label>Reserva N°</label>
+            <input
+                type="number"
+                name="reserva_id"
+                value="{{ reserva_id or '' }}"
+                required
+            >
+
+            <label>Nombre</label>
+            <input
+                type="text"
+                name="nombre"
+                required
+            >
+
+            <label>Apellido</label>
+            <input
+                type="text"
+                name="apellido"
+                required
+            >
+
+            <label>Puntuacion</label>
+            <div class="rating">
+
+                <input type="radio" id="star5" name="puntuacion" value="5" required>
+                <label for="star5">★</label>
+
+                <input type="radio" id="star4" name="puntuacion" value="4">
+                <label for="star4">★</label>
+
+                <input type="radio" id="star3" name="puntuacion" value="3">
+                <label for="star3">★</label>
+
+                <input type="radio" id="star2" name="puntuacion" value="2">
+                <label for="star2">★</label>
+
+                <input type="radio" id="star1" name="puntuacion" value="1">
+                <label for="star1">★</label>
+
+            </div>
+
+            <label>Comentario</label>
+            <textarea
+                name="comentario"
+                rows="5"
+                required
+                placeholder="Escriba su reseña aqui..."
+            ></textarea>
+
+            <button type="submit">
+                Publicar reseña
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

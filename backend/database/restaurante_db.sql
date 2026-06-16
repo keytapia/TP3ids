@@ -53,8 +53,10 @@ CREATE TABLE platos (
 
 CREATE TABLE resenas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    usuario_id INT NOT NULL,
-    reserva_id INT NOT NULL,
+    usuario_id INT NULL,
+    reserva_id INT NULL,  -- necesario que pueda ser nulo para que no sea un campo obligatorio --
+    nombre VARCHAR(25) NOT NULL,
+    apellido VARCHAR(25) NOT NULL,
     comentario TEXT,
     puntuacion INT CHECK (puntuacion >= 1 AND puntuacion <= 5),
     fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -171,14 +173,14 @@ VALUES
 -- =========================
 
 INSERT INTO resenas
-(usuario_id, reserva_id, comentario, puntuacion, disponible)
+(usuario_id, reserva_id, nombre, apellido, comentario, puntuacion, disponible)
 
 VALUES
 
-(2,1,'Excelente atención',5,TRUE),
-(3,2,'Muy rica la comida',4,TRUE),
-(4,3,'El lugar es horrible',1,FALSE),
-(5,4,'Buen ambiente',5,TRUE);
+(2,1,'Juan','Perez','Excelente atención',5,TRUE),
+(3,2,'Brenda','Lopez','Muy rica la comida',4,TRUE),
+(4,3,'Pedro','Garcia','El lugar es horrible',1,FALSE),
+(5,4,'Maria','Diaz','Buen ambiente',5,TRUE);
 
 
 -- =========================
