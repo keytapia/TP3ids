@@ -63,6 +63,7 @@ Eliminar platos del menú
 Los clientes registrados podrán dejar reseñas y puntuaciones sobre el servicio recibido luego de una reserva.
 Las reseñas incluirán:
 
+Nombre y apellido
 Comentario
 Puntuación
 Fecha de publicación
@@ -76,6 +77,7 @@ Gestión de reservas
 Gestión de menú
 Gestión de usuarios
 Visualización de reseñas
+Gestion visual de la pagina
 Estadísticas básicas del sistema (cantidad de reservas, clientes registrados, horarios más solicitados, etc.)
 
 ##Alcance técnico
