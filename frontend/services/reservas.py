@@ -2,19 +2,6 @@ import requests
 
 API_BACKEND_URL = "http://127.0.0.1:5000"
 
-def cancelar_reserva(id):
-    try:
-        response = requests.patch(
-            f"{API_BACKEND_URL}/api/reservas/{id}/cancelar-cliente",
-            timeout=10
-        )
-        if response.status_code == 200:
-            return {"ok": True, "data": response.json()}
-        return {"ok": False, "error": response.text}
-    except requests.exceptions.ConnectionError:
-        return {"ok": False, "error": "No se pudo conectar con el backend"}
-    except requests.exceptions.Timeout:
-        return {"ok": False, "error": "El backend tardo demasiado en responder"}
 
 def crear_reserva(
     nombre,
@@ -82,6 +69,7 @@ def obtener_mesas_por_estado(fecha, horario, cantidad_personas):
     except requests.exceptions.Timeout:
         return {"ok": False, "error": "El backend tardó demasiado en responder."}
     
+
 def cancelar_reserva(id):
     try:
         response = requests.patch(
@@ -100,6 +88,24 @@ def cancelar_reserva(id):
         return {"ok": False, "error": "El backend tardo demasiado en responder"}
     
 
+def obtener_reservas_por_usuario(usuario_id):
+
+    try:
+
+        response = requests.get(
+            f"{API_BACKEND_URL}/api/reservas/mis-reservas/{usuario_id}",
+            timeout=10
+        )
+
+        if response.status_code == 200:
+            return response.json()
+
+        return []
+
+    except requests.exceptions.ConnectionError:
+        return []
+    
+
 #FUNCIONES PARA ADMIN RESERVAS
 
 def obtener_reservas():
@@ -116,6 +122,7 @@ def obtener_reservas():
     except Exception as e:
         return {"ok": False, "error": str(e)}
     
+
 def obtener_reservas_por_estado(estado):
     try:
         response = requests.get(
@@ -130,6 +137,7 @@ def obtener_reservas_por_estado(estado):
     except Exception as e:
         return {"ok": False, "error": str(e)}
     
+
 def cancelar_reserva_admin(id):
     try:
         response = requests.patch(

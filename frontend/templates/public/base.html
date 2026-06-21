@@ -86,24 +86,70 @@
 
             </ul>
 
-            <a class="boton-reserva"
-            href="{{ url_for('reservas.reservas') }}">
-                RESERVAR MESA
-            </a>
+            {% if session.get("usuario") %}
+
+                <div class="usuario-navbar">
+
+                    <span class="usuario-saludo">
+                        Hola {{ session["usuario"]["nombre"] }}
+                    </span>
+
+                    <a
+                        class="boton-sesion"
+                        href="{{ url_for('login.logout') }}"
+                    >
+                        CERRAR SESIÓN
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <a
+                    class="boton-sesion"
+                    href="{{ url_for('login.login_cliente') }}"
+                >
+                    INICIAR SESIÓN
+                </a>
+
+            {% endif %}
 
         </nav>
     </header>
 
     <main>
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                {% for categoria, mensaje in mensajes %}
+                    
+                    {% if categoria == "exito" %}
+                        <div class="mensaje-exito">
+                    {% else %}
+                        <div class="mensaje-error">
+                    {% endif %}
+
+                            <p>{{ mensaje }}</p>
+                        </div>
+
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         {% block contenido_body %}{% endblock %}
     </main>
 
     <footer>
         <p>
-            &copy; 2026 {{ config.nombre }} - 
-            <a href="{{ url_for('login.login') }}">
-                ACCESO STAFF
-            </a>
+            &copy; 2026 {{ config.nombre }}
+
+            {% set usuario = session.get("usuario") %}
+
+            {% if not usuario or usuario["rol"] == "admin" %}
+                -
+                <a href="{{ url_for('login.login_admin') }}">
+                    ACCESO STAFF
+                </a>
+            {% endif %}
         </p>
     </footer>
 

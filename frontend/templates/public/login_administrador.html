@@ -1,0 +1,73 @@
+<!---------- Login ADMIN ---------->
+{% extends "public/base.html" %}
+
+{% block titulo %}Login Admin{% endblock %}
+
+{% block contenido_body %}
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            <span>{{ config.nombre }}</span>
+            <small>LOGIN - ADMINISTRADOR</small>
+        </div>
+
+        <form action="{{ url_for('login.login_admin') }}" method="POST">
+
+            
+            <div class="login-campos">
+                <label for="email">
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="admin@naza"
+                    required
+                >
+            </div>
+
+            <div class="login-campos">
+                <label for="contrasena">
+                    CONTRASEÑA
+                </label>
+                <div class="login-password-wrapper">
+                    <input
+                        type="password"
+                        id="contrasena"
+                        name="contrasena"
+                        placeholder="••••••••" 
+                        required
+                        
+                    >
+                    <button
+                        type="button"
+                        class="login-toggle-password"
+                        onclick="togglePassword('contrasena','icono-ojo')">
+                        <i class="bi bi-eye" id="icono-ojo"></i>
+                    </button>
+                </div>
+            </div>
+
+
+            <button type="submit" class="login-button">
+                INICIAR SESIÓN
+            </button>
+
+            
+        
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+document.body.classList.add("login-body");
+</script>
+
+{% endblock %}

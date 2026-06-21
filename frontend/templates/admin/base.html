@@ -17,7 +17,7 @@
         <aside class="admin-sidebar">
 
             <div class="admin-logo">
-                <span>{{ config.nombre }}</span>
+                <a href="{{ url_for('inicio.inicio') }}">{{ config.nombre }}</a>
             </div>
 
             <nav class="admin-menu">
@@ -57,7 +57,7 @@
                     Configuración
                 </a>
 
-                <a href="{{ url_for('inicio.inicio') }}" class="volverinicio">
+                <a href="{{ url_for('login.logout') }}" class="volverinicio">
                     Cerrar Sesión
                 </a>
             </nav>

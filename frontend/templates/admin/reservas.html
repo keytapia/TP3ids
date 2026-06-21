@@ -12,9 +12,8 @@
     <a href="?estado=todas" class="admin-tab {% if estado_activo == 'todas' %}active{% endif %}">TODAS</a>
     <a href="?estado=confirmada" class="admin-tab {% if estado_activo == 'confirmada' %}active{% endif %}">PRÓXIMAS</a>
     <a href="?estado=cancelada" class="admin-tab {% if estado_activo == 'cancelada' %}active{% endif %}">CANCELADAS</a>
+    <a href="?estado=finalizada" class="admin-tab {% if estado_activo == 'finalizada' %}active{% endif %}">FINALIZADAS</a>
 </div>
-
-<input type="text" class="admin-buscador" placeholder="Buscar por nombre o mail...." id="buscador">
 
 <div class="admin-tabla-card">
     <table class="admin-tabla" id="tabla-reservas">
@@ -50,9 +49,10 @@
                             </form>
                         {% elif r.estado == 'finalizada' %}
                             <span class="badge-confirmada">✓</span>
-                                <button type="submit" class="admin-btn-finalizada" disabled>
-                                    FINALIZADA
-                                </button>
+                            <span class="admin-estado-finalizada">
+                                FINALIZADA
+                            </span>
+
                         {% else %}
                             <span class="badge-cancelada">✗</span>
                         {% endif %}

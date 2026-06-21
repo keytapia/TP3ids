@@ -15,14 +15,16 @@ def crear_usuario_cliente(
     nombre,
     apellido,
     email,
-    telefono
+    telefono,
+    contrasena
 ):
 
     nuevo_usuario = crear_usuario_cliente_db(
         nombre,
         apellido,
         email,
-        telefono
+        telefono,
+        contrasena
     )
 
     return {
@@ -31,5 +33,6 @@ def crear_usuario_cliente(
         "apellido": apellido,
         "email": email,
         "telefono": telefono,
+        "contrasena": contrasena,
         "rol": "cliente"
     }

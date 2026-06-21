@@ -24,6 +24,7 @@ from repositories.reservas import (
     obtener_todas_las_reservas_db,
     obtener_reservas_por_estado_db,
     obtener_reserva_por_id_db,
+    obtener_reservas_por_usuario_db,
     buscar_mesa_disponible_db,
     buscar_mesa_disponible_para_horario_db,
     obtener_mesas_por_estado_db,
@@ -295,3 +296,8 @@ def enviar_emails_resena_pendientes():
     return {
         "cantidad": len(reservas)
     }
+
+
+def obtener_reservas_por_usuario(usuario_id):
+
+    return obtener_reservas_por_usuario_db(usuario_id)

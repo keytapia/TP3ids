@@ -27,7 +27,8 @@ def crear_usuario_cliente_db(
     nombre,
     apellido,
     email,
-    telefono
+    telefono,
+    contrasena
 ):
 
     conexion = obtener_conexion()
@@ -41,15 +42,17 @@ def crear_usuario_cliente_db(
                 apellido,
                 email,
                 telefono,
+                contrasena,
                 rol
             )
-            VALUES (%s, %s, %s, %s, 'cliente')
+            VALUES (%s, %s, %s, %s, %s, 'cliente')
             """,
             (
                 nombre,
                 apellido,
                 email,
-                telefono
+                telefono,
+                contrasena
             )
         )
 

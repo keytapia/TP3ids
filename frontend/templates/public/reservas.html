@@ -7,25 +7,14 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/public.css') }}">
 
-{% if mensaje == "¡Reserva creada con éxito!" %}
-    <div class="mensaje-exito">
-        {{ mensaje }}
-    </div>
-{% elif mensaje == "¡Error al crear la reserva!" %}
-    <div class="mensaje-error">
-        {{ mensaje }}
-    </div>
-{% endif %}
+{% if session.get("usuario") %}
 
-{% with mensajes = get_flashed_messages() %}
-    {% if mensajes %}
-        <div class="mensajes">
-            {% for mensaje in mensajes %}
-                <p>{{ mensaje }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
-{% endwith %}
+<a href="{{ url_for('reservas.mis_reservas') }}"
+class="boton-mis-reservas">
+    VER MIS RESERVAS
+</a>
+
+{% endif %}
 
 <section class="reserva-container">
     <div class="reserva-lado-izquierdo">
@@ -216,6 +205,8 @@
             <input type="hidden" name="horario" value="{{ horario or '' }}">
             <input type="hidden" name="cantidad_personas" value="{{ cantidad_personas or '' }}">
 
+            {% if not session.get("usuario") %}
+
             <div class="campo">
                 <label for="nombre">NOMBRE</label>
                 <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required>
@@ -235,6 +226,44 @@
                 <label for="telefono">TELÉFONO</label>
                 <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono" required>
             </div>
+
+            {% endif %}
+
+            {% if session.get("usuario") %}
+
+            <div class="usuario-reserva">
+
+                <div class="usuario-campo">
+                    <label>Nombre</label>
+                    <div class="usuario-valor">
+                        {{ session["usuario"]["nombre"] }}
+                    </div>
+                </div>
+
+                <div class="usuario-campo">
+                    <label>Apellido</label>
+                    <div class="usuario-valor">
+                        {{ session["usuario"]["apellido"] }}
+                    </div>
+                </div>
+
+                <div class="usuario-campo">
+                    <label>Email</label>
+                    <div class="usuario-valor">
+                        {{ session["usuario"]["email"] }}
+                    </div>
+                </div>
+
+                <div class="usuario-campo">
+                    <label>Teléfono</label>
+                    <div class="usuario-valor">
+                        {{ session["usuario"]["telefono"] }}
+                    </div>
+                </div>
+
+            </div>
+
+            {% endif %}
 
             <div class="campo">
                 <label for="notas_adicionales">NOTAS ADICIONALES</label>

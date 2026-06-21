@@ -14,6 +14,7 @@ def buscar_usuario_por_email_y_contrasena(email, contrasena):
                     nombre,
                     apellido,
                     email,
+                    telefono,
                     rol
                 FROM usuarios
                 WHERE email = %s

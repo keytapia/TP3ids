@@ -106,6 +106,39 @@ def obtener_reserva_por_id_db(reserva_id):
         conexion.close()
 
 
+def obtener_reservas_por_usuario_db(usuario_id):
+
+    conexion = obtener_conexion()
+
+    try:
+        with conexion.cursor(dictionary=True) as cursor:
+
+            consulta = """
+                SELECT
+                    id,
+                    usuario_id,
+                    mesa_id,
+                    fecha,
+                    horario,
+                    cantidad_personas,
+                    notas_adicionales,
+                    estado
+                FROM reservas
+                WHERE usuario_id = %s
+                ORDER BY fecha DESC, horario DESC
+            """
+
+            cursor.execute(
+                consulta,
+                (usuario_id,)
+            )
+
+            return cursor.fetchall()
+
+    finally:
+        conexion.close()
+
+
 def buscar_mesa_disponible_db(
     fecha,
     horario,

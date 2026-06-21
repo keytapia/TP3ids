@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, request, redirect, url_for, flash
+from flask import render_template, Blueprint, request, redirect, url_for, flash, session
 
 from services.resenas import (
     obtener_resenas,
@@ -19,7 +19,7 @@ def resenas():
         listar_resenas = resultado.get("data", [])
 
     else:
-        flash("No se pudieron cargar las reseñas")
+        flash("No se pudieron cargar las reseñas", "error")
 
     return render_template(
         "public/resenas.html",
@@ -31,9 +31,19 @@ def crear_resena_form():
 
     if request.method == "POST":
 
+        usuario = session.get("usuario")
+
+        if usuario:
+
+            nombre = usuario.get("nombre")
+            apellido = usuario.get("apellido")
+
+        else:
+            
+            nombre=request.form.get("nombre")
+            apellido=request.form.get("apellido")
+
         reserva_id=request.form.get("reserva_id")
-        nombre=request.form.get("nombre")
-        apellido=request.form.get("apellido")
         comentario=request.form.get("comentario")
         puntuacion=request.form.get("puntuacion")
 
@@ -46,10 +56,10 @@ def crear_resena_form():
         )
 
         if resultado.get("ok"):
-            flash("Reseña creada exitosamente")
+            flash("Reseña creada con éxito!", "exito")
             return redirect(url_for("resenas.resenas"))
         
-        flash("No se pudo crear la reseña")
+        flash("No se pudo crear la reseña", "error")
         return redirect(url_for("resenas.crear_resena_form"))
     
     reserva_id = request.args.get("reserva_id")

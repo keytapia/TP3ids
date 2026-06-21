@@ -1,0 +1,141 @@
+{% extends "public/base.html" %}
+
+{% block title %}Mis Reservas{% endblock %}
+
+{% block contenido_body %}
+
+<section class="mis-reservas-container">
+
+    <h1 class="mis-reservas-titulo">
+        Mis Reservas
+    </h1>
+
+    <p class="mis-reservas-subtitulo">
+        Consultá el estado de todas tus reservas.
+    </p>
+
+    <div class="mis-reservas-tabs">
+
+        <a href="?estado=todas"
+           class="mis-reservas-tab {% if estado_activo == 'todas' %}active{% endif %}">
+            TODAS
+        </a>
+
+        <a href="?estado=confirmada"
+           class="mis-reservas-tab {% if estado_activo == 'confirmada' %}active{% endif %}">
+            PRÓXIMAS
+        </a>
+
+        <a href="?estado=cancelada"
+           class="mis-reservas-tab {% if estado_activo == 'cancelada' %}active{% endif %}">
+            CANCELADAS
+        </a>
+
+        <a href="?estado=finalizada"
+           class="mis-reservas-tab {% if estado_activo == 'finalizada' %}active{% endif %}">
+            FINALIZADAS
+        </a>
+
+    </div>
+
+    <div class="mis-reservas-card">
+
+        <table class="mis-reservas-tabla">
+
+            <thead>
+
+                <tr>
+                    <th>Reserva N°</th>
+                    <th>Fecha / Horario</th>
+                    <th>Personas</th>
+                    <th>Mesa</th>
+                    <th>Notas</th>
+                    <th>Estado</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if reservas %}
+
+                    {% for reserva in reservas %}
+
+                    <tr>
+                        <td>
+                            {{ reserva.id }}
+                        </td>
+
+                        <td>
+                            <strong>{{ reserva.fecha }}</strong><br>
+                            <small>{{ reserva.horario }}</small>
+                        </td>
+
+                        <td>
+                            {{ reserva.cantidad_personas }}
+                        </td>
+
+                        <td>
+                            {{ reserva.mesa_id }}
+                        </td>
+
+                        <td>
+                            {{ reserva.notas_adicionales or "-" }}
+                        </td>
+
+                        <td>
+
+                             {% if reserva.estado == 'confirmada' %}
+
+                            <form
+                                action="{{ url_for('reservas.cancelar_reserva_cliente', id=reserva.id) }}"
+                                method="GET">
+
+                                <span class="badge-confirmada">✓</span>
+                                <button type="submit" class="boton-cancelar-reserva">
+                                    CANCELAR
+                                </button>
+
+                            </form>
+
+                            {% elif reserva.estado == 'finalizada' %}
+
+                            <span class="mis-reservas-estado-finalizada">
+                                FINALIZADA
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge-cancelada">
+                                CANCELADA
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="5" class="sin-reservas">
+                            No tenés reservas para mostrar
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}

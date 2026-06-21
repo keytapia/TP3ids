@@ -1,5 +1,7 @@
 from flask import (Blueprint, render_template, request, redirect, url_for)
 
+from utils.auth import requiere_admin
+
 from services.servicios import (
     obtener_servicios,
     obtener_servicio_por_id,
@@ -16,6 +18,7 @@ servicios_admin_bp = Blueprint(
 
 
 @servicios_admin_bp.route("/servicios")
+@requiere_admin
 def servicios():
 
     resultado = obtener_servicios()
@@ -27,6 +30,7 @@ def servicios():
 
 
 @servicios_admin_bp.route("/servicios/agregar", methods=["GET", "POST"])
+@requiere_admin
 def agregar_servicio():
 
     if request.method == "POST":
@@ -45,6 +49,7 @@ def agregar_servicio():
 
 
 @servicios_admin_bp.route("/servicios/editar/<int:id>", methods=["GET", "POST"])
+@requiere_admin
 def put_servicio(id):
 
     if request.method == "POST":
@@ -77,6 +82,7 @@ def put_servicio(id):
 
 
 @servicios_admin_bp.route("/servicios/eliminar/<int:id>", methods=["POST"])
+@requiere_admin
 def delete_servicio(id):
 
     eliminar_servicio(id)

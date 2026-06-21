@@ -1,15 +1,20 @@
-<!---------- Login exitoso ---------->
-{% extends "public/base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accediendo...</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/public.css') }}">
+</head>
+<body class="acceso-body">
 
-{% block titulo %}
-Bienvenido
-{% endblock %}
-
-{% block contenido_body %}
-
-<div class="welcome-container">
+<div class="welcome-wrapper">
 
     <div class="welcome-card">
+
+        <div class="check-icon">
+            ✓
+        </div>
 
         <h1>
             ¡BIENVENIDO!
@@ -18,6 +23,12 @@ Bienvenido
         <p>
             Redirigiendo al panel de administrador...
         </p>
+
+        <div class="welcome-barra">
+
+            <div class="progreso"></div>
+
+        </div>
 
     </div>
 
@@ -29,4 +40,5 @@ Bienvenido
 
 </script>
 
-{% endblock %}
+</body>
+</html>

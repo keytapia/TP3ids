@@ -7,7 +7,8 @@ from services.reservas import (
     obtener_disponibilidad,
     obtener_mesas_por_estado,
     buscar_mesa_disponible,
-    finalizar_reservas_vencidas
+    finalizar_reservas_vencidas,
+    obtener_reservas_por_usuario
 )
 
 from utils.validators import (
@@ -133,3 +134,18 @@ def post_reserva():
         )
 
     return jsonify(nueva_reserva), 201
+
+
+# Obtener reservas por usuario
+@reservas_bp.route("/reservas/mis-reservas/<int:usuario_id>", methods=["GET"])
+def obtener_reservas_usuario(usuario_id):
+
+    reservas = obtener_reservas_por_usuario(usuario_id)
+
+    for reserva in reservas:
+
+        reserva["fecha"] = str(reserva["fecha"])
+
+        reserva["horario"] = str(reserva["horario"])
+
+    return jsonify(reservas), 200

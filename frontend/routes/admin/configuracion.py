@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
+from utils.auth import requiere_admin
+
 from services.configuracion import (
     obtener_configuracion,
     actualizar_configuracion
@@ -9,6 +11,7 @@ configuracion_admin_bp = Blueprint("configuracion_admin", __name__)
 
 
 @configuracion_admin_bp.route("/admin/configuracion", methods=["GET", "POST"])
+@requiere_admin
 def configuracion():
 
     if request.method == "POST":

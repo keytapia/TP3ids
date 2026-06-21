@@ -12,7 +12,7 @@ sys.path.append(BASE_DIR)
 # Rutas Públicas
 from routes.public.contacto import contacto_bp
 from routes.public.inicio import inicio_bp
-from routes.public.login import login_bp
+from routes.public.login import login_bp, registro_bp
 from routes.public.menu import menu_bp
 from routes.public.nosotros import nosotros_bp
 from routes.public.resenas import resenas_bp
@@ -39,6 +39,7 @@ app.register_blueprint(resenas_bp)
 app.register_blueprint(nosotros_bp)
 app.register_blueprint(contacto_bp)
 app.register_blueprint(login_bp)
+app.register_blueprint(registro_bp)
 
 # Blueprints para rutas del administrador
 app.register_blueprint(dashboard_admin_bp)

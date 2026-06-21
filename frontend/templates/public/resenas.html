@@ -4,6 +4,16 @@
 {% block titulo %}Reseñas - Naza Restaurante{% endblock %}
 
 {% block contenido_body %}
+
+{% if session.get("usuario") %}
+
+<a href="{{ url_for('resenas.crear_resena_form') }}"
+class="boton-crear-resena">
+    CREAR RESEÑA
+</a>
+
+{% endif %}
+
 <section class="resenas-section">
 
     <h1 class="resenas-titulo">Reseñas de nuestros clientes</h1>

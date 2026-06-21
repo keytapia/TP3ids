@@ -1,6 +1,6 @@
 {% extends "public/base.html" %}
 
-{% block titulo %}Crear reseña - Naza Restaurante{% endblock %}
+{% block titulo %}Crear reseña{% endblock %}
 
 {% block contenido_body %}
 
@@ -16,7 +16,7 @@
         </p>
         {% else %}
         <p>
-            Contanos tu experiencia en Naza Restaurante
+            Contanos tu experiencia en {{ config.nombre }}
         </p>
         {% endif %}
 
@@ -30,6 +30,7 @@
                 {% if reserva_id %}readonly{% endif %}
             >
 
+            {% if not session.get("usuario") %}
             <label>Nombre</label>
             <input
                 type="text"
@@ -43,6 +44,21 @@
                 name="apellido"
                 required
             >
+            {% endif %}
+
+            {% if session.get("usuario") %}
+
+            <label>Nombre</label>
+            <div class="usuario-valor">
+                {{ session["usuario"]["nombre"] }}
+            </div>
+
+            <label>Apellido</label>
+            <div class="usuario-valor">
+                {{ session["usuario"]["apellido"] }}
+            </div>
+
+            {% endif %}
 
             <label>Puntuacion</label>
             <div class="rating">

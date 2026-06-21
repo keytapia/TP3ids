@@ -97,6 +97,7 @@ INSERT INTO usuarios
 
 VALUES
 ('Admin','Admin','admin@restaurante.com','123456789','1234','admin'),
+('Cliente','Cliente','cliente@mail.com','123456789','1234','cliente'),
 ('Juan','Perez','juan@mail.com','123456789',NULL,'cliente'),
 ('Brenda','Lopez','brenda@mail.com','123456789',NULL,'cliente'),
 ('Pedro','Garcia','pedro@mail.com','123456789',NULL,'cliente'),
@@ -160,12 +161,14 @@ INSERT INTO reservas
 
 VALUES
 
-(2,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada',TRUE),
-(3,2,'2026-05-11','21:00:00',4,NULL,'confirmada',TRUE),
-(4,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada',TRUE),
-(5,4,'2026-05-15','22:00:00',2,NULL,'confirmada',TRUE),
-(2,2,'2026-05-16','20:00:00',4,NULL,'confirmada',TRUE),
-(2,1,'2026-05-17','20:00:00',2,NULL,'cancelada',TRUE);
+(3,1,'2026-05-10','20:00:00',2,'Mesa cerca de ventana','confirmada',TRUE),
+(4,2,'2026-05-11','21:00:00',4,NULL,'confirmada',TRUE),
+(5,3,'2026-05-12','20:00:00',6,'Por motivos de salud','cancelada',TRUE),
+(4,4,'2026-05-15','22:00:00',2,NULL,'confirmada',TRUE),
+(3,2,'2026-05-16','20:00:00',4,NULL,'confirmada',TRUE),
+(3,1,'2026-05-17','20:00:00',2,NULL,'cancelada',TRUE),
+(2,1,'2026-06-20','17:00:00',2,'Vamos con un bebé con carrito','finalizada',TRUE);
+
 
 
 -- =========================

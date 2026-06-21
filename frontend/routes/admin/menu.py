@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
+from utils.auth import requiere_admin
+
 from services.menu import (
     obtener_menu_admin,
     obtener_plato,
@@ -15,6 +17,7 @@ RUTA_A_IMG = "static/images/"
 
 
 @menu_admin_bp.route("/menu")
+@requiere_admin
 def menu():
 
     categoria = request.args.get("categoria")
@@ -34,6 +37,7 @@ def menu():
 
 
 @menu_admin_bp.route("/menu/agregar", methods=["GET", "POST"])
+@requiere_admin
 def menu_agregar():
 
     if request.method == "POST":
@@ -79,6 +83,7 @@ def menu_agregar():
 
 
 @menu_admin_bp.route("/menu/editar/<int:id>", methods=["GET", "POST"])
+@requiere_admin
 def menu_editar(id):
 
     if request.method == "POST":
@@ -134,6 +139,7 @@ def menu_editar(id):
 
 
 @menu_admin_bp.route("/menu/eliminar/<int:id>", methods=["POST"])
+@requiere_admin
 def menu_eliminar(id):
 
     eliminar_plato(id)

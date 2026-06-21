@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 
+from utils.auth import requiere_admin
+
 from services.resenas import (
     obtener_resenas_admin,
     ocultar_mostrar_resena,
@@ -10,6 +12,7 @@ resenas_admin_bp = Blueprint("resenas_admin", __name__, url_prefix="/admin")
 
 
 @resenas_admin_bp.route("/resenas")
+@requiere_admin
 def resenas():
 
     filtro = request.args.get("filtro", "todas")
@@ -40,6 +43,7 @@ def resenas():
 
 
 @resenas_admin_bp.route("/resenas/estado/<int:id>", methods=["POST"])
+@requiere_admin
 def cambiar_estado_resena(id):
 
     ocultar_mostrar_resena(id)
@@ -48,6 +52,7 @@ def cambiar_estado_resena(id):
 
 
 @resenas_admin_bp.route("/resenas/eliminar/<int:id>", methods=["POST"])
+@requiere_admin
 def borrar_resena(id):
 
     eliminar_resena(id)
