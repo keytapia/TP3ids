@@ -283,15 +283,45 @@ def finalizar_reservas_vencidas():
 
 def enviar_emails_resena_pendientes():
 
+    print("\n" + "=" * 80)
+    print(
+        f"[SCHEDULER] Ejecutando envío de emails de reseñas - "
+        f"{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+    )
+    print("=" * 80)
+
     finalizar_reservas_vencidas()
 
     reservas = obtener_reservas_para_email_resena_db()
 
+    print(f"[SCHEDULER] Reservas encontradas: {len(reservas)}")
+
     for reserva in reservas:
+
+        print(
+            f"[SCHEDULER] Enviando email para reserva "
+            f"ID={reserva['id']} - {reserva['email']}"
+        )
+
         enviado = enviar_email_pedir_resena(reserva)
 
         if enviado:
             marcar_email_resena_enviado_db(reserva["id"])
+            print(
+                f"[SCHEDULER] ✓ Email enviado correctamente "
+                f"(reserva {reserva['id']})"
+            )
+        else:
+            print(
+                f"[SCHEDULER] ✗ Error enviando email "
+                f"(reserva {reserva['id']})"
+            )
+
+    print(
+        f"[SCHEDULER] Finalizado - "
+        f"{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}"
+    )
+    print("=" * 80 + "\n")
 
     return {
         "cantidad": len(reservas)

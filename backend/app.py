@@ -60,10 +60,19 @@ def create_app():
 
     return app
 
-scheduler = iniciar_scheduler()
-
 app = create_app()
 
 
 if __name__ == "__main__":
-    app.run(port=APP_PUERTO, debug=MODO_DEBUG)
+
+    # Evita iniciar el scheduler dos veces cuando Flask corre en debug
+    if (
+        not MODO_DEBUG
+        or os.environ.get("WERKZEUG_RUN_MAIN") == "true"
+    ):
+        iniciar_scheduler()
+
+    app.run(
+        port=APP_PUERTO,
+        debug=MODO_DEBUG
+    )
