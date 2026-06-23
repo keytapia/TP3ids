@@ -133,8 +133,8 @@ def cancelar_reserva_cliente(id):
         decision = request.form.get("decision")
         if decision == "si":
             cancelar_reserva_service(id)
-
-        flash("Reserva cancelada con éxito!", "exito")
+            flash("Reserva cancelada con éxito!", "exito")
+            
         return redirect(url_for("inicio.inicio"))
     return render_template(
         "public/cancelar_reserva.html",
