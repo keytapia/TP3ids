@@ -16,7 +16,7 @@ def crear_usuario_cliente(
     apellido,
     email,
     telefono,
-    contrasena
+    contrasena=None
 ):
 
     nuevo_usuario = crear_usuario_cliente_db(
