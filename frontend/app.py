@@ -1,6 +1,8 @@
 import sys
 import os
+
 from flask import Flask
+from dotenv import load_dotenv
 
 from services.configuracion import (
   obtener_configuracion
@@ -50,6 +52,8 @@ app.register_blueprint(servicios_admin_bp)
 app.register_blueprint(estadisticas_admin_bp)
 app.register_blueprint(configuracion_admin_bp)
 
+load_dotenv()
+
 
 @app.context_processor
 def configuracion_app():
@@ -63,4 +67,8 @@ def configuracion_app():
 
 
 if __name__ == "__main__":
-  app.run(port=8080, debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=8080,
+        debug=True
+    )

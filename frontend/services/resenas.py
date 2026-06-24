@@ -1,6 +1,7 @@
+import os
 import requests
 
-API_BACKEND_URL = "http://127.0.0.1:5000"
+API_BACKEND_URL = os.getenv("API_BACKEND_URL")
 
 ## PARA EL PUBLICO
 def obtener_resenas():

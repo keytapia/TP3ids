@@ -1,6 +1,7 @@
+import os
 import requests
 
-API_BACKEND_URL = "http://localhost:5000"
+API_BACKEND_URL = os.getenv("API_BACKEND_URL")
 
 def iniciar_sesion(email, contrasena):
 

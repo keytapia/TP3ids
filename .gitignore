@@ -15,5 +15,8 @@ __pycache__/
 
 # Variables de entorno
 backend/.env
-
+backend/.env.docker
+backend/.mysql-env
+frontend/.env
+frontend/.env.docker
 .env

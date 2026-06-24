@@ -73,6 +73,7 @@ if __name__ == "__main__":
         iniciar_scheduler()
 
     app.run(
+        host="0.0.0.0",
         port=APP_PUERTO,
         debug=MODO_DEBUG
     )
