@@ -230,10 +230,11 @@ def obtener_reservas_para_email_resena_db():
                     ON reservas.usuario_id = usuarios.id
                 WHERE reservas.estado = 'finalizada'
                 AND reservas.email_resena_enviado = FALSE
-                AND TIMESTAMP(reservas.fecha, reservas.horario) + INTERVAL 1 MINUTE <= NOW()
-                AND reservas.id NOT IN (
-                    SELECT reserva_id
+                AND TIMESTAMP(reservas.fecha, reservas.horario) + INTERVAL 1 HOUR <= NOW()
+                AND NOT EXISTS (
+                    SELECT 1
                     FROM resenas
+                    WHERE resenas.reserva_id = reservas.id
                 )
             """)
 
