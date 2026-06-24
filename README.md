@@ -204,7 +204,7 @@ backend/
 ├── requirements.txt               # Dependencias de Python del proyecto
 └── setup_virtualenv.sh            # Script de instalación y configuración automática
 
-(*) scheduler.py → Ejecuta automáticamente cada cierto tiempo (puesto cada 1 minuto de ejemplo) la finalización de reservas vencidas y el envío de correos para solicitar reseñas.
+(*) scheduler.py → Ejecuta automáticamente cada cierto tiempo (puesto cada 30 minutos de ejemplo) la finalización de reservas vencidas y el envío de correos para solicitar reseñas.
 ```
 
 ## **Requisitos Previos**
@@ -216,7 +216,7 @@ backend/
 
 ### 1. Variables de entorno
 
-#### **Ejecución Local**
+#### **(A) En caso de que se ejecute Local**
 Si correrá el proyecto localmente por terminal deberá crear los siguientes archivos:
 
 - En `TP3ids/backend` un archivo `.env`
@@ -261,7 +261,8 @@ Donde deberá reemplazar los siguientes campos:
 
 `<SU CONTRASEÑA MYSQL DEL USUARIO ROOT>` por la contraseña de su usuario `root` de MySQL.  
 `<SU CORREO DE GMAIL>` por una cuenta de Gmail válida desde la cual se enviarán los correos electrónicos del sistema.  
-`<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>` por una contraseña de aplicación generada desde su cuenta de Google. (ver [Cómo obtener una contraseña de aplicación de Gmail](#cómo-obtener-una-contraseña-de-aplicación-de-gmail))  
+`<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>` por una contraseña de aplicación generada desde su cuenta de Google.  
+(ver [Cómo obtener una contraseña de aplicación de Gmail](#cómo-obtener-una-contraseña-de-aplicación-de-gmail))  
 
 - En `TP3ids/frontend` un archivo `.env`
 
@@ -280,7 +281,7 @@ Y copiar dentro del mismo lo siguiente:
 API_BACKEND_URL=http://localhost:5000
 ```
 
-#### **Ejecución con Docker**
+#### **(B) En caso de que se ejecute con Docker**
 Si se levantará el proyecto utilizando Docker, deberá crear los siguientes archivos:
 
 - En `TP3ids/backend` un archivo `.env.docker` → Variables de entorno utilizadas por el contenedor Backend cuando el proyecto se ejecuta mediante Docker.
@@ -289,6 +290,8 @@ Si se levantará el proyecto utilizando Docker, deberá crear los siguientes arc
 cd TP3ids/backend
 touch .env.docker
 ```
+
+Donde deberá copiar dentro del mismo el siguiente texto:
 
 ```
 # ===============================================
@@ -321,7 +324,8 @@ EMAIL_PASSWORD=<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>
 Donde deberá reemplazar los siguientes campos:
 
 `<SU CORREO DE GMAIL>` por una cuenta de Gmail válida.  
-`<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>` por una contraseña de aplicación generada desde su cuenta de Google (ver [Cómo obtener una contraseña de aplicación de Gmail](#cómo-obtener-una-contraseña-de-aplicación-de-gmail)).  
+`<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>` por una contraseña de aplicación generada desde su cuenta de Google  
+(ver [Cómo obtener una contraseña de aplicación de Gmail](#cómo-obtener-una-contraseña-de-aplicación-de-gmail)).  
 
 - En `TP3ids/backend` un archivo `.mysql-env` → Variables de entorno utilizadas exclusivamente por la imagen oficial de MySQL para crear e inicializar la base de datos dentro del contenedor Docker.
 
@@ -329,6 +333,8 @@ Donde deberá reemplazar los siguientes campos:
 cd TP3ids/backend
 touch .mysql-env
 ```
+
+Donde deberá copiar dentro del mismo el siguiente texto:
 
 ```
 # ====================================================
@@ -346,6 +352,8 @@ cd TP3ids/frontend
 touch .env.docker
 ```
 
+Donde deberá copiar dentro del mismo el siguiente texto:
+
 ```
 # ==========================================
 # URL del Backend para utilizar en Docker
@@ -360,7 +368,7 @@ API_BACKEND_URL=http://backend:5000
 
 ### 2. Instalación y Ejecución
 
-#### **Ejecución Local**
+#### **(A) Ejecución Local**
 
 Una vez creados los archivos `.env`, deberá ejecutar scripts de setup que el proyecto incluye para el backend y para el frontend. Los mismos ejecutan todo lo necesario para crear y levantar cada aplicación.
 
@@ -396,7 +404,7 @@ Durante el proceso le pedirá su clave de administrador de usuario para la insta
 
 Una vez finalizado el proceso, la API se iniciará y estará disponible en `http://localhost:8080/`
 
-#### **Ejecución con Docker**
+#### **(B) Ejecución con Docker**
 
 Una vez creados los archivos `.env.docker` y `.mysql-env`, desde la raíz del proyecto ejecutar:
 
