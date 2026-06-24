@@ -27,7 +27,8 @@ def resenas():
     )
 
 @resenas_bp.route("/resenas/crear", methods=["GET", "POST"])
-def crear_resena_form():
+@resenas_bp.route("/resenas/crear/<int:reserva_id>", methods=["GET", "POST"])
+def crear_resena_form(reserva_id=None):
 
     if request.method == "POST":
 
@@ -43,7 +44,7 @@ def crear_resena_form():
             nombre=request.form.get("nombre")
             apellido=request.form.get("apellido")
 
-        reserva_id=request.form.get("reserva_id")
+        reserva_id=reserva_id or request.form.get("reserva_id")
         comentario=request.form.get("comentario")
         puntuacion=request.form.get("puntuacion")
 
@@ -62,7 +63,7 @@ def crear_resena_form():
         flash("No se pudo crear la reseña", "error")
         return redirect(url_for("resenas.crear_resena_form"))
     
-    reserva_id = request.args.get("reserva_id")
+    reserva_id = reserva_id or request.args.get("reserva_id")
 
     return render_template (
         "public/crear_resena.html",
