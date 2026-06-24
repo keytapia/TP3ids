@@ -5,9 +5,9 @@ from services.usuarios import (
     crear_usuario_cliente
 )
 
-usuarios_bp = Blueprint('usuarios', __name__, url_prefix="/api/usuarios")
+usuarios_bp = Blueprint('usuarios', __name__, url_prefix="/api")
 
-@usuarios_bp.route("/registro", methods=["POST"])
+@usuarios_bp.route("/usuarios/registro", methods=["POST"])
 def registro():
 
     data = request.get_json()

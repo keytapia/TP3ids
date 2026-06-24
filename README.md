@@ -18,7 +18,7 @@
 
 # Sitio web gastronómico con reserva
 
-## **Naza - Restaurante**
+# **Naza - Restaurante**
 
 "Naza" es una aplicación web gastronómica orientada a la gestión de reservas online para su restaurante.
 
@@ -26,7 +26,7 @@ El sistema permitirá a los usuarios visualizar información del establecimiento
 
 Además, contará con un panel administrativo para la gestión de reservas, menú, reseñas, servicios y estadísticas.
 
-### **Arquitectura**
+## **Arquitectura**
 
 El proyecto se encuentra dividido en dos aplicaciones principales:
 
@@ -63,22 +63,24 @@ La persistencia de datos se realizará utilizando una base de datos MySQL.
           └──────────────┘  └─────────────────┘
 ```
 
-### **Estructura del Repositorio**
+## **Estructura del Repositorio**
 
-- `frontend/` → Aplicación frontend desarrollada con Flask y Jinja.
 - `backend/`  → API RESTful, lógica de negocio y conexión con MySQL.
 - `docs/`     → Documentación, backlog y mockup del proyecto.
+- `frontend/` → Aplicación frontend desarrollada con Flask y Jinja.
+- `docker-compose.yml` → Unión de los contenedores Frontend, Backend y MySQL para usar con Docker
 
-#### **Estructura del Frontend**
+### **Estructura del Frontend**
 
 ```
 frontend/
 ├── routes/                             # Rutas Flask que renderizan los templates
 │   ├── admin/                              # Rutas del panel de administración
+│   │   ├── configuracion.py                    # Gestión de la configuración general del restaurante
 │   │   ├── dashboard.py                        # Dashboard principal del administrador
 │   │   ├── estadisticas.py                     # Vista de estadísticas y métricas
 │   │   ├── menu.py                             # Gestión visual del menú
-│   │   ├── reseñas.py                          # Gestión visual de reseñas
+│   │   ├── resenas.py                          # Gestión visual de reseñas
 │   │   ├── reservas.py                         # Gestión visual de reservas
 │   │   └── servicios.py                        # Gestión visual de servicios
 │   └── public/                             # Rutas públicas del sitio web
@@ -87,50 +89,67 @@ frontend/
 │       ├── login.py                            # Inicio de sesión de administrador
 │       ├── menu.py                             # Menú del restaurante
 │       ├── nosotros.py                         # Información institucional
-│       ├── reseñas.py                          # Visualización de reseñas
+│       ├── resenas.py                          # Visualización de reseñas
 │       └── reservas.py                         # Proceso de reservas online
 ├── services/                           # Comunicación con la API Backend
+│   ├── configuracion.py                    # Consumo de endpoints de configuración del restaurante
 │   ├── dashboard.py                        # Consumo de endpoints del dashboard
 │   ├── estadisticas.py                     # Consumo de endpoints de estadísticas
 │   ├── login.py                            # Consumo de endpoints de autenticación
 │   ├── menu.py                             # Consumo de endpoints del menú
-│   └── reservas.py                         # Consumo de endpoints de reservas
+│   ├── resenas.py                          # Consumo de endpoints de reseñas
+│   ├── reservas.py                         # Consumo de endpoints de reservas
+│   └── servicios.py                        # Consumo de endpoints de servicios
 ├── static/                             # Archivos estáticos
 │   ├── images/                             # Imágenes utilizadas por la aplicación
 │   │   ├── favicon.ico                         # Ícono del sitio web
 │   │   └── ...                                 # Imágenes de platos, banners, etc.
 │   ├── scripts/                            # Scripts JavaScript
 │   │   ├── estadisticas.js                     # Gráficos y métricas del administrador
+│   │   ├── renesas.js                          # Funcionalidades dinámicas para creación y visualización de reseñas
 │   │   └── script.js                           # Funcionalidades generales del sitio
 │   └── styles/                             # Hojas de estilo CSS
 │       ├── admin.css                           # Estilos del panel administrador
 │       └── public.css                          # Estilos del sitio público
 ├── templates/                          # Plantillas HTML renderizadas por Flask
 │   ├── admin/                              # Templates del administrador
+│   │   ├── agregar_plato.html                  # Formulario para agregar nuevos platos al menú
+│   │   ├── agregar_servicio.html               # Formulario para agregar nuevos servicios
 │   │   ├── base.html                           # Layout base del administrador
+│   │   ├── configuracion.html                  # Gestión de la configuración del restaurante
 │   │   ├── dashboard.html                      # Dashboard principal
+│   │   ├── editar_plato.html                   # Formulario para editar platos existentes
+│   │   ├── editar_servicio.html                # Formulario para editar servicios existentes
 │   │   ├── estadisticas.html                   # Vista de estadísticas
 │   │   ├── menu.html                           # Gestión del menú
-│   │   ├── reseñas.html                        # Gestión de reseñas
+│   │   ├── resenas.html                        # Gestión de reseñas
 │   │   ├── reservas.html                       # Gestión de reservas
 │   │   └── servicios.html                      # Gestión de servicios
 │   └── public/                             # Templates públicos
 │       ├── base.html                           # Layout base público
+│       ├── cancelar_reserva.html               # Confirmación de cancelación de una reserva
 │       ├── contacto.html                       # Página de contacto
-│       ├── error.html                          # Página de error
+│       ├── crear_resena.html                   # Formulario para crear una reseña
 │       ├── index.html                          # Página principal
+│       ├── login_administrador.html            # Formulario de inicio de sesión para administradores
+│       ├── login_cliente.html                  # Formulario de inicio de sesión para clientes
 │       ├── login_exitoso.html                  # Confirmación de login exitoso
-│       ├── login.html                          # Formulario de login
 │       ├── menu.html                           # Menú del restaurante
+│       ├── mis_reservas.html                   # Consulta y gestión de reservas del usuario autenticado
 │       ├── nosotros.html                       # Página institucional
-│       ├── reseñas.html                        # Página de reseñas
+│       ├── registrar_cuenta.html               # Formulario de registro de nuevos usuarios
+│       ├── resenas.html                        # Página de reseñas
 │       └── reservas.html                       # Página de reservas
+├── utils/
+│   └── auth.py                             # Decoradores y utilidades de autenticación y control de acceso
+├── .dockerignore
 ├── app.py                              # Punto de entrada de la aplicación Flask
+├── Dockerfile                          # Definición de la imagen Docker del frontend
 ├── requirements.txt                    # Dependencias del proyecto
 └── setup_virtualenv.sh                 # Script de instalación y configuración
 ```
 
-#### **Estructura del Backend**
+### **Estructura del Backend**
 
 ```
 backend/
@@ -138,53 +157,69 @@ backend/
 │   └── restaurante_db.sql            # Estructura y datos iniciales de la base de datos
 ├── repositories/                  # Acceso a datos y consultas SQL
 │   ├── auth.py                       # Queries relacionadas con autenticación
+│   ├── configuracion.py              # Queries de configuración general del restaurante
 │   ├── dashboard.py                  # Queries para estadísticas y dashboard
+│   ├── estadisticas.py               # Queries para generación de estadísticas y métricas
 │   ├── menu.py                       # Queries de platos y categorías
+│   ├── resenas.py                    # Queries de creación, consulta y administración de reseñas
 │   ├── reservas.py                   # Queries de reservas y mesas
 │   ├── servicios.py                  # Queries de servicios ofrecidos
 │   └── usuarios.py                   # Queries de usuarios
 ├── routes/                        # Endpoints y blueprints de la API
 │   ├── admin/                        # Rutas exclusivas para administradores
+│   │   ├── configuracion.py              # Endpoints para administración de la configuración del restaurante
 │   │   ├── dashboard.py                  # Endpoints del dashboard administrativo
 │   │   ├── estadisticas.py               # Endpoints de estadísticas
 │   │   ├── menu.py                       # Gestión administrativa del menú
-│   │   ├── reseñas.py                    # Gestión administrativa de reseñas
+│   │   ├── resenas.py                    # Gestión administrativa de reseñas
 │   │   ├── reservas.py                   # Gestión administrativa de reservas
 │   │   └── servicios.py                  # Gestión administrativa de servicios
 │   └── public/                       # Rutas accesibles para clientes y público general
 │       ├── auth.py                       # Inicio de sesión y autenticación
 │       ├── menu.py                       # Consulta del menú
-│       ├── reseñas.py                    # Consulta y creación de reseñas
+│       ├── resenas.py                    # Consulta y creación de reseñas
 │       ├── reservas.py                   # Creación y consulta de reservas
 │       ├── servicios.py                  # Consulta de servicios del restaurante
 │       └── usuarios.py                   # Operaciones relacionadas con usuarios
 ├── services/                      # Lógica de negocio de la aplicación
 │   ├── auth.py                       # Procesamiento de autenticación
+│   ├── configuracion.py              # Lógica de negocio de configuración del restaurante
 │   ├── dashboard.py                  # Procesamiento de estadísticas
 │   ├── email.py                      # Envío de correos electrónicos
+│   ├── estadisticas.py               # Procesamiento y cálculo de estadísticas
 │   ├── menu.py                       # Lógica de gestión del menú
 │   ├── qr.py                         # Generación de códigos QR
+│   ├── resenas.py                    # Lógica de negocio de reseñas
 │   ├── reservas.py                   # Lógica de reservas y disponibilidad
+│   ├── scheduler.py                  # Programación de tareas automáticas periódicas. (*)
 │   ├── servicios.py                  # Lógica de gestión de servicios
 │   └── usuarios.py                   # Lógica de gestión de usuarios
 ├── utils/                         # Utilidades y componentes auxiliares
 │   ├── constants.py                  # Constantes globales de la aplicación
 │   └── validators.py                 # Validaciones y reglas de negocio reutilizables
+├── .dockerignore                  # Archivos y directorios excluidos del contexto de construcción Docker
 ├── app.py                         # Punto de entrada principal de la aplicación Flask (puerto 5000)
 ├── db.py                          # Configuración y conexión a MySQL
+├── Dockerfile                     # Definición de la imagen Docker del backend
 ├── requirements.txt               # Dependencias de Python del proyecto
 └── setup_virtualenv.sh            # Script de instalación y configuración automática
+
+(*) scheduler.py → Ejecuta automáticamente cada cierto tiempo (puesto cada 1 minuto de ejemplo) la finalización de reservas vencidas y el envío de correos para solicitar reseñas.
 ```
 
-### **Requisitos Previos**
+## **Requisitos Previos**
 
 - Python 3.10+
+- Docker (opcional)
 
-### **Configuración y Ejecución del Proyecto**
+## **Configuración y Ejecución del Proyecto**
 
-#### 1. Variables de entorno
+### 1. Variables de entorno
 
-Debe crear dentro de `TP3ids/backend` un archivo `.env`
+#### **Ejecución Local**
+Si correrá el proyecto localmente por terminal deberá crear los siguientes archivos:
+
+- En `TP3ids/backend` un archivo `.env`
 
 ```bash
 cd TP3ids/backend
@@ -194,30 +229,140 @@ touch .env
 y dentro del mismo debe copiar el siguiente código:
 
 ```
+# ===============================================
+# Flask
+# ===============================================
+
 SECRET_KEY=Nazarestaurante
+
+
+# ===============================================
+# Base de datos (usa estas variables el backend)
+# ===============================================
 
 MYSQL_HOST=localhost
 MYSQL_USER=root
-MYSQL_PASSWORD=<SU CONTRASEÑA MYSQL>
+MYSQL_PASSWORD=<SU CONTRASEÑA MYSQL DEL USUARIO ROOT>
 MYSQL_DB=restaurante_db
+
+
+# ===============================================
+# Email
+# ===============================================
 
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_USER=<SU CORREO PERSONAL, NO LABORAL NI ESTUDIANTIL>
-EMAIL_PASSWORD=rzvvkjjmuziisnzc<SU LLAVE DE ACCESO DE GMAIL>
+EMAIL_USER=<SU CORREO DE GMAIL>
+EMAIL_PASSWORD=<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>
+
 ```
 
 Donde deberá reemplazar los siguientes campos:
-- `<SU CONTRASEÑA MYSQL>` por su contraseña de su usario `root` de su servicio MySQL
-- `<SU CORREO PERSONAL, NO LABORAL NI ESTUDIANTIL>` por su correo @gmail.com
-- `<SU LLAVE DE ACCESO DE GMAIL>` por su llave de acceso de Google
 
->En caso de no saber o no tener llave de acceso de Gmail, active la verificacion en dos pasos desde la configuracion de su cuenta y luego entre al siguiente enlace, escriba Gmail en donde le pregunta por la aplicacion y escriba lo que obtenga sin espacios
->```https://myaccount.google.com/u/4/apppasswords?utm_source=chatgpt.com&rapt=AEjHL4OIl5GX21sg-iEXmBPEUtWimHjYyALdWBbgY-zE3XC0gnP1rAuUN1MLejo01RvpfKoElAh69YVKOB2sDo0Iij8HeAl97gp5Jc4ihXZ0aIVyfx7z3g8```
+`<SU CONTRASEÑA MYSQL DEL USUARIO ROOT>` por la contraseña de su usuario `root` de MySQL.  
+`<SU CORREO DE GMAIL>` por una cuenta de Gmail válida desde la cual se enviarán los correos electrónicos del sistema.  
+`<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>` por una contraseña de aplicación generada desde su cuenta de Google. (ver [Cómo obtener una contraseña de aplicación de Gmail](#cómo-obtener-una-contraseña-de-aplicación-de-gmail))  
 
-#### 2. Instalación y Ejecución
+- En `TP3ids/frontend` un archivo `.env`
 
-El proyecto incluye scripts de setup para el backend y para el frontend. Los mismos ejecutan todo lo necesario para crear y levantar cada aplicación.
+```bash
+cd TP3ids/frontend
+touch .env
+```
+
+Y copiar dentro del mismo lo siguiente:
+
+```
+# ==========================================
+# URL del Backend para utilizar localmente
+# ==========================================
+
+API_BACKEND_URL=http://localhost:5000
+```
+
+#### **Ejecución con Docker**
+Si se levantará el proyecto utilizando Docker, deberá crear los siguientes archivos:
+
+- En `TP3ids/backend` un archivo `.env.docker` → Variables de entorno utilizadas por el contenedor Backend cuando el proyecto se ejecuta mediante Docker.
+
+```bash
+cd TP3ids/backend
+touch .env.docker
+```
+
+```
+# ===============================================
+# Flask
+# ===============================================
+
+SECRET_KEY=Nazarestaurante
+
+
+# ===============================================
+# Base de datos (usa estas variables el backend)
+# ===============================================
+
+MYSQL_HOST=mysql
+MYSQL_USER=root
+MYSQL_PASSWORD=root
+MYSQL_DB=restaurante_db
+
+
+# ===============================================
+# Email
+# ===============================================
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=<SU CORREO DE GMAIL>
+EMAIL_PASSWORD=<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>
+```
+
+Donde deberá reemplazar los siguientes campos:
+
+`<SU CORREO DE GMAIL>` por una cuenta de Gmail válida.  
+`<SU CONTRASEÑA DE APLICACIÓN DE GMAIL>` por una contraseña de aplicación generada desde su cuenta de Google (ver [Cómo obtener una contraseña de aplicación de Gmail](#cómo-obtener-una-contraseña-de-aplicación-de-gmail)).  
+
+- En `TP3ids/backend` un archivo `.mysql-env` → Variables de entorno utilizadas exclusivamente por la imagen oficial de MySQL para crear e inicializar la base de datos dentro del contenedor Docker.
+
+```bash
+cd TP3ids/backend
+touch .mysql-env
+```
+
+```
+# ====================================================
+# Variables que usa la imagen oficial MySQL de Docker
+# ====================================================
+
+MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=restaurante_db
+```
+
+- En `TP3ids/frontend` un archivo `.env.docker` → Variables de entorno utilizadas por el contenedor Frontend cuando el proyecto se ejecuta mediante Docker.
+
+```bash
+cd TP3ids/frontend
+touch .env.docker
+```
+
+```
+# ==========================================
+# URL del Backend para utilizar en Docker
+# ==========================================
+
+API_BACKEND_URL=http://backend:5000
+```
+
+> **Nota:**  
+> Los archivos `.env.docker` y `.mysql-env` son utilizados únicamente cuando el proyecto se ejecuta mediante Docker Compose. Para la ejecución local se utilizarán los archivos `.env`.  
+> La contraseña `root` utilizada en la configuración Docker corresponde únicamente al servidor MySQL creado dentro del contenedor y no afecta ninguna instalación local de MySQL presente en el sistema del usuario.
+
+### 2. Instalación y Ejecución
+
+#### **Ejecución Local**
+
+Una vez creados los archivos `.env`, deberá ejecutar scripts de setup que el proyecto incluye para el backend y para el frontend. Los mismos ejecutan todo lo necesario para crear y levantar cada aplicación.
 
 - **Para la aplicación Backend**
 
@@ -251,7 +396,29 @@ Durante el proceso le pedirá su clave de administrador de usuario para la insta
 
 Una vez finalizado el proceso, la API se iniciará y estará disponible en `http://localhost:8080/`
 
-### Endpoints
+#### **Ejecución con Docker**
+
+Una vez creados los archivos `.env.docker` y `.mysql-env`, desde la raíz del proyecto ejecutar:
+
+```bash
+docker compose up --build
+```
+
+Este comando:
+
+- Construye las imágenes del Frontend y Backend.
+- Descarga la imagen oficial de MySQL (si no existe localmente).
+- Crea y levanta los contenedores necesarios.
+- Inicializa automáticamente la base de datos utilizando el script ubicado en `backend/database/restaurante_db.sql`.
+
+Una vez finalizado el proceso, la aplicación quedará disponible en:
+
+- Frontend: http://localhost:8080
+- Backend: http://localhost:5000
+
+Luego podrá ejecutar los comandos de Docker (ver [Comandos útiles de Docker](#comandos-útiles-de-docker))  
+
+## Endpoints
 
 Los endpoints estan divididos en `admin` y `public`
 
@@ -259,42 +426,55 @@ Los endpoints estan divididos en `admin` y `public`
 
 Se encuentran bajo el prefijo `/api/admin`. Las respuestas son JSON.
  
-| Metodo | Endpoint                                | Descripcion                                                                      |
-|--------|-----------------------------------------|----------------------------------------------------------------------------------|
-| GET    | `/dashboard`                            | Dashboard General (resumen, próximas reservas, cancelaciones de hoy, reseñas)    |
-| GET    | `/estadisticas`                         | Obtener estadísticas                                                             |
-| GET    | `/menu`                                 | Listar el menú completo                                                          |
-| POST   | `/menu`                                 | Crear un plato del menú                                                          |
-| PUT    | `/menu/<int:id>`                        | Modificar un plato del menú                                                      |
-| DELETE | `/menu/<int:id>`                        | Modificar un plato del menú                                                      |
-| GET    | `/reseñas`                              | Obtener todas las reseñas                                                        |
-| DELETE | `/reseñas/<int:id>`                     | Eliminar una reseña por id                                                       |
-| GET    | `/reservas`                             | Visualizar las reservas                                                          |
-| GET    | `/reservas/estado/<estado>`             | Visualizar el estado de las reservas (filtra por estado)                         |
-| GET    | `/reservas/cancelar/<int:reserva_id>`   | Cancelar una reserva por id cambiando su estado a "cancelada"                    |
-| GET    | `/servicios`                            | Listar todos los servicios                                                       |
-| POST   | `/servicios`                            | Crear un servicio                                                                |
-| PUT    | `/servicios/<int:id>`                   | Modificar un servicio                                                            |
-| DELETE | `/servicios/<int:id>`                   | Eliminar un servicio                                                             |
+| Metodo | Endpoint                                  | Descripcion                                                                      |
+|--------|-------------------------------------------|----------------------------------------------------------------------------------|
+| GET    | `/configuracion`                          | Obtener la configuración general del restaurante                                 |
+| PUT    | `/configuracion`                          | Modificar la configuración general del restaurante                               |
+| GET    | `/dashboard`                              | Dashboard General (resumen, próximas reservas, cancelaciones de hoy, reseñas)    |
+| GET    | `/estadisticas`                           | Obtener estadísticas                                                             |
+| GET    | `/menu`                                   | Listar el menú completo                                                          |
+| GET    | `/menu/<int:id>`                          | Obtener un plato específico por id                                               |
+| POST   | `/menu`                                   | Crear un plato del menú                                                          |
+| PUT    | `/menu/<int:id>`                          | Modificar un plato del menú                                                      |
+| DELETE | `/menu/<int:id>`                          | Modificar un plato del menú                                                      |
+| GET    | `/resenas`                                | Obtener todas las reseñas                                                        |
+| GET    | `/resenas/<int:id>`                       | Obtener una reseña específica por id                                             |
+| PATCH  | `/resenas/<int:id>`                       | Cambiar el estado de una reseña (mostrar/oculta)                                 |
+| DELETE | `/resenas/<int:id>`                       | Eliminar una reseña por id                                                       |
+| GET    | `/reservas`                               | Visualizar las reservas                                                          |
+| GET    | `/reservas/estado/<estado>`               | Visualizar el estado de las reservas (filtra por estado)                         |
+| PATCH  | `/reservas/cancelar/<int:reserva_id>`     | Cancelar una reserva por id cambiando su estado a "cancelada"                    |
+| GET    | `/servicios`                              | Listar todos los servicios                                                       |
+| GET    | `/servicios/<int:id>`                     | Obtener un servicio específico por id                                            |
+| POST   | `/servicios`                              | Crear un servicio                                                                |
+| PUT    | `/servicios/<int:id>`                     | Modificar un servicio                                                            |
+| DELETE | `/servicios/<int:id>`                     | Eliminar un servicio                                                             |
 
 - `public`
 
 Se encuentran bajo el prefijo `/api`. Las respuestas son JSON.
 
-| Metodo | Endpoint                                | Descripcion                                                                      |
-|--------|-----------------------------------------|----------------------------------------------------------------------------------|
-| POST   | `/auth/login`                           | Login para el administrador                                                      |
-| GET    | `/menu`                                 | Filtrar menu completo o por categoria                                            |
-| GET    | `/menu/<int:plato_id`                   | Filtrar un plato especifico por numero id                                        |
-| GET    | `/categorias`                           | Listar categorias disponibles                                                    |
-| PATCH  | `/reservas/<int:id>/cancelar-cliente`   | Cancelar reserva                                                                 |
-| GET    | `/mesas-disponibles`                    | Obtener mesas por estado                                                         |
-| GET    | `/disponibilidad`                       | Ver disponibilidad general                                                       |
-| POST   | `/reservas`                             | Crear reserva para un cliente                                                    |
-| GET    | `/servicios`                            | Listar todos los servicios                                                       |
+| Metodo | Endpoint                                  | Descripcion                                                                      |
+|--------|-------------------------------------------|----------------------------------------------------------------------------------|
+| POST   | `/auth/login`                             | Login para el administrador                                                      |
+| GET    | `/menu`                                   | Filtrar menu completo o por categoria                                            |
+| GET    | `/menu/<int:plato_id`                     | Filtrar un plato especifico por numero id                                        |
+| GET    | `/categorias`                             | Listar categorias disponibles                                                    |
+| GET    | `/resenas`                                | Obtener todas las reseñas disponibles que el admin no oculta                     |
+| GET    | `/resenas/<int:id>`                       | Obtener una reseña específica por id                                             |
+| POST   | `/resenas/crear`                          | Crear una reseña asociada a una reserva                                          |
+| POST   | `/resenas/crear/<int:reserva_id>`         | Crear una reseña utilizando una reserva específica                               |
+| GET    | `/resenas/promedio`                       | Obtener la puntuación promedio de las reseñas                                    |
+| PATCH  | `/reservas/<int:id>/cancelar-cliente`     | Cancelar reserva                                                                 |
+| GET    | `/mesas-disponibles`                      | Obtener mesas por estado                                                         |
+| GET    | `/disponibilidad`                         | Ver disponibilidad general                                                       |
+| POST   | `/reservas`                               | Crear reserva para un cliente                                                    |
+| GET    | `/reservas/mis-reservas/<int:usuario_id>` | Obtener todas las reservas de un usuario                                         |
+| GET    | `/servicios`                              | Listar todos los servicios                                                       |
+| POST   | `/usuarios/registro`                      | Registrar una nueva cuenta de cliente                                            |
 
 
-### Páginas
+## Páginas
 
 Las páginas web estan divididas en `admin` para el uso de adminitrador y `public` para la vista de los clientes y público en general.
 
@@ -302,23 +482,110 @@ Las páginas web estan divididas en `admin` para el uso de adminitrador y `publi
 
 Se encuentran bajo el prefijo `/admin`
 
-| Ruta            | Descripcion                                                                                                        |
-|-----------------|--------------------------------------------------------------------------------------------------------------------|
-| `/dashboard`    | Visualización de un dashboard con cantidad de reservas, usuarios totales, reseñas totales                          |
-| `/estadisticas` | Gráficos de reservas por horario y reservas por día                                                                |
-| `/menu`         | Menu completo con categorias y platos                                                                              |
-| `/reseñas`      | Vista de las reseñas de los clientes                                                                               |
-| `/reservas`     | Reservas totales con detalle del cliente                                                                           |
-| `/servicios`    | Servicios ofrecidos por el restaurante (WiFi, estacionamiento, etc)                                                |
+| Ruta                           | Descripcion                                                                                                    |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------|
+| `/configuracion`               | Configuración general del restaurante                                                                          |
+| `/dashboard`                   | Visualización de un dashboard con cantidad de reservas, usuarios totales, reseñas totales                      |
+| `/estadisticas`                | Gráficos de reservas por horario y reservas por día                                                            |
+| `/menu`                        | Menu completo con categorias y platos                                                                          |
+| `/menu/agregar`                | Formulario para agregar un nuevo plato al menú                                                                 |
+| `/menu/editar/<int:id>`        | Formulario para editar un plato existente                                                                      |
+| `/menu/eliminar/<int:id>`      | Eliminar un plato del menú                                                                                     |
+| `/resenas`                     | Vista de las reseñas de los clientes                                                                           |
+| `/resenas/estado/<int:id>`     | Cambiar el estado de una reseña para que se muestre al público o se oculte                                     |
+| `/resenas/eliminar/<int:id>`   | Eliminar una reseña                                                                                            |
+| `/reservas`                    | Reservas totales con detalle del cliente                                                                       |
+| `/reservas/cancelar/<int:id>`  | Cancelar una reserva específica                                                                                |
+| `/servicios`                   | Servicios ofrecidos por el restaurante (WiFi, estacionamiento, etc)                                            |
+| `/servicios/agregar`           | Formulario para agregar un nuevo servicio                                                                      |
+| `/servicios/editar/<int:id>`   | Formulario para editar un servicio existente                                                                   |
+| `/servicios/eliminar/<int:id>` | Eliminar un servicio                                                                                           |
 
 - `public`
 
-| Ruta             | Descripcion                                                                                                       |
-|------------------|-------------------------------------------------------------------------------------------------------------------|
-| `/contacto`      | Formulario de contacto del restaurante                                                                            |
-| `/`              | Página de Inicio                                                                                                  |
-| `/login`         | Login de sesión de administrador                                                                                  |
-| `/login-exitoso` | En caso de login exitoso se muestra un template                                                                   |
-| `/menu`          | Vista del menú con opción de filtrar por categoría                                                                |
-| `/reseñas`       | Reseñas de los clientes                                                                                           |
-| `/reservas`      | Página para realizar reservas                                                                                     |
+| Ruta                           | Descripcion                                                                                                    |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------|
+| `/contacto`                    | Formulario de contacto del restaurante                                                                         |
+| `/`                            | Página de Inicio                                                                                               |
+| `/login`                       | Inicio de sesión para clientes                                                                                 |
+| `/login/admin`                 | Inicio de sesión para administradores                                                                          |
+| `/login-exitoso`               | En caso de login exitoso se muestra un template                                                                |
+| `/login/registrate`            | Registro de una nueva cuenta de cliente                                                                        |
+| `/logout`                      | Cerrar sesión del usuario actual                                                                               |
+| `/menu`                        | Vista del menú con opción de filtrar por categoría                                                             |
+| `/nosotros`                    | Información historia del restaurante y servicios que se ofrece                                                 |
+| `/resenas`                     | Reseñas de los clientes                                                                                        |
+| `/resenas/crear`               | Formulario para crear una reseña                                                                               |
+| `/reservas`                    | Página para realizar reservas                                                                                  |
+| `/reservas/<int:id>/cancelar`  | Confirmación de cancelación de una reserva                                                                     |
+| `/reservas/mis-reservas`       | Visualización de todas las reservas realizadas por el usuario autenticado                                      |
+
+
+## Anexos
+
+### Cómo obtener una contraseña de aplicación de Gmail
+
+El sistema utiliza Gmail para enviar correos electrónicos de confirmación de reservas, cancelaciones y solicitudes de reseñas. Google no permite utilizar la contraseña normal de la cuenta para este tipo de aplicaciones, por lo que es necesario generar una contraseña de aplicación.
+
+1. Inicie sesión en su cuenta de Google.
+2. Active la **Verificación en dos pasos** desde la configuración de seguridad de su cuenta.
+3. Acceda a la página de contraseñas de aplicación:
+
+   https://myaccount.google.com/apppasswords
+
+4. En el campo de nombre de la aplicación, escriba un identificador descriptivo (por ejemplo: `TP3 IDS Restaurante`).
+5. Google generará una clave de 16 caracteres.
+6. Copie esa clave y utilícela como valor de `EMAIL_PASSWORD`, eliminando los espacios que Google muestra únicamente para facilitar la lectura.
+
+Ejemplo:
+
+```env
+EMAIL_USER=ejemplo@gmail.com
+EMAIL_PASSWORD=abcdefghijklmnop
+```
+
+> **Importante:** Nunca utilice la contraseña normal de su cuenta de Gmail. Debe utilizar exclusivamente una contraseña de aplicación generada por Google.
+
+### Comandos útiles de Docker
+
+Detener los contenedores sin eliminarlos:
+
+```bash
+docker compose stop
+```
+
+Volver a iniciarlos:
+
+```bash
+docker compose start
+```
+
+Detener y eliminar los contenedores (sin eliminar los datos de la base de datos):
+
+```bash
+docker compose down
+```
+
+Detener y eliminar los contenedores (eliminando los datos de la base de datos):
+
+```bash
+docker compose down -v
+```
+
+Reconstruir las imágenes luego de realizar cambios:
+
+```bash
+docker compose up --build
+```
+
+Ver los logs de todos los servicios:
+
+```bash
+docker compose logs -f
+```
+
+Ver los contenedores en ejecución:
+
+```bash
+docker compose ps
+```
