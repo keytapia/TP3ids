@@ -6,9 +6,6 @@ services:
     env_file:
     - ./backend/.mysql-env
 
-    ports:
-      - "3306:3306"
-
     volumes:
       - mysql_data:/var/lib/mysql
       - ./backend/database:/docker-entrypoint-initdb.d
